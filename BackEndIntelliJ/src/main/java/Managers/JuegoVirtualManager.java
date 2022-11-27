@@ -3,12 +3,7 @@ package Managers;
 import Entities.*;
 import Entities.ValueObjects.*;
 import Entities.Exceptions.*;
-import Main.*;
-import Managers.*;
-import Services.*;
 
-import javax.servlet.http.Part;
-import java.util.LinkedList;
 import java.util.List;
 
 public interface JuegoVirtualManager {
@@ -32,13 +27,13 @@ public interface JuegoVirtualManager {
     public void finalizarPartida(String usuarioId) throws UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException;
 
     // OPERACION 7: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
-    public List<Usuario> obtenerHistorialUsuariosDeJuego(String juegoId) throws JuegoIdNoExisteException;
+    public List<Pou> obtenerHistorialUsuariosDeJuego(String juegoId) throws JuegoIdNoExisteException;
 
     // OPERACION 8: Obtener las Partidas en las que ha jugado un Usuario.
     public List<Partida> obtenerPartidasUsuario(String usuarioId) throws UsuarioIdNoExisteException;
 
     // OPERACION 9: Obtener información sobre las Partidas de un Usuario en un cierto Juego.
-    public InfoPartida obtenerInfoUsuarioJuego(String juegoId, String usuarioId);
+    public Estado obtenerInfoUsuarioJuego(String juegoId, String usuarioId);
 
     public int numUsuarios();
 
@@ -46,7 +41,7 @@ public interface JuegoVirtualManager {
 
     public Juego dameJuego(String juegoId);
 
-    public Usuario dameUsuario(String usuarioId);
+    public Pou dameUsuario(String usuarioId);
 
     public Partida damePartidaUsuario(String usuarioId);
 

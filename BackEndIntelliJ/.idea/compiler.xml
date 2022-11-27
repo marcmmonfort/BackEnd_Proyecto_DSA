@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="PrimerMinimoExamen" />
         <module name="BackEndIntelliJ" />
+        <module name="minim-1" />
       </profile>
     </annotationProcessing>
   </component>

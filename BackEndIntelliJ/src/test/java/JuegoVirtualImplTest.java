@@ -1,19 +1,13 @@
-import Entities.*;
 import Entities.Exceptions.JuegoIdNoExisteException;
 import Entities.Exceptions.UsuarioIdNoEstaEnPartidaException;
 import Entities.Exceptions.UsuarioIdNoExisteException;
 import Entities.Exceptions.UsuarioIdYaEstaEnPartidaException;
-import Entities.ValueObjects.InfoPartida;
-import Entities.ValueObjects.Partida;
-import Main.*;
 import Managers.*;
-import Services.*;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.List;
 import org.apache.log4j.Logger;
 
 public class JuegoVirtualImplTest {

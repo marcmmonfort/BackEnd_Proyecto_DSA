@@ -1,16 +1,12 @@
 package Services;
 
-import Entities.ValueObjects.InfoPasoNivel;
 import Managers.*;
 import Entities.*;
 import Entities.Exceptions.JuegoIdNoExisteException;
 import Entities.Exceptions.UsuarioIdNoEstaEnPartidaException;
 import Entities.Exceptions.UsuarioIdNoExisteException;
 import Entities.Exceptions.UsuarioIdYaEstaEnPartidaException;
-import Entities.ValueObjects.InfoPartida;
-import Entities.ValueObjects.Partida;
-import Main.*;
-import Services.*;
+import Entities.ValueObjects.Estado;
 
 import javax.ws.rs.*;
 import io.swagger.annotations.*;
@@ -194,19 +190,19 @@ public class JuegoVirtualService {
     @GET
     @ApiOperation(value = "Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor)", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!", response = Usuario.class, responseContainer="List"),
+            @ApiResponse(code = 201, message = "¡Hecho!", response = Pou.class, responseContainer="List"),
             @ApiResponse(code = 405, message = "El juego introducido no existe")
     })
     @Path("/juego/jugadoresdeljuego/{juegoId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response funcionObtenerHistorialUsuariosDeJuego(@PathParam("juegoId") String juegoId) {
-        List<Usuario> historial;
+        List<Pou> historial;
         try{
             historial = this.jvm.obtenerHistorialUsuariosDeJuego(juegoId);
         } catch (JuegoIdNoExisteException e) {
             return Response.status(405).build();
         }
-        GenericEntity<List<Usuario>> historialJugadores = new GenericEntity<List<Usuario>>(historial) {};
+        GenericEntity<List<Pou>> historialJugadores = new GenericEntity<List<Pou>>(historial) {};
         return Response.status(201).entity(historialJugadores).build();
     }
 
@@ -242,12 +238,12 @@ public class JuegoVirtualService {
     @GET
     @ApiOperation(value = "Obtener información sobre las Partidas de un Usuario en un cierto Juego", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!", response = InfoPartida.class)
+            @ApiResponse(code = 201, message = "¡Hecho!", response = Estado.class)
     })
     @Path("/partida/participacionusuarioenjuego/{usuarioId}/{juegoId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response funcionObtenerInfoUsuarioJuego(@PathParam("usuarioId") String usuarioId, @PathParam("juegoId") String juegoId) {
-        InfoPartida information = this.jvm.obtenerInfoUsuarioJuego(juegoId, usuarioId);
+        Estado information = this.jvm.obtenerInfoUsuarioJuego(juegoId, usuarioId);
         return Response.status(201).entity(information).build();
     }
 

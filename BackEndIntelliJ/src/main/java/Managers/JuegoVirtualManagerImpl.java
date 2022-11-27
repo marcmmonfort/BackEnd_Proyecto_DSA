@@ -3,19 +3,14 @@ package Managers;
 import Entities.*;
 import Entities.Exceptions.*;
 import Entities.ValueObjects.*;
-import Main.*;
-import Managers.*;
-import Services.*;
 
 import java.util.*;
 import org.apache.log4j.Logger;
 
-import javax.sound.sampled.Line;
-
 public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
 
     HashMap<String,Juego> juegos; // Key = juegoId
-    HashMap<String,Usuario> usuarios; // Key = usuarioId
+    HashMap<String, Pou> usuarios; // Key = usuarioId
     HashMap<String, Partida> partidasUsuarios; // Key = usuarioId
 
     private static JuegoVirtualManager instance;
@@ -54,7 +49,7 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
         return this.juegos.get(juegoId);
     }
 
-    public Usuario dameUsuario(String usuarioId){
+    public Pou dameUsuario(String usuarioId){
         return this.usuarios.get(usuarioId);
     }
 
@@ -65,7 +60,7 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
     @Override
     public void crearUsuario(String usuario){
         logger.info("Se quiere crear un usuario con ID "+usuario+".");
-        Usuario nuevoUsuario = new Usuario(usuario);
+        Pou nuevoUsuario = new Pou(usuario);
         usuarios.put(usuario, nuevoUsuario);
         Partida nuevaPartida = new Partida();
         partidasUsuarios.put(usuario, nuevaPartida);
@@ -178,15 +173,15 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
 
     // OPERACION 7: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     @Override
-    public List<Usuario> obtenerHistorialUsuariosDeJuego(String juegoId) throws JuegoIdNoExisteException {
+    public List<Pou> obtenerHistorialUsuariosDeJuego(String juegoId) throws JuegoIdNoExisteException {
         logger.info("Queremos saber que usuarios han jugado al juego "+juegoId+".");
         if (!this.juegos.containsKey(juegoId)) {
             logger.warn("El juego " + juegoId + " no existe.");
             throw new JuegoIdNoExisteException();
         } else {
-            List<Usuario> historialUsuariosDeJuego = new ArrayList<>();
+            List<Pou> historialUsuariosDeJuego = new ArrayList<>();
             // Pasamos el Hashmap a ArrayList para poder hacer la búsqueda sin los userId.
-            List<Usuario> listaUsuarios = new ArrayList<>(this.usuarios.values());
+            List<Pou> listaUsuarios = new ArrayList<>(this.usuarios.values());
             for (int i=0; i < listaUsuarios.size(); i++){
                 int numPartidasJugadas = listaUsuarios.get(i).getPartidasJugadas().size();
                 for (int j=0; j < numPartidasJugadas; j++){
@@ -197,7 +192,7 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
                 }
             }
             // Tenemos una lista ("historialUsuariosDeJuego") con los usuarios de juego. Procedemos a ordenarla.
-            historialUsuariosDeJuego.sort((Usuario p1,Usuario p2)->(p2.damePuntosTotalesEnUnJuego(juegoId) - p1.damePuntosTotalesEnUnJuego(juegoId) ));
+            historialUsuariosDeJuego.sort((Pou p1, Pou p2)->(p2.damePuntosTotalesEnUnJuego(juegoId) - p1.damePuntosTotalesEnUnJuego(juegoId) ));
             logger.info("Se devuelve correctamente la lista de usuarios que han jugado al juego "+juegoId+".");
             return historialUsuariosDeJuego;
         }
@@ -218,7 +213,7 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
 
     // OPERACION 9: Obtener información sobre las Partidas de un Usuario en un cierto Juego.
     @Override
-    public InfoPartida obtenerInfoUsuarioJuego(String juegoId, String usuarioId) {
+    public Estado obtenerInfoUsuarioJuego(String juegoId, String usuarioId) {
         logger.info("Queremos los detalles de la última partida que ha jugado "+usuarioId+" en el juego "+juegoId+".");
         logger.info("Se devuelven los datos de la última partida que ha jugado "+usuarioId+" en el juego "+juegoId+".");
         return this.usuarios.get(usuarioId).dameInfoPartidaUsuario(juegoId);
