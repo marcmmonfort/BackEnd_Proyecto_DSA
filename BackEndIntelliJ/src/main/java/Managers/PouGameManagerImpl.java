@@ -7,22 +7,30 @@ import Entities.ValueObjects.*;
 import java.util.*;
 import org.apache.log4j.Logger;
 
-public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
+public class PouGameManagerImpl implements PouGameManager {
 
+    Map<String, Pou> pousGame; // Hashmap on  todos los pous registrados. ---> KEY = "pouId" (String)
+    ArrayList<ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
+
+    // ----------------------------------------------------------------------------------------------------
+
+    // VIEJO ...
+
+    /*
     HashMap<String,Juego> juegos; // Key = juegoId
     HashMap<String, Pou> usuarios; // Key = usuarioId
     HashMap<String, Partida> partidasUsuarios; // Key = usuarioId
 
-    private static JuegoVirtualManager instance;
+    private static PouGameManager instance;
 
-    final static Logger logger = Logger.getLogger(JuegoVirtualManagerImpl.class);
+    final static Logger logger = Logger.getLogger(PouGameManagerImpl.class);
 
-    public static JuegoVirtualManager getInstance(){
-        if (instance==null) instance = new JuegoVirtualManagerImpl();
+    public static PouGameManager getInstance(){
+        if (instance==null) instance = new PouGameManagerImpl();
         return instance;
     }
 
-    public JuegoVirtualManagerImpl(){
+    public PouGameManagerImpl(){
         this.juegos = new HashMap<>();
         this.usuarios = new HashMap<>();
         this.partidasUsuarios = new HashMap<>();
@@ -218,4 +226,5 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
         logger.info("Se devuelven los datos de la última partida que ha jugado "+usuarioId+" en el juego "+juegoId+".");
         return this.usuarios.get(usuarioId).dameInfoPartidaUsuario(juegoId);
     }
+    */
 }

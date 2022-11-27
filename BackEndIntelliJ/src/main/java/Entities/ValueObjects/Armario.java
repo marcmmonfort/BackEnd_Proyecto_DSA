@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Armario {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
 
     List<ObjetoTienda> comidas;
     List<ObjetoTienda> bebidas;
     List<ObjetoTienda> pociones;
     List<ObjetoTienda> ropa;
 
-    //CONSTRUCTORES
+    // CONSTRUCTOR
 
     public Armario() {
         this.comidas = new LinkedList<>();
@@ -23,7 +23,7 @@ public class Armario {
         this.ropa = new LinkedList<>();
     }
 
-    //GETTER Y SETTERS
+    // GETTER Y SETTERS
 
     public List<ObjetoTienda> getComidas() {
         return comidas;
@@ -56,5 +56,4 @@ public class Armario {
     public void setRopa(List<ObjetoTienda> ropa) {
         this.ropa = ropa;
     }
-
 }

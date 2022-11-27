@@ -2,15 +2,17 @@ package Entities.ValueObjects;
 
 public class Outfit {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
+
     Integer camisetaId;
     Integer pantalonId;
     Integer gorraId;
     Integer gafasId;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public Outfit() {}
+
     public Outfit(Integer camisetaId, Integer pantalonId, Integer gorraId, Integer gafasId) {
         this.camisetaId = camisetaId;
         this.pantalonId = pantalonId;
@@ -18,8 +20,7 @@ public class Outfit {
         this.gafasId = gafasId;
     }
 
-
-    //GETTERS Y SETTERS
+    // GETTERS Y SETTERS
 
     public Integer getCamisetaId() {
         return camisetaId;
@@ -52,5 +53,4 @@ public class Outfit {
     public void setGafasId(Integer gafasId) {
         this.gafasId = gafasId;
     }
-
 }

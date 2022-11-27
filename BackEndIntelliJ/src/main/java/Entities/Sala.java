@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Sala {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
 
     Integer salaId;
     String nombreSala;

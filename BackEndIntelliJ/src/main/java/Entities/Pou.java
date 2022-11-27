@@ -8,8 +8,9 @@ import java.util.Objects;
 
 public class Pou {
 
-    //ATRIBUTOS
-    Integer pouId;
+    // ATRIBUTOS
+
+    String pouId;
     String nombrePou;
     String nacimientoPou;
     Credenciales credencialesPou;
@@ -17,10 +18,10 @@ public class Pou {
     Outfit outfitPou;
     Armario armarioPou;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public Pou() {}
-    public Pou(Integer pouId, String nombrePou, String nacimientoPou, Credenciales credencialesPou, Estado estadoPou, Outfit outfitPou, Armario armarioPou) {
+    public Pou(String pouId, String nombrePou, String nacimientoPou, Credenciales credencialesPou, Estado estadoPou, Outfit outfitPou, Armario armarioPou) {
         this.pouId = pouId;
         this.nombrePou = nombrePou;
         this.nacimientoPou = nacimientoPou;
@@ -30,13 +31,13 @@ public class Pou {
         this.armarioPou = new Armario();
     }
 
-    //GETTERS Y SETTERS
+    // GETTERS Y SETTERS
 
-    public Integer getPouId() {
+    public String getPouId() {
         return pouId;
     }
 
-    public void setPouId(Integer pouId) {
+    public void setPouId(String pouId) {
         this.pouId = pouId;
     }
 

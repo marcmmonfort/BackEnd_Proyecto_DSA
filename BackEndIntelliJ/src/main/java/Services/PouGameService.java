@@ -18,12 +18,13 @@ import java.util.*;
 @Api(value = "/juegovirtual", description = "Endpoint to Juego Virtual Service")
 @Path("/juegovirtual")
 
-public class JuegoVirtualService {
+public class PouGameService {
 
-    private JuegoVirtualManager jvm;
+    /*
+    private PouGameManager jvm;
 
-    public JuegoVirtualService() {
-        this.jvm = JuegoVirtualManagerImpl.getInstance();
+    public PouGameService() {
+        this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
             this.jvm.crearJuego("FIFA", "Juego de fútbol", 2);
             this.jvm.crearJuego("GTA", "Juego de vida real", 4);
@@ -412,10 +413,6 @@ public class JuegoVirtualService {
         GenericEntity<List<ObjetoTienda>> adquisiciones = new GenericEntity<List<ObjetoTienda>>(objetosComprados) {};
         return Response.status(201).entity(adquisiciones).build(); // OK.
     }
-
-    // ----------------------------------------------------------------------------------------------------
-
-
-     */
+    */
 }
 

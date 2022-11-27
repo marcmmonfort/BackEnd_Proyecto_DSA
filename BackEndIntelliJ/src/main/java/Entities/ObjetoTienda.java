@@ -2,7 +2,7 @@ package Entities;
 
 public class ObjetoTienda {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
 
     Integer articuloId;
     String nombreArticulo;
@@ -13,7 +13,7 @@ public class ObjetoTienda {
     Integer recargaDiversion;
     Integer recargaSueno;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public ObjetoTienda() {}
 
@@ -28,7 +28,7 @@ public class ObjetoTienda {
         this.recargaSueno = recargaSueno;
     }
 
-    //GETTERS Y SETTERS
+    // GETTERS Y SETTERS
 
     public Integer getArticuloId() {
         return articuloId;
@@ -93,5 +93,4 @@ public class ObjetoTienda {
     public void setTipoArticulo(String tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
     }
-
 }
