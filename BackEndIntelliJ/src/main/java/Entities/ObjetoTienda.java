@@ -4,7 +4,7 @@ public class ObjetoTienda {
 
     // ATRIBUTOS
 
-    Integer articuloId;
+    String articuloId;
     String nombreArticulo;
     double precioArticulo;
     String tipoArticulo;
@@ -12,12 +12,13 @@ public class ObjetoTienda {
     Integer recargaSalud;
     Integer recargaDiversion;
     Integer recargaSueno;
+    Integer cantidadObjeto;
 
     // CONSTRUCTORES
 
     public ObjetoTienda() {}
 
-    public ObjetoTienda(Integer articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) {
+    public ObjetoTienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) {
         this.articuloId = articuloId;
         this.nombreArticulo = nombreArticulo;
         this.precioArticulo = precioArticulo;
@@ -26,15 +27,16 @@ public class ObjetoTienda {
         this.recargaSalud = recargaSalud;
         this.recargaDiversion = recargaDiversion;
         this.recargaSueno = recargaSueno;
+        this.cantidadObjeto = 0;
     }
 
     // GETTERS Y SETTERS
 
-    public Integer getArticuloId() {
+    public String getArticuloId() {
         return articuloId;
     }
 
-    public void setArticuloId(Integer articuloId) {
+    public void setArticuloId(String articuloId) {
         this.articuloId = articuloId;
     }
 

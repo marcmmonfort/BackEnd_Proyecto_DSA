@@ -5,6 +5,7 @@ import Entities.ValueObjects.*;
 import Entities.Exceptions.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PouGameManager {
 
@@ -12,131 +13,178 @@ public interface PouGameManager {
     // DEVUELVE: Integer.
     // EXCEPCIONES: -
 
-    // OPERACIÓN 2: CREAR POU / REGISTRO POU
+    public Integer size();
+
+    // OPERACIÓN 2: REGISTRO POU (CREAR POU)
     // DEVUELVE: -
     // EXCEPCIONES: (CORREO YA EXISTE) / (pouID YA EXISTENTE)
+
+    public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws
+            CorreoYaExisteException, PouIDYaExisteException;
 
     // OPERACIÓN 3: LOGIN POU
     // DEVUELVE: -
     // EXCEPCIONES: (CORREO NO EXISTE) / (CONTRASEÑA DEL CORREO INCORRECTA)
 
+    public void loginPou(String correo, String password) throws
+            CorreoNoExisteException, PasswordIncorrectaException;
+
     // OPERACIÓN 4: OBTENER TODOS LOS POUS
     // DEVUELVE: Map<String, Pou>
     // EXCEPCIONES: -
 
-    // OPERACIÓN 4: OBTENER POU DE LA TIENDA POR SU ID ("pouId")
+    public Map<String, Pou> obtenerPous();
+
+    // OPERACIÓN 4: OBTENER POU POR SU ID ("pouId")
     // DEVUELVE: Pou
     // EXCEPCIONES: (NO EXISTE ESTE POU)
+
+    public Pou obtenerPou(String pouId) throws
+            PouIDNoExisteException;
 
     // OPERACIÓN 5: AÑADIR OBJETOS A LA TIENDA
     // DEVUELVE: -
     // EXCEPCIONES: (EL ARTICULO YA EXISTE)
 
+    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws
+            ObjetoTiendaYaExisteException;
+
     // OPERACIÓN 5: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
     // DEVUELVE: ObjetoTienda
     // EXCEPCIONES: (NO EXISTE ESTE ARTICULO)
+
+    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws
+            ObjetoTiendaNoExisteException;
 
     // OPERACIÓN 6: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
+    public List<ObjetoTienda> obtenerComidasTienda();
+
     // OPERACIÓN 7: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DE LA TIENDA
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
+
+    public List<ObjetoTienda> obtenerBebidasTienda();
 
     // OPERACIÓN 8: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DE LA TIENDA
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
+    public List<ObjetoTienda> obtenerPocionesTienda();
+
     // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS ROPAS DE LA TIENDA
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
-    // OPERACIÓN 10: CREAR SALA (CON LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
-    // DEVUELVE:
+    public List<ObjetoTienda> obtenerRopasTienda();
+
+    // OPERACIÓN 10: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
+    // DEVUELVE: -
     // EXCEPCIONES: (SALA YA EXISTE)
 
-    // OPERACIÓN 11: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA)
-    // DEVUELVE:
+    public void crearSala(String pouId, String salaId, String nombreSala) throws
+            SalaYaExisteException;
+
+    // OPERACIÓN 11: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
+    // DEVUELVE: -
     // EXCEPCIONES: (SALA NO EXISTE) / (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
 
-    // OPERACIÓN 12: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO)
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws
+            SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException;
+
+    // OPERACIÓN 12: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
     // DEVUELVE: ObjetoTienda
-    // EXCEPCIONES: (ELEMENTO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
+    // EXCEPCIONES: (ARTICULO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
 
-    // OPERACIÓN 13: POU MODIFICA SU OUTFIT
-    // DEVUELVE:
-    // EXCEPCIONES: (EL ARTICULO QUE SE QUIERE PONER NO ESTÁ EN EL ARMARIO DE POU) / (POU NO EXISTE)
+    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
-    // OPERACIÓN 14: POU MODIFICA SU ESTADO (POR CONSUMIR UNA POCIÓN, POR COMER, POR DORMIR, POR JUGAR ...)
-    // DEVUELVE:
+    // OPERACIÓN 13: POU MODIFICA SU CAMISETA (OUTFIT)
+    // DEVUELVE: -
+    // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
+
+    public void pouCambiaCamiseta(String pouId, String camisetaId) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+
+    // OPERACIÓN 14: POU MODIFICA SU PANTALON (OUTFIT)
+    // DEVUELVE: -
+    // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
+
+    public void pouCambiaPantalon(String pouId, String camisetaId) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+
+    // OPERACIÓN 15: POU MODIFICA SU GORRA (OUTFIT)
+    // DEVUELVE: -
+    // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
+
+    public void pouCambiaGorra(String pouId, String camisetaId) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+
+    // OPERACIÓN 16: POU MODIFICA SUS GAFAS (OUTFIT)
+    // DEVUELVE: -
+    // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
+
+    public void pouCambiaGafas(String pouId, String camisetaId) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+
+    // OPERACIÓN 17: POU MODIFICA SU NIVEL DE HAMBRE
+    // DEVUELVE: -
     // EXCEPCIONES: (POU NO EXISTE) / (SE BAJA DEL NIVEL MINIMO = 0) / (SE PASA DEL NIVEL MAXIMO = 100)
 
-    // OPERACIÓN 15: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
+    public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
 
-    // OPERACIÓN 16: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
-
-    // OPERACIÓN 17: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
-
-    // OPERACIÓN 18: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
-
-    // OPERACIÓN 19: POU GASTA DINERO / GANA DINERO.
+    // OPERACIÓN 18: POU MODIFICA SU NIVEL DE SALUD
     // DEVUELVE: -
-    // EXCEPCIONES: (POU NO EXISTE) / (PO NO TIENE DINERO SUFICIENTE)
+    // EXCEPCIONES: (POU NO EXISTE) / (SE BAJA DEL NIVEL MINIMO = 0) / (SE PASA DEL NIVEL MAXIMO = 100)
 
-    // ----------------------------------------------------------------------------------------------------
+    public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
 
-    // VIEJO ...
+    // OPERACIÓN 19: POU MODIFICA SU NIVEL DE DIVERSION
+    // DEVUELVE: -
+    // EXCEPCIONES: (POU NO EXISTE) / (SE BAJA DEL NIVEL MINIMO = 0) / (SE PASA DEL NIVEL MAXIMO = 100)
 
-    /*
-    // OPERACION 1: Crear un Juego.
-    public void crearJuego(String juegoId, String juegoDescripcion, int numeroNivelesJuego);
+    public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
 
-    // OPERACION 2: Iniciar una Partida (por parte de un Usuario).
-    public void iniciarPartida (String juegoId, String usuarioId) throws JuegoIdNoExisteException, UsuarioIdNoExisteException, UsuarioIdYaEstaEnPartidaException;
+    // OPERACIÓN 20: POU MODIFICA SU NIVEL DE SUEÑO
+    // DEVUELVE: -
+    // EXCEPCIONES: (POU NO EXISTE) / (SE BAJA DEL NIVEL MINIMO = 0) / (SE PASA DEL NIVEL MAXIMO = 100)
 
-    // OPERACION 3: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
-    public int pedirNivelJuegoDePartida (String usuarioId) throws UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException;
+    public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
 
-    // OPERACION 4: Pedir la Puntuación Actual en una Partida (por parte de un Usuario).
-    public int pedirPuntosDePartida(String usuarioId) throws UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException;
+    // OPERACIÓN 21: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
+    // DEVUELVE: List<ObjetoTienda>
+    // EXCEPCIONES: -
 
-    // OPERACION 5: Pasar de Nivel en una Partida.
-    public void pasarDeNivel(String usuarioId, int puntosLogrados, String fechaCambioNivel) throws UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException;
+    public List<ObjetoTienda> obtenerComidasArmario();
 
-    // OPERACION 6: Finalizar una Partida.
-    public void finalizarPartida(String usuarioId) throws UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException;
+    // OPERACIÓN 22: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
+    // DEVUELVE: List<ObjetoTienda>
+    // EXCEPCIONES: -
 
-    // OPERACION 7: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
-    public List<Pou> obtenerHistorialUsuariosDeJuego(String juegoId) throws JuegoIdNoExisteException;
+    public List<ObjetoTienda> obtenerBebidasArmario();
 
-    // OPERACION 8: Obtener las Partidas en las que ha jugado un Usuario.
-    public List<Partida> obtenerPartidasUsuario(String usuarioId) throws UsuarioIdNoExisteException;
+    // OPERACIÓN 23: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
+    // DEVUELVE: List<ObjetoTienda>
+    // EXCEPCIONES: -
 
-    // OPERACION 9: Obtener información sobre las Partidas de un Usuario en un cierto Juego.
-    public Estado obtenerInfoUsuarioJuego(String juegoId, String usuarioId);
+    public List<ObjetoTienda> obtenerPocionesArmario();
 
-    public int numUsuarios();
+    // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
+    // DEVUELVE: List<ObjetoTienda>
+    // EXCEPCIONES: -
 
-    public int numJuegos();
+    public List<ObjetoTienda> obtenerRopaArmario();
 
-    public Juego dameJuego(String juegoId);
+    // OPERACIÓN 25: POU GASTA DINERO / GANA DINERO.
+    // DEVUELVE: -
+    // EXCEPCIONES: (POU NO EXISTE) / (POU NO TIENE DINERO SUFICIENTE)
 
-    public Pou dameUsuario(String usuarioId);
-
-    public Partida damePartidaUsuario(String usuarioId);
-
-    public void crearUsuario(String usuario);
-
-    public int size();
-
-    */
+    public void pouModificaDinero(String pouId, double varDinero) throws
+            PouIDNoExisteException, PouNoTieneDineroSuficienteException;
 }

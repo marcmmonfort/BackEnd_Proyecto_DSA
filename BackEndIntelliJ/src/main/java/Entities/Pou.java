@@ -2,9 +2,7 @@ package Entities;
 
 import Entities.ValueObjects.*;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 public class Pou {
 
@@ -17,11 +15,12 @@ public class Pou {
     Estado estadoPou;
     Outfit outfitPou;
     Armario armarioPou;
+    Map<String, Sala> salasPou;
 
     // CONSTRUCTORES
 
     public Pou() {}
-    public Pou(String pouId, String nombrePou, String nacimientoPou, Credenciales credencialesPou, Estado estadoPou, Outfit outfitPou, Armario armarioPou) {
+    public Pou(String pouId, String nombrePou, String nacimientoPou, Credenciales credencialesPou) {
         this.pouId = pouId;
         this.nombrePou = nombrePou;
         this.nacimientoPou = nacimientoPou;
@@ -29,6 +28,7 @@ public class Pou {
         this.estadoPou = new Estado(100,100,100,100,100);
         this.outfitPou = new Outfit(0,0,0,0);
         this.armarioPou = new Armario();
+        this.salasPou = new HashMap<>();
     }
 
     // GETTERS Y SETTERS

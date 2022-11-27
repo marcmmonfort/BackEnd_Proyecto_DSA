@@ -1,33 +1,35 @@
 package Entities;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Sala {
 
     // ATRIBUTOS
 
-    Integer salaId;
+    String salaId;
     String nombreSala;
-    List<ObjetoTienda> productos;
+    Map<String, ObjetoTienda> productos;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public Sala() {}
 
-    public Sala(Integer salaId, String nombreSala) {
+    public Sala(String salaId, String nombreSala) {
         this.salaId = salaId;
         this.nombreSala = nombreSala;
-        this.productos = new ArrayList<>();
+        this.productos = new HashMap<>();
     }
 
-    //GETTERS Y SETTERS
+    // GETTERS Y SETTERS
 
-    public Integer getSalaId() {
+    public String getSalaId() {
         return salaId;
     }
 
-    public void setSalaId(Integer salaId) {
+    public void setSalaId(String salaId) {
         this.salaId = salaId;
     }
 
@@ -39,11 +41,11 @@ public class Sala {
         this.nombreSala = nombreSala;
     }
 
-    public List<ObjetoTienda> getProductos() {
+    public  Map<String, ObjetoTienda> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<ObjetoTienda> productos) {
+    public void setProductos( Map<String, ObjetoTienda> productos) {
         this.productos = productos;
     }
 }

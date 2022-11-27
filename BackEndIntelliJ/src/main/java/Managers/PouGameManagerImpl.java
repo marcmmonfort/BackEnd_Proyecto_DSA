@@ -10,16 +10,7 @@ import org.apache.log4j.Logger;
 public class PouGameManagerImpl implements PouGameManager {
 
     Map<String, Pou> pousGame; // Hashmap on  todos los pous registrados. ---> KEY = "pouId" (String)
-    ArrayList<ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
-
-    // ----------------------------------------------------------------------------------------------------
-
-    // VIEJO ...
-
-    /*
-    HashMap<String,Juego> juegos; // Key = juegoId
-    HashMap<String, Pou> usuarios; // Key = usuarioId
-    HashMap<String, Partida> partidasUsuarios; // Key = usuarioId
+    Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
 
     private static PouGameManager instance;
 
@@ -31,18 +22,36 @@ public class PouGameManagerImpl implements PouGameManager {
     }
 
     public PouGameManagerImpl(){
-        this.juegos = new HashMap<>();
-        this.usuarios = new HashMap<>();
-        this.partidasUsuarios = new HashMap<>();
+        this.pousGame = new HashMap<>();
+        this.objetosTienda = new HashMap<>();
     }
 
     @Override
-    public int size() {
-        int ret = this.usuarios.size();
-        logger.info("Size: " + ret);
+    public Integer size() {
+        Integer ret = this.pousGame.size();
+        logger.info("Número de Pous: " + ret);
         return ret;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ----------------------------------------------------------------------------------------------------
+
+    // VIEJO ...
+
+    /*
     @Override
     public int numUsuarios(){
         return this.usuarios.size();

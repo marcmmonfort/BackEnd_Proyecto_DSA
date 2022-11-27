@@ -2,10 +2,7 @@ package Services;
 
 import Managers.*;
 import Entities.*;
-import Entities.Exceptions.JuegoIdNoExisteException;
-import Entities.Exceptions.UsuarioIdNoEstaEnPartidaException;
-import Entities.Exceptions.UsuarioIdNoExisteException;
-import Entities.Exceptions.UsuarioIdYaEstaEnPartidaException;
+import Entities.Exceptions.*;
 import Entities.ValueObjects.Estado;
 
 import javax.ws.rs.*;
