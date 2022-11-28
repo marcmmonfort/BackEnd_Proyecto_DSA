@@ -38,8 +38,8 @@
                     $.ajax({
                         contentType: "application/json",
                         type: 'POST',
-                        url: '/dsaApp/user/login',
-                        data: JSON.stringify({"mail": mail, "password": password}),
+                        url: '/dsaApp/pougame/pou/login',
+                        data: JSON.stringify({"correo": mail, "password": password}),
                         dataType: 'json',
                         success: function (result) {
                             alert("Successful. Welcome, " + mail);
@@ -47,9 +47,9 @@
                         },
                         error : function(error) {
                             if (mail == "" || password == "")
-                                alert("You left something blank, please try again!"); //Cambiar este texto?
+                                alert("Asegurate de que no hayas dejado ningun textbox en blanco");
                             else
-                                alert("Wrong Mail or Password, please try again!"); //Cambiar este texto?
+                                alert("Tu correo o contraseña están mal");
                         }
                     });
                 }
