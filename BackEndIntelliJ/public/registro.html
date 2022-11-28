@@ -14,30 +14,30 @@
             <h5>Porfavor, introduzca un userID, PouName, birthday, email y password, en los siguientes textbox:</h5>
             <div>
                 <div>
-                    <input type="text" id="signup_userId" placeholder="UserID">
+                    <input type="text" id="registro_userId" placeholder="UserID">
                 </div>
                 <div>
-                    <input type="text" id="signup_pouname" placeholder="PouName">
+                    <input type="text" id="registro_pouname" placeholder="PouName">
                 </div>
                 <div>
-                    <input type="text" id="signup_birthday" placeholder="Birthday">
+                    <input type="text" id="registro_birthday" placeholder="Birthday">
                 </div>
                 <div>
-                    <input type="text" id="signup_email" placeholder="Email">
+                    <input type="text" id="registro_email" placeholder="Email">
                 </div>
                 <div>
-                    <input type="text" id="signup_password" placeholder="Password">
+                    <input type="text" id="registro_password" placeholder="Password">
                 </div>
                 <div>
                     <button type="button" id ="registroBtn" onclick="registro()">Registro</button>
                 </div>
                 <script>
                     function registro() {
-                        var userid = $('#signup_userId').val();
-                        var pouname = $('#signup_pouname').val();
-                        var birthday = $('#signup_birthday').val();
-                        var email = $('#signup_email').val();
-                        var password = $('#signup_password').val();
+                        var userid = $('#registro_userId').val();
+                        var pouname = $('#registro_pouname').val();
+                        var birthday = $('#registro_birthday').val();
+                        var email = $('#registro_email').val();
+                        var password = $('#registro_password').val();
 
                         $.ajax({
                             contentType: "application/json",

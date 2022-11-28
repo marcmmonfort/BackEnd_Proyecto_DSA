@@ -20,12 +20,15 @@ import java.util.*;
 public class PouGameService {
     private PouGameManager jvm;
 
-    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException {
+    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
         this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
             this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
             this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
             this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
+
+            this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
+            this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
         }
     }
 
@@ -78,8 +81,25 @@ public class PouGameService {
         return Response.status(201).build();
     }
 
+    // OPERACION 3: Obtener la lista de objetos de la tienda
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public List<ObjetoTienda> obtenerObjetosTienda();
+    // EXCEPCIONES:-
+
+    @GET
+    @ApiOperation(value = "Obtener la lista de objetos de la tienda", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!", response = ObjetoTienda.class, responseContainer="List"),
+    })
+    @Path("/tienda/listaObjetos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerObjetosTienda() {
+        GenericEntity<List<ObjetoTienda>> listaObjetosTienda = new GenericEntity<List<ObjetoTienda>>(this.jvm.obtenerObjetosTienda()) {};
+        return Response.status(201).entity(listaObjetosTienda).build();
+    }
+
 /*
-    // OPERACION 3: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
+    // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public int pedirNivelJuegoDePartida (String usuarioId);
     // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
@@ -105,7 +125,7 @@ public class PouGameService {
         return Response.status(201).entity(nivel).build();
     }
 
-    // OPERACION 4: Pedir la Puntuación Actual en una Partida (por parte de un Usuario).
+    // OPERACION 5: Pedir la Puntuación Actual en una Partida (por parte de un Usuario).
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public int pedirPuntosDePartida(String usuarioId);
     // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
@@ -131,7 +151,7 @@ public class PouGameService {
         return Response.status(201).entity(puntos).build();
     }
 
-    // OPERACION 5: Pasar de Nivel en una Partida.
+    // OPERACION 6: Pasar de Nivel en una Partida.
     // MÉTODO HTTP: PUT.
     // ESTRUCTURA: public void pasarDeNivel(String usuarioId, int puntosLogrados, String fechaCambioNivel);
     // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
@@ -156,7 +176,7 @@ public class PouGameService {
         return Response.status(201).build();
     }
 
-    // OPERACION 6: Finalizar una Partida.
+    // OPERACION 7: Finalizar una Partida.
     // MÉTODO HTTP: PUT.
     // ESTRUCTURA: public void finalizarPartida(String usuarioId);
     // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
@@ -181,7 +201,7 @@ public class PouGameService {
         return Response.status(201).build();
     }
 
-    // OPERACION 7: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
+    // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public List<Usuario> obtenerHistorialUsuariosDeJuego(String juegoId);
     // EXCEPCIONES: JuegoIdNoExisteException.
@@ -205,7 +225,7 @@ public class PouGameService {
         return Response.status(201).entity(historialJugadores).build();
     }
 
-    // OPERACION 8: Obtener las Partidas en las que ha jugado un Usuario.
+    // OPERACION 9: Obtener las Partidas en las que ha jugado un Usuario.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public List<Partida> obtenerPartidasUsuario(String usuarioId);
     // EXCEPCIONES: UsuarioIdNoExisteException.
@@ -229,7 +249,7 @@ public class PouGameService {
         return Response.status(201).entity(partidasUsuario).build();
     }
 
-    // OPERACION 9: Obtener información sobre las Partidas de un Usuario en un cierto Juego.
+    // OPERACION 10: Obtener información sobre las Partidas de un Usuario en un cierto Juego.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public InfoPartida obtenerInfoUsuarioJuego(String juegoId, String usuarioId);
     // EXCEPCIONES: -

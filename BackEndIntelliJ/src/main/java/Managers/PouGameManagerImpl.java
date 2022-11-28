@@ -93,175 +93,191 @@ public class PouGameManagerImpl implements PouGameManager {
         }
     }
 
-    // OPERACIÓN 4: OBTENER TODOS LOS POUS
+    // OPERACIÓN 4: OBTENER TODOS LOS OBJETOS TIENDA
+
+    @Override
+    public List<ObjetoTienda> obtenerObjetosTienda() {
+        List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+        return listaObjetosTienda;
+    }
+
+    // OPERACIÓN 5: OBTENER TODOS LOS POUS
 
     @Override
     public Map<String, Pou> obtenerPous() {
         return null;
     }
 
-    // OPERACIÓN 4: OBTENER POU POR SU ID ("pouId")
+    // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
 
     @Override
     public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
         return null;
     }
 
-    // OPERACIÓN 5: AÑADIR OBJETOS A LA TIENDA
+    // OPERACIÓN 7: AÑADIR OBJETOS A LA TIENDA
 
     @Override
     public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException{
-
+        logger.info("Se quiere añadir un ObjetoTienda con ID "+articuloId+".");
+        ObjetoTienda nuevoObjetoTienda = new ObjetoTienda(articuloId, nombreArticulo, precioArticulo, tipoArticulo, recargaHambre, recargaSalud, recargaDiversion, recargaSueno);
+        if (this.objetosTienda.containsKey(articuloId)){
+            logger.warn("La ID del articulo "+articuloId+" ya existe.");
+            throw new ObjetoTiendaYaExisteException();
+        }else {
+            this.objetosTienda.put(articuloId, nuevoObjetoTienda);
+            logger.info("Pou creado con ID "+articuloId+".");
+        }
     }
 
-    // OPERACIÓN 5: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
+    // OPERACIÓN 8: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
 
     @Override
     public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException{
         return null;
     }
 
-    // OPERACIÓN 6: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA
+    // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerComidasTienda(){
         return null;
     }
 
-    // OPERACIÓN 7: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DE LA TIENDA
+    // OPERACIÓN 10: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerBebidasTienda(){
         return null;
     }
 
-    // OPERACIÓN 8: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DE LA TIENDA
+    // OPERACIÓN 11: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerPocionesTienda(){
         return null;
     }
 
-    // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS ROPAS DE LA TIENDA
+    // OPERACIÓN 12: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS ROPAS DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerRopasTienda(){
         return null;
     }
 
-    // OPERACIÓN 10: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
+    // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
 
     @Override
     public void crearSala(String pouId, String salaId, String nombreSala) throws SalaYaExisteException {
 
     }
 
-    // OPERACIÓN 11: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
+    // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
 
     @Override
     public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
     }
 
-    // OPERACIÓN 12: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
+    // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
 
     @Override
     public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
         return null;
     }
 
-    // OPERACIÓN 13: POU MODIFICA SU CAMISETA (OUTFIT)
+    // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
 
     @Override
     public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
     }
 
-    // OPERACIÓN 14: POU MODIFICA SU PANTALON (OUTFIT)
+    // OPERACIÓN 17: POU MODIFICA SU PANTALON (OUTFIT)
 
     @Override
     public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
     }
 
-    // OPERACIÓN 15: POU MODIFICA SU GORRA (OUTFIT)
+    // OPERACIÓN 18: POU MODIFICA SU GORRA (OUTFIT)
 
     @Override
     public void pouCambiaGorra(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
-    // OPERACIÓN 16: POU MODIFICA SUS GAFAS (OUTFIT)
+    // OPERACIÓN 19: POU MODIFICA SUS GAFAS (OUTFIT)
 
     @Override
     public void pouCambiaGafas(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
     }
 
-    // OPERACIÓN 17: POU MODIFICA SU NIVEL DE HAMBRE
+    // OPERACIÓN 20: POU MODIFICA SU NIVEL DE HAMBRE
 
     @Override
     public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
 
     }
 
-    // OPERACIÓN 18: POU MODIFICA SU NIVEL DE SALUD
+    // OPERACIÓN 21: POU MODIFICA SU NIVEL DE SALUD
 
     @Override
     public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
 
     }
 
-    // OPERACIÓN 19: POU MODIFICA SU NIVEL DE DIVERSION
+    // OPERACIÓN 22: POU MODIFICA SU NIVEL DE DIVERSION
 
     @Override
     public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
 
     }
 
-    // OPERACIÓN 20: POU MODIFICA SU NIVEL DE SUEÑO
+    // OPERACIÓN 23: POU MODIFICA SU NIVEL DE SUEÑO
 
     @Override
     public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
 
     }
 
-    // OPERACIÓN 21: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
+    // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
 
     @Override
     public List<ObjetoTienda> obtenerComidasArmario(){
         return null;
     }
 
-    // OPERACIÓN 22: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
+    // OPERACIÓN 25: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
 
     @Override
     public List<ObjetoTienda> obtenerBebidasArmario(){
         return null;
     }
 
-    // OPERACIÓN 23: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
+    // OPERACIÓN 26: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
 
     @Override
     public List<ObjetoTienda> obtenerPocionesArmario(){
         return null;
     }
 
-    // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
+    // OPERACIÓN 27: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
 
     @Override
     public List<ObjetoTienda> obtenerRopaArmario(){
         return null;
     }
 
-    // OPERACIÓN 25: POU GASTA DINERO / GANA DINERO.
+    // OPERACIÓN 28: POU GASTA DINERO / GANA DINERO.
 
     @Override
     public void pouModificaDinero(String pouId, double varDinero) throws PouIDNoExisteException, PouNoTieneDineroSuficienteException {
 
     }
 
-    // OPERACIÓN 26: OBTENER EL NÚMERO DE ARTÍCULOS QUE HAY EN LA TIENDA.
+    // OPERACIÓN 29: OBTENER EL NÚMERO DE ARTÍCULOS QUE HAY EN LA TIENDA.
 
     public Integer dameNumArticulosTienda(){
         return this.objetosTienda.size();
