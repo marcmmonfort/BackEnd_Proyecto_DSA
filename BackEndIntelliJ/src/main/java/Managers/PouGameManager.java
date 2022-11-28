@@ -13,7 +13,7 @@ public interface PouGameManager {
     // DEVUELVE: Integer.
     // EXCEPCIONES: -
 
-    public Integer size();
+    public int size();
 
     // OPERACIÓN 2: REGISTRO POU (CREAR POU)
     // DEVUELVE: -
@@ -187,4 +187,10 @@ public interface PouGameManager {
 
     public void pouModificaDinero(String pouId, double varDinero) throws
             PouIDNoExisteException, PouNoTieneDineroSuficienteException;
+
+    // OPERACIÓN 26: OBTENER EL NÚMERO DE ARTÍCULOS QUE HAY EN LA TIENDA.
+    // DEVUELVE: -
+    // EXCEPCIONES: -
+
+    public Integer dameNumArticulosTienda();
 }

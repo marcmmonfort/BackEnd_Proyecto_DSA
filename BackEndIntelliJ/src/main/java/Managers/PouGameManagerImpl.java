@@ -29,8 +29,8 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 1: OBTENER NÚMERO DE POUS
 
     @Override
-    public Integer size() {
-        Integer ret = this.pousGame.size();
+    public int size() {
+        int ret = this.pousGame.size();
         logger.info("Número de Pous: " + ret);
         return ret;
     }
@@ -39,14 +39,58 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws CorreoYaExisteException, PouIDYaExisteException {
-
+        logger.info("Se quiere registrar un Pou con ID "+pouId+".");
+        Credenciales pouCredentials = new Credenciales(correo, password);
+        Pou nuevoPou = new Pou(pouId, nombrePou, nacimientoPou, pouCredentials);
+        // Recorremos los Pous registrados para ver si hay alguno con este correo.
+        boolean mailYaExiste = false;
+        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        for (int i = 0; i<listaPous.size(); i++){
+            if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
+                mailYaExiste = true;
+                break;
+            }
+        }
+        if (this.pousGame.containsKey(pouId)){
+            logger.warn("El ID de Pou "+pouId+" ya existe.");
+            throw new PouIDYaExisteException();
+        } else if (mailYaExiste) {
+            logger.warn("El correo "+correo+" ya está registrado en un Pou.");
+            throw new CorreoYaExisteException();
+        } else {
+            this.pousGame.put(pouId, nuevoPou);
+            logger.info("Pou creado con ID "+pouId+".");
+        }
     }
 
     // OPERACIÓN 3: LOGIN POU
 
     @Override
     public void loginPou(String correo, String password) throws CorreoNoExisteException, PasswordIncorrectaException{
-
+        logger.info("Se quiere hacer login con el correo "+correo+" y la contraseña "+password+".");
+        boolean mailExiste = false;
+        boolean contraCorrecta = false;
+        String pouId = null;
+        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        for (int i = 0; i<listaPous.size(); i++) {
+            if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
+                mailExiste = true;
+                if (Objects.equals(listaPous.get(i).getCredencialesPou().getPasswordPou(), password)) {
+                    contraCorrecta = true;
+                    pouId = listaPous.get(i).getPouId();
+                }
+                break;
+            }
+        }
+        if (!mailExiste){
+            logger.warn("No hay ningún Pou registrado con el correo "+correo+".");
+            throw new CorreoNoExisteException();
+        } else if (!contraCorrecta) {
+            logger.warn("La contraseña introducida, "+correo+", no es la correcta para este correo.");
+            throw new PasswordIncorrectaException();
+        } else {
+            logger.info("Se ha hecho correctamente el login en el Pou con ID "+pouId+".");
+        }
     }
 
     // OPERACIÓN 4: OBTENER TODOS LOS POUS
@@ -215,6 +259,12 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public void pouModificaDinero(String pouId, double varDinero) throws PouIDNoExisteException, PouNoTieneDineroSuficienteException {
 
+    }
+
+    // OPERACIÓN 26: OBTENER EL NÚMERO DE ARTÍCULOS QUE HAY EN LA TIENDA.
+
+    public Integer dameNumArticulosTienda(){
+        return this.objetosTienda.size();
     }
 
 
