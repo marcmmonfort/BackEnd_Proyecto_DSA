@@ -5,7 +5,7 @@ import Entities.ValueObjects.*;
 import Entities.Exceptions.*;
 
 import java.util.List;
-
+/*
 public interface JuegoVirtualManager {
 
     // OPERACION 1: Crear un Juego.
@@ -49,3 +49,4 @@ public interface JuegoVirtualManager {
 
     public int size();
 }
+*/

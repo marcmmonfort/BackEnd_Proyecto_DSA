@@ -7,6 +7,7 @@ import Entities.ValueObjects.*;
 import java.util.*;
 import org.apache.log4j.Logger;
 
+/*
 public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
 
     HashMap<String,Juego> juegos; // Key = juegoId
@@ -219,3 +220,4 @@ public class JuegoVirtualManagerImpl implements JuegoVirtualManager{
         return this.usuarios.get(usuarioId).dameInfoPartidaUsuario(juegoId);
     }
 }
+*/

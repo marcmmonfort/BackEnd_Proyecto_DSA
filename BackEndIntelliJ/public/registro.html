@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>POU/registro</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <h1>Las aventuras de Pou</h1>
+        <div>
+            <h2>Registro</h2>
+            <h5>Porfavor, introduzca un userID, PouName, birthday, email y password, en los siguientes textbox:</h5>
+            <div>
+                <div>
+                    <input type="text" id="signup_userId" placeholder="UserID">
+                </div>
+                <div>
+                    <input type="text" id="signup_pouname" placeholder="PouName">
+                </div>
+                <div>
+                    <input type="text" id="signup_birthday" placeholder="Birthday">
+                </div>
+                <div>
+                    <input type="text" id="signup_email" placeholder="Email">
+                </div>
+                <div>
+                    <input type="text" id="signup_password" placeholder="Password">
+                </div>
+                <div>
+                    <button type="button" id ="registroBtn" onclick="registro()">Registro</button>
+                </div>
+                <script>
+                    function registro() {
+                        var userid = $('#signup_userId').val();
+                        var pouname = $('#signup_pouname').val();
+                        var birthday = $('#signup_birthday').val();
+                        var email = $('#signup_email').val();
+                        var password = $('#signup_password').val();
+
+                        $.ajax({
+                            contentType: "application/json",
+                            type: 'POST',
+                            url: '/dsaApp/user/addUser',
+                            data: JSON.stringify({"userid": userid, "pouname": pouname, "birthday": birthday, "email": email,"password": password}),
+                            dataType: 'json',
+                            success: function (result) {
+                                alert("Registro completado. Bienvenido, " + pouname);
+                                //window.location.href = "";
+                            },
+                            error : function(error) {
+                                if (userid == "" || pouname == "" || birthday == "" || email == "" || password == "" ){
+                                    alert("Asegurate de que no hayas dejado ningun textbox en blanco");
+                                }
+                                else
+                                    alert("Tu correo o contraseña ya están en uso");
+                                    window.location.href = "login.html";
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+        <div id="links">
+            <h3>Selecciona la opción que deseas:</h3>
+            <ul>
+                <li><a href="home.html">Index</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </body>
+</html>

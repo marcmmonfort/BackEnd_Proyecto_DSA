@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>POU/login</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <h1>Las aventuras de Pou</h1>
+        <div>
+            <h2>Login</h2>
+            <h5>Porfavor, introduzca un mail y password, en los siguientes textbox:</h5>
+            <div>
+                <div>
+                    <input type="text" id="login_mail" placeholder="Mail">
+                </div>
+                <div>
+                    <input type="text" id="login_password" placeholder="Password">
+                </div>
+            </div>
+            <div>
+                <button type="btn" id ="loginBtn" onclick="login()">Login</button>
+            </div>
+            <div id="links">
+                <h3>Selecciona la opción que deseas:</h3>
+                <ul>
+                    <li><a href="registro.html">Registro</a></li>
+                    <li><a href="home.html">Index</a></li>
+                </ul>
+            </div>
+            <script>
+                function login() {
+                    var mail = $('#login_mail').val();
+                    var password = $('#login_password').val();
+
+                    $.ajax({
+                        contentType: "application/json",
+                        type: 'POST',
+                        url: '/dsaApp/user/login',
+                        data: JSON.stringify({"mail": mail, "password": password}),
+                        dataType: 'json',
+                        success: function (result) {
+                            alert("Successful. Welcome, " + mail);
+                            //window.location.href = ""; Una vez entre el usuario mandarlo a la pagina principal del juego
+                        },
+                        error : function(error) {
+                            if (mail == "" || password == "")
+                                alert("You left something blank, please try again!"); //Cambiar este texto?
+                            else
+                                alert("Wrong Mail or Password, please try again!"); //Cambiar este texto?
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </body>
+</html>
