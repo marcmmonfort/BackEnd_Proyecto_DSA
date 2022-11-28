@@ -51,7 +51,7 @@ public class PouGameService {
         }catch (PouIDYaExisteException e){
             return Response.status(405).build();
         }
-        return Response.status(201).build();
+        return Response.status(200).build();
     }
 
     // OPERACION 2: Login.
