@@ -61,6 +61,7 @@ public class PouGameService {
     // MÉTODO HTTP: POST.
     // ESTRUCTURA: public void loginPou(String correo, String password);
     // EXCEPCIONES: CorreoNoExisteException, PasswordIncorrectaException
+
     @POST
     @ApiOperation(value = "Login", notes = "-")
     @ApiResponses(value = {
