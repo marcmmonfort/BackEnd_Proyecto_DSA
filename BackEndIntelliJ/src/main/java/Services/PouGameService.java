@@ -1,11 +1,10 @@
 package Services;
-/*
+
+import Entities.ValueObjects.Credenciales;
+import Entities.ValueObjects.InfoRegistro;
 import Managers.*;
 import Entities.*;
-import Entities.Exceptions.JuegoIdNoExisteException;
-import Entities.Exceptions.UsuarioIdNoEstaEnPartidaException;
-import Entities.Exceptions.UsuarioIdNoExisteException;
-import Entities.Exceptions.UsuarioIdYaEstaEnPartidaException;
+import Entities.Exceptions.*;
 import Entities.ValueObjects.Estado;
 
 import javax.ws.rs.*;
@@ -15,71 +14,71 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
-@Api(value = "/juegovirtual", description = "Endpoint to Juego Virtual Service")
-@Path("/juegovirtual")
+@Api(value = "/pougame", description = "Endpoint to Pou Game Service")
+@Path("/pougame")
 
-public class JuegoVirtualService {
+public class PouGameService {
+    private PouGameManager jvm;
 
-    private JuegoVirtualManager jvm;
-
-    public JuegoVirtualService() {
-        this.jvm = JuegoVirtualManagerImpl.getInstance();
+    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException {
+        this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
-            this.jvm.crearJuego("FIFA", "Juego de fútbol", 2);
-            this.jvm.crearJuego("GTA", "Juego de vida real", 4);
-            this.jvm.crearJuego("Gran Turismo", "Juego de conducción", 5);
-
-            this.jvm.crearUsuario("Marc");
-            this.jvm.crearUsuario("Victor");
-            this.jvm.crearUsuario("Eloi");
+            this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
+            this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
+            this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
         }
     }
 
-    // OPERACION 1: Crear un Juego.
+    // OPERACION 1: Registro.
     // MÉTODO HTTP: POST.
-    // ESTRUCTURA: public void crearJuego(String juegoId, String juegoDescripcion, int numeroNivelesJuego);
-    // EXCEPCIONES: -
+    // ESTRUCTURA: public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password);
+    // EXCEPCIONES: CorreoYaExisteException, PouIDYaExisteException
 
     @POST
-    @ApiOperation(value = "Crear un juego", notes = "-")
+    @ApiOperation(value = "Registro", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Juego creado satisfactoriamente")
+            @ApiResponse(code = 201, message = "Juego creado satisfactoriamente"),
+            @ApiResponse(code = 404, message = "Ya existe el correo"),
+            @ApiResponse(code = 405, message = "Ya existe el PouID")
     })
-    @Path("/juego/crearjuego")
+    @Path("/pou/registro")
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response funcionCrearJuego(Juego juego) {
-        this.jvm.crearJuego(juego.getJuegoId(), juego.getJuegoDescripcion(), juego.getNumeroNivelesJuego());
-        return Response.status(201).build();
-    }
-
-    // OPERACION 2: Iniciar una Partida (por parte de un Usuario).
-    // MÉTODO HTTP: PUT.
-    // ESTRUCTURA: public void iniciarPartida (String juegoId, String usuarioId);
-    // EXCEPCIONES: JuegoIdNoExisteException, UsuarioIdNoExisteException, UsuarioIdYaEstaEnPartidaException.
-
-    @PUT
-    @ApiOperation(value = "Iniciar una partida", notes = "Por parte de un usuario")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!"),
-            @ApiResponse(code = 405, message = "El juego introducido no existe"),
-            @ApiResponse(code = 406, message = "El usuario introducido no existe"),
-            @ApiResponse(code = 407, message = "El usuario introducido ya está en una partida")
-    })
-    @Path("/partida/iniciarpartida/{juegoId}/{usuarioId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response funcionIniciarPartida(@PathParam("juegoId") String juegoId, @PathParam("usuarioId") String usuarioId) {
-        try {
-            this.jvm.iniciarPartida(juegoId, usuarioId);
-        } catch(JuegoIdNoExisteException e) {
+    public Response crearPou(InfoRegistro infoRegistro){
+        try{
+            this.jvm.crearPou(infoRegistro.getPouId(), infoRegistro.getNombrePou(), infoRegistro.getNacimientoPou(), infoRegistro.getCorreo(), infoRegistro.getPassword());
+        }catch(CorreoYaExisteException e){
+            return Response.status(404).build();
+        }catch (PouIDYaExisteException e){
             return Response.status(405).build();
-        } catch(UsuarioIdNoExisteException e) {
-            return Response.status(406).build();
-        } catch(UsuarioIdYaEstaEnPartidaException e) {
-            return Response.status(407).build();
         }
         return Response.status(201).build();
     }
 
+    // OPERACION 2: Login.
+    // MÉTODO HTTP: POST.
+    // ESTRUCTURA: public void loginPou(String correo, String password);
+    // EXCEPCIONES: CorreoNoExisteException, PasswordIncorrectaException
+    @POST
+    @ApiOperation(value = "Login", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Login correcto"),
+            @ApiResponse(code = 404, message = "El correo no exite"),
+            @ApiResponse(code = 405, message = "Contraseña incorrecta")
+    })
+    @Path("/pou/login")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response loginPou(Credenciales credenciales){
+        try{
+            this.jvm.loginPou(credenciales.getCorreoPou(), credenciales.getPasswordPou());
+        }catch(CorreoNoExisteException e){
+            return Response.status(404).build();
+        }catch (PasswordIncorrectaException e){
+            return Response.status(405).build();
+        }
+        return Response.status(201).build();
+    }
+
+/*
     // OPERACION 3: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public int pedirNivelJuegoDePartida (String usuarioId);
@@ -412,11 +411,6 @@ public class JuegoVirtualService {
         GenericEntity<List<ObjetoTienda>> adquisiciones = new GenericEntity<List<ObjetoTienda>>(objetosComprados) {};
         return Response.status(201).entity(adquisiciones).build(); // OK.
     }
-
-    // ----------------------------------------------------------------------------------------------------
-
-
-
+    */
 }
 
-*/

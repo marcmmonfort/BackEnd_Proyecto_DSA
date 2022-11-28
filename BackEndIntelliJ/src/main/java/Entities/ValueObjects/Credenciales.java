@@ -2,12 +2,12 @@ package Entities.ValueObjects;
 
 public class Credenciales {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
 
     String correoPou;
     String passwordPou;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public Credenciales() {}
 

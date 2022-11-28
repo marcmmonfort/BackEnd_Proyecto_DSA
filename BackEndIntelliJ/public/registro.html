@@ -42,7 +42,7 @@
                         $.ajax({
                             contentType: "application/json",
                             type: 'POST',
-                            url: '/dsaApp/user/addUser',
+                            url: '/pougame/pou/registro',
                             data: JSON.stringify({"userid": userid, "pouname": pouname, "birthday": birthday, "email": email,"password": password}),
                             dataType: 'json',
                             success: function (result) {

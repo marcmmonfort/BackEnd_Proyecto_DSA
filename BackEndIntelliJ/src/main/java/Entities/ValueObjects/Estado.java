@@ -6,16 +6,18 @@ import java.util.List;
 
 public class Estado {
 
-    //ATRIBUTOS
+    // ATRIBUTOS
+
     double dineroPou;
     Integer nivelHambrePou;
     Integer nivelSaludPou;
     Integer nivelDiversionPou;
     Integer nivelSuenoPou;
 
-    //CONSTRUCTORES
+    // CONSTRUCTORES
 
     public Estado() {}
+
     public Estado(double dineroPou, Integer nivelHambrePou, Integer nivelSaludPou, Integer nivelDiversionPou, Integer nivelSuenoPou) {
         this.dineroPou = dineroPou;
         this.nivelHambrePou = nivelHambrePou;
@@ -24,7 +26,7 @@ public class Estado {
         this.nivelSuenoPou = nivelSuenoPou;
     }
 
-    //GETTERS Y SETTERS
+    // GETTERS Y SETTERS
 
     public double getDineroPou() {
         return dineroPou;

@@ -1,7 +1,4 @@
-import Entities.Exceptions.JuegoIdNoExisteException;
-import Entities.Exceptions.UsuarioIdNoEstaEnPartidaException;
-import Entities.Exceptions.UsuarioIdNoExisteException;
-import Entities.Exceptions.UsuarioIdYaEstaEnPartidaException;
+import Entities.Exceptions.*;
 import Managers.*;
 
 import org.junit.After;
@@ -10,33 +7,56 @@ import org.junit.Before;
 import org.junit.Test;
 import org.apache.log4j.Logger;
 
-public class JuegoVirtualImplTest {
+import java.util.Optional;
 
-    final static Logger logger = Logger.getLogger(JuegoVirtualManagerImpl.class);
+public class PouGameImplTest {
 
-    JuegoVirtualManager jvm;
+    final static Logger logger = Logger.getLogger(PouGameManagerImpl.class);
+
+    PouGameManager jvm;
 
     @Before
-    public void setUp() {
-        this.jvm = new JuegoVirtualManagerImpl();
+    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException {
+        this.jvm = new PouGameManagerImpl();
 
-        this.jvm.crearJuego("FIFA", "Juego de fútbol", 2);
-        this.jvm.crearJuego("GTA", "Juego de vida real", 4);
-        this.jvm.crearJuego("Gran Turismo", "Juego de conducción", 5);
-
-        this.jvm.crearUsuario("Marc");
-        this.jvm.crearUsuario("Victor");
-        this.jvm.crearUsuario("Eloi");
+        this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
+        this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
+        this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
     }
-
-    // ----------------------------------------------------------------------------------------------------
 
     @After
     public void tearDown() {
         this.jvm = null;
     }
 
-    // ----------------------------------------------------------------------------------------------------
+    @Test
+    public void testRegistrarPou() throws PouIDYaExisteException, CorreoYaExisteException {
+        // CASO 1 = ID del Pou ya existe.
+        Assert.assertThrows(PouIDYaExisteException.class, ()-> this.jvm.crearPou("marcmmonfort", "Carlos", "20/10/2001", "carlos@gmail.com", "20102001"));
+        // CASO 2 = Correo del Pou ya registrado.
+        Assert.assertThrows(CorreoYaExisteException.class, ()-> this.jvm.crearPou("carlossainz", "Carlos", "20/10/2001", "marc@gmail.com", "20102001"));
+        // CASO 3 = Registro Satisfactorio.
+        this.jvm.crearPou("eloimoncho", "Eloi", "28/08/2001", "eloi@gmail.com", "28082001");
+        Assert.assertEquals(4, this.jvm.size());
+    }
+
+    @Test
+    public void testLoginPou() throws CorreoNoExisteException, PasswordIncorrectaException{
+        // CASO 1 = Correo del Login no existe.
+        Assert.assertThrows(CorreoNoExisteException.class, ()-> this.jvm.loginPou("psg@gmail.com","12345678"));
+        // CASO 2 = Contraseña del Login no es la correcta.
+        Assert.assertThrows(PasswordIncorrectaException.class, ()-> this.jvm.loginPou("marc@gmail.com","28102000"));
+        // CASO 3 = Login Satisfactorio.
+        this.jvm.loginPou("marc@gmail.com","28102001");
+    }
+}
+
+
+
+
+    /*
+
+    VIEJO ...
 
     @Test
     public void testCrearJuego() {
@@ -176,4 +196,7 @@ public class JuegoVirtualImplTest {
         Assert.assertEquals("03/01/2022", this.jvm.obtenerInfoUsuarioJuego("GTA","Marc").getDetallesNiveles().get(2).getFechaNivel());
         Assert.assertEquals("04/01/2022", this.jvm.obtenerInfoUsuarioJuego("GTA","Marc").getDetallesNiveles().get(3).getFechaNivel());
     }
+
 }
+
+     */
