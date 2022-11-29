@@ -1,4 +1,5 @@
 import Entities.Exceptions.*;
+import Entities.Pou;
 import Managers.*;
 
 import org.junit.After;
@@ -7,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.apache.log4j.Logger;
 
+import java.util.*;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class PouGameImplTest {
@@ -49,8 +52,18 @@ public class PouGameImplTest {
         // CASO 3 = Login Satisfactorio.
         this.jvm.loginPou("marc@gmail.com","28102001");
     }
-}
 
+    @Test
+    public void testObtenerPous() throws PouIDYaExisteException, CorreoYaExisteException {
+        Map<String, Pou> pouMap = this.jvm.obtenerPous();
+        Assert.assertEquals(3, pouMap.size());
+        this.jvm.crearPou("eloimoncho", "Eloi", "28/08/2001", "eloi@gmail.com", "28082001");
+        pouMap = this.jvm.obtenerPous();
+        Assert.assertEquals(4, pouMap.size());
+    }
+
+    
+}
 
 
 

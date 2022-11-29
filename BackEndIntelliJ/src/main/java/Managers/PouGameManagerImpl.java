@@ -105,7 +105,10 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public Map<String, Pou> obtenerPous() {
-        return null;
+        logger.info("Queremos obtener un Map con todos los pous registrados ");
+        int num = this.pousGame.size();
+        logger.info("Número de Pous: " + num);
+        return this.pousGame;
     }
 
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
