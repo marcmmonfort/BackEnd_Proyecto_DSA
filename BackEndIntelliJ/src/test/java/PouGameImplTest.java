@@ -49,6 +49,14 @@ public class PouGameImplTest {
         // CASO 3 = Login Satisfactorio.
         this.jvm.loginPou("marc@gmail.com","28102001");
     }
+
+    @Test
+    public void testObtenerPou() throws PouIDNoExisteException{
+        // CASO 1 = El Pou no existe. No se encuentra el Id.
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.obtenerPou("eloimoncho"));
+        // CASO 2 = El Pou sí que existe.
+        this.jvm.obtenerPou("marcmmonfort");
+    }
 }
 
 
