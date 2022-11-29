@@ -198,4 +198,11 @@ public interface PouGameManager {
     // EXCEPCIONES: -
 
     public Integer dameNumArticulosTienda();
+
+    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO QUE SE PIDE.
+    //DEVUELVE: LISTA
+    //EXCEPCIONES: -
+
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo);
+
 }

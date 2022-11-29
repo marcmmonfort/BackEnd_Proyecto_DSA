@@ -16,12 +16,12 @@ public class PouGameManagerImpl implements PouGameManager {
 
     final static Logger logger = Logger.getLogger(PouGameManagerImpl.class);
 
-    public static PouGameManager getInstance(){
-        if (instance==null) instance = new PouGameManagerImpl();
+    public static PouGameManager getInstance() {
+        if (instance == null) instance = new PouGameManagerImpl();
         return instance;
     }
 
-    public PouGameManagerImpl(){
+    public PouGameManagerImpl() {
         this.pousGame = new HashMap<>();
         this.objetosTienda = new HashMap<>();
     }
@@ -39,40 +39,40 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws CorreoYaExisteException, PouIDYaExisteException {
-        logger.info("Se quiere registrar un Pou con ID "+pouId+".");
+        logger.info("Se quiere registrar un Pou con ID " + pouId + ".");
         Credenciales pouCredentials = new Credenciales(correo, password);
         Pou nuevoPou = new Pou(pouId, nombrePou, nacimientoPou, pouCredentials);
         // Recorremos los Pous registrados para ver si hay alguno con este correo.
         boolean mailYaExiste = false;
         List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
-        for (int i = 0; i<listaPous.size(); i++){
+        for (int i = 0; i < listaPous.size(); i++) {
             if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
                 mailYaExiste = true;
                 break;
             }
         }
-        if (this.pousGame.containsKey(pouId)){
-            logger.warn("El ID de Pou "+pouId+" ya existe.");
+        if (this.pousGame.containsKey(pouId)) {
+            logger.warn("El ID de Pou " + pouId + " ya existe.");
             throw new PouIDYaExisteException();
         } else if (mailYaExiste) {
-            logger.warn("El correo "+correo+" ya está registrado en un Pou.");
+            logger.warn("El correo " + correo + " ya está registrado en un Pou.");
             throw new CorreoYaExisteException();
         } else {
             this.pousGame.put(pouId, nuevoPou);
-            logger.info("Pou creado con ID "+pouId+".");
+            logger.info("Pou creado con ID " + pouId + ".");
         }
     }
 
     // OPERACIÓN 3: LOGIN POU
 
     @Override
-    public void loginPou(String correo, String password) throws CorreoNoExisteException, PasswordIncorrectaException{
-        logger.info("Se quiere hacer login con el correo "+correo+" y la contraseña "+password+".");
+    public void loginPou(String correo, String password) throws CorreoNoExisteException, PasswordIncorrectaException {
+        logger.info("Se quiere hacer login con el correo " + correo + " y la contraseña " + password + ".");
         boolean mailExiste = false;
         boolean contraCorrecta = false;
         String pouId = null;
         List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
-        for (int i = 0; i<listaPous.size(); i++) {
+        for (int i = 0; i < listaPous.size(); i++) {
             if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
                 mailExiste = true;
                 if (Objects.equals(listaPous.get(i).getCredencialesPou().getPasswordPou(), password)) {
@@ -82,14 +82,14 @@ public class PouGameManagerImpl implements PouGameManager {
                 break;
             }
         }
-        if (!mailExiste){
-            logger.warn("No hay ningún Pou registrado con el correo "+correo+".");
+        if (!mailExiste) {
+            logger.warn("No hay ningún Pou registrado con el correo " + correo + ".");
             throw new CorreoNoExisteException();
         } else if (!contraCorrecta) {
-            logger.warn("La contraseña introducida, "+correo+", no es la correcta para este correo.");
+            logger.warn("La contraseña introducida, " + correo + ", no es la correcta para este correo.");
             throw new PasswordIncorrectaException();
         } else {
-            logger.info("Se ha hecho correctamente el login en el Pou con ID "+pouId+".");
+            logger.info("Se ha hecho correctamente el login en el Pou con ID " + pouId + ".");
         }
     }
 
@@ -115,56 +115,76 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
-        return null;
+        logger.info("Se quiere obtener el Pou que se identifica con el id " + pouId + ".");
+        Pou pouEncontrado = new Pou();
+        if (this.pousGame.containsKey(pouId) == true) {
+            logger.info("El Pou si que existe. Vamos a realizar una búsqueda para encontrarlo.");
+            List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+            for (int i = 0; i < listaPous.size(); i++) {
+                if (Objects.equals(listaPous.get(i).getPouId(), pouId)) {
+                    pouEncontrado = listaPous.get(i);
+                    logger.info("Se ha encontrado el Pou con id " + pouId + ".");
+                }
+            }
+        } else {
+            logger.info("El Pou con id " + pouId + " no existe.");
+            throw new PouIDNoExisteException();
+        }
+        return pouEncontrado;
     }
 
     // OPERACIÓN 7: AÑADIR OBJETOS A LA TIENDA
 
     @Override
-    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException{
-        logger.info("Se quiere añadir un ObjetoTienda con ID "+articuloId+".");
+    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException {
+        logger.info("Se quiere añadir un ObjetoTienda con ID " + articuloId + ".");
         ObjetoTienda nuevoObjetoTienda = new ObjetoTienda(articuloId, nombreArticulo, precioArticulo, tipoArticulo, recargaHambre, recargaSalud, recargaDiversion, recargaSueno);
-        if (this.objetosTienda.containsKey(articuloId)){
-            logger.warn("La ID del articulo "+articuloId+" ya existe.");
+        if (this.objetosTienda.containsKey(articuloId)) {
+            logger.warn("La ID del articulo " + articuloId + " ya existe.");
             throw new ObjetoTiendaYaExisteException();
-        }else {
+        } else {
             this.objetosTienda.put(articuloId, nuevoObjetoTienda);
-            logger.info("Pou creado con ID "+articuloId+".");
+            logger.info("Pou creado con ID " + articuloId + ".");
         }
     }
 
     // OPERACIÓN 8: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
 
     @Override
-    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException{
+    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException {
         return null;
     }
+
 
     // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA
 
     @Override
-    public List<ObjetoTienda> obtenerComidasTienda(){
-        return null;
+    public List<ObjetoTienda> obtenerComidasTienda() {
+        logger.info("Se quiere obtener las comidas de la tienda ordenadas por precio creciente");
+        List<ObjetoTienda> listaComidas = this.listaObjetosTipo("Comida");
+        int num = listaComidas.size();
+        logger.info("Hay " + num + " comidas en la tienda");
+        return listaComidas;
     }
 
     // OPERACIÓN 10: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DE LA TIENDA
 
     @Override
-    public List<ObjetoTienda> obtenerBebidasTienda(){
+    public List<ObjetoTienda> obtenerBebidasTienda() {
         return null;
     }
 
     // OPERACIÓN 11: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DE LA TIENDA
 
     @Override
-    public List<ObjetoTienda> obtenerPocionesTienda(){
+    public List<ObjetoTienda> obtenerPocionesTienda() {
         return null;
     }
 
     // OPERACIÓN 12: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS ROPAS DE LA TIENDA
 
     @Override
-    public List<ObjetoTienda> obtenerRopasTienda(){
+    public List<ObjetoTienda> obtenerRopasTienda() {
         return null;
     }
 
@@ -178,28 +198,28 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
 
     @Override
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
 
     @Override
-    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
         return null;
     }
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
 
     @Override
-    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
     // OPERACIÓN 17: POU MODIFICA SU PANTALON (OUTFIT)
 
     @Override
-    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
@@ -213,63 +233,63 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 19: POU MODIFICA SUS GAFAS (OUTFIT)
 
     @Override
-    public void pouCambiaGafas(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public void pouCambiaGafas(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
     // OPERACIÓN 20: POU MODIFICA SU NIVEL DE HAMBRE
 
     @Override
-    public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+    public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
 
     }
 
     // OPERACIÓN 21: POU MODIFICA SU NIVEL DE SALUD
 
     @Override
-    public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+    public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
 
     }
 
     // OPERACIÓN 22: POU MODIFICA SU NIVEL DE DIVERSION
 
     @Override
-    public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+    public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
 
     }
 
     // OPERACIÓN 23: POU MODIFICA SU NIVEL DE SUEÑO
 
     @Override
-    public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+    public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
 
     }
 
     // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerComidasArmario(){
+    public List<ObjetoTienda> obtenerComidasArmario() {
         return null;
     }
 
     // OPERACIÓN 25: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerBebidasArmario(){
+    public List<ObjetoTienda> obtenerBebidasArmario() {
         return null;
     }
 
     // OPERACIÓN 26: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerPocionesArmario(){
+    public List<ObjetoTienda> obtenerPocionesArmario() {
         return null;
     }
 
     // OPERACIÓN 27: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerRopaArmario(){
+    public List<ObjetoTienda> obtenerRopaArmario() {
         return null;
     }
 
@@ -282,20 +302,24 @@ public class PouGameManagerImpl implements PouGameManager {
 
     // OPERACIÓN 29: OBTENER EL NÚMERO DE ARTÍCULOS QUE HAY EN LA TIENDA.
 
-    public Integer dameNumArticulosTienda(){
+    public Integer dameNumArticulosTienda() {
         return this.objetosTienda.size();
     }
 
-
-
-
-
-
-
-
-
-
-
+    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO QUE SE PIDE.
+    @Override
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+        logger.info("Se quiere obtener una lista de objetos de tipo " + tipoArticulo + ".");
+        List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+        List<ObjetoTienda> listaTipo = new ArrayList<>();
+        for (int i = 0; i < this.objetosTienda.size(); i++) {
+            if (Objects.equals(listaObjetosTienda.get(i).getTipoArticulo(), tipoArticulo)) {
+                listaTipo.add(listaObjetosTienda.get(i));
+            }
+        }
+        listaTipo.sort(Comparator.comparingDouble(ObjetoTienda::getPrecioArticulo));
+        return listaTipo;
+    }
 
 
     // ----------------------------------------------------------------------------------------------------
