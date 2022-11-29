@@ -18,7 +18,7 @@ public class PouGameImplTest {
     PouGameManager jvm;
 
     @Before
-    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
+    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = new PouGameManagerImpl();
 
         this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
@@ -27,6 +27,9 @@ public class PouGameImplTest {
 
         this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
         this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
+
+        this.jvm.crearSala("marcmmonfort","S001","cocina");
+        this.jvm.crearSala("marcmmonfort","S002","dormitorio");
     }
 
     @After
@@ -73,9 +76,6 @@ public class PouGameImplTest {
         Assert.assertEquals("B001",test.getArticuloId());
     }
 }
-
-
-
 
     /*
 

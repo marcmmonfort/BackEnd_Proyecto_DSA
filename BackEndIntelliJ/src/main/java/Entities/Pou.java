@@ -88,4 +88,12 @@ public class Pou {
     public void setArmarioPou(Armario armarioPou) {
         this.armarioPou = armarioPou;
     }
+
+    public Map<String, Sala> getSalasPou() {
+        return salasPou;
+    }
+
+    public void setSalasPou(Map<String, Sala> salasPou) {
+        this.salasPou = salasPou;
+    }
 }
