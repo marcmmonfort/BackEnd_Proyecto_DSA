@@ -115,7 +115,7 @@ public class PouGameManagerImpl implements PouGameManager {
         logger.info("Se quiere obtener el Pou que se identifica con el id "+pouId+".");
         Pou pouEncontrado = new Pou();
         if (this.pousGame.containsKey(pouId)==true){
-            logger.info("El Pou si que existe. Vamos a realizar una búsqueda para encontrarlo.");
+            logger.info("El Pou sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
             List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
             for (int i = 0; i<listaPous.size(); i++){
                 if(Objects.equals(listaPous.get(i).getPouId(), pouId)){
@@ -150,7 +150,23 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException{
-        return null;
+        logger.info("Se quiere obtener el objeto de la tienda que se identifica con el id "+articuloId+".");
+        ObjetoTienda objetoTiendaEncontrado = new ObjetoTienda();
+        if (this.objetosTienda.containsKey(articuloId)==true){
+            logger.info("El objeto con id "+articuloId+" sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
+            List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+            for (int i = 0; i<listaObjetosTienda.size(); i++){
+                if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
+                    objetoTiendaEncontrado = listaObjetosTienda.get(i);
+                    logger.info("Se ha encontrado el objeto con id "+articuloId+".");
+                }
+            }
+        }
+        else{
+            logger.info("El objeto con id "+articuloId+" no existe.");
+            throw new ObjetoTiendaNoExisteException();
+        }
+        return objetoTiendaEncontrado;
     }
 
     // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA

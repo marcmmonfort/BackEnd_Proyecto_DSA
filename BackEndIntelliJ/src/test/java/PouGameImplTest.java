@@ -1,4 +1,6 @@
 import Entities.Exceptions.*;
+import Entities.ObjetoTienda;
+import Entities.Pou;
 import Managers.*;
 
 import org.junit.After;
@@ -16,12 +18,15 @@ public class PouGameImplTest {
     PouGameManager jvm;
 
     @Before
-    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException {
+    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
         this.jvm = new PouGameManagerImpl();
 
         this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
         this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
         this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
+
+        this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
+        this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
     }
 
     @After
@@ -55,7 +60,17 @@ public class PouGameImplTest {
         // CASO 1 = El Pou no existe. No se encuentra el Id.
         Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.obtenerPou("eloimoncho"));
         // CASO 2 = El Pou sí que existe.
-        this.jvm.obtenerPou("marcmmonfort");
+        Pou test = this.jvm.obtenerPou("marcmmonfort");
+        Assert.assertEquals("marcmmonfort",test.getPouId());
+    }
+
+    @Test
+    public void testObtenerObjetoTienda() throws ObjetoTiendaNoExisteException{
+        // CASO 1 = El objeto no existe. No se encuentra el Id.
+        Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.obtenerObjetoTienda("A001"));
+        // CASO 2 = El objeto sí que existe.
+        ObjetoTienda test = this.jvm.obtenerObjetoTienda("B001");
+        Assert.assertEquals("B001",test.getArticuloId());
     }
 }
 
