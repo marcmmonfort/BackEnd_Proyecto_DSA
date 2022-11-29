@@ -20,7 +20,8 @@ public class PouGameImplTest {
     PouGameManager jvm;
 
     @Before
-    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
+
+    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = new PouGameManagerImpl();
 
         this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
@@ -29,6 +30,10 @@ public class PouGameImplTest {
 
         this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
         this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+
+        this.jvm.crearSala("marcmmonfort","S001","cocina");
+        this.jvm.crearSala("marcmmonfort","S002","dormitorio");
+
     }
 
     @After
@@ -94,9 +99,17 @@ public class PouGameImplTest {
 
 
     
+
+
+    @Test
+    public void testObtenerObjetoTienda() throws ObjetoTiendaNoExisteException{
+        // CASO 1 = El objeto no existe. No se encuentra el Id.
+        Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.obtenerObjetoTienda("A001"));
+        // CASO 2 = El objeto sí que existe.
+        ObjetoTienda test = this.jvm.obtenerObjetoTienda("C001");
+        Assert.assertEquals("C001",test.getArticuloId());
+    }
 }
-
-
 
     /*
 

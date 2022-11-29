@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 public class PouGameManagerImpl implements PouGameManager {
 
-    Map<String, Pou> pousGame; // Hashmap on  todos los pous registrados. ---> KEY = "pouId" (String)
+    Map<String, Pou> pousGame; // Hashmap con  todos los pous registrados. ---> KEY = "pouId" (String)
     Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
 
     private static PouGameManager instance;
@@ -119,14 +119,18 @@ public class PouGameManagerImpl implements PouGameManager {
         Pou pouEncontrado = new Pou();
         if (this.pousGame.containsKey(pouId) == true) {
             logger.info("El Pou si que existe. Vamos a realizar una búsqueda para encontrarlo.");
-            List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
-            for (int i = 0; i < listaPous.size(); i++) {
-                if (Objects.equals(listaPous.get(i).getPouId(), pouId)) {
-                    pouEncontrado = listaPous.get(i);
-                    logger.info("Se ha encontrado el Pou con id " + pouId + ".");
+            if (this.pousGame.containsKey(pouId)){
+                logger.info("El Pou sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
+                List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+                for (int i = 0; i < listaPous.size(); i++) {
+                    if (Objects.equals(listaPous.get(i).getPouId(), pouId)) {
+                        pouEncontrado = listaPous.get(i);
+                        logger.info("Se ha encontrado el Pou con id " + pouId + ".");
+                    }
                 }
             }
-        } else {
+        }
+        else {
             logger.info("El Pou con id " + pouId + " no existe.");
             throw new PouIDNoExisteException();
         }
@@ -151,10 +155,26 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 8: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
 
     @Override
-    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException {
-        return null;
-    }
 
+    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException {
+        logger.info("Se quiere obtener el objeto de la tienda que se identifica con el id "+articuloId+".");
+        ObjetoTienda objetoTiendaEncontrado = new ObjetoTienda();
+        if (this.objetosTienda.containsKey(articuloId)){
+            logger.info("El objeto con id "+articuloId+" sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
+            List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+            for (int i = 0; i<listaObjetosTienda.size(); i++){
+                if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
+                    objetoTiendaEncontrado = listaObjetosTienda.get(i);
+                    logger.info("Se ha encontrado el objeto con id "+articuloId+".");
+                }
+            }
+        }
+        else{
+            logger.info("El objeto con id "+articuloId+" no existe.");
+            throw new ObjetoTiendaNoExisteException();
+        }
+        return objetoTiendaEncontrado;
+    }
 
     // OPERACIÓN 9: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DE LA TIENDA
 
@@ -191,8 +211,17 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
 
     @Override
-    public void crearSala(String pouId, String salaId, String nombreSala) throws SalaYaExisteException {
-
+    public void crearSala(String pouId, String salaId, String nombreSala) throws SalaYaExisteException, PouIDNoExisteException {
+        logger.info("Se quiere crear una sala con ID "+salaId+".");
+        Pou miPou = this.obtenerPou(pouId);
+        Sala nuevaSala = new Sala(salaId, nombreSala);
+        if (miPou.getSalasPou().containsKey(salaId)){
+            logger.info("La sala con ID "+salaId+" ya existe para el Pou con ID "+pouId+".");
+            throw new SalaYaExisteException();
+        }
+        else{
+            miPou.getSalasPou().put(salaId, nuevaSala);
+            }
     }
 
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
