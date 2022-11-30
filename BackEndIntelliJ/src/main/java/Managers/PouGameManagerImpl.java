@@ -191,21 +191,33 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public List<ObjetoTienda> obtenerBebidasTienda() {
-        return null;
+        logger.info("Se quiere obtener las bebidas de la tienda ordenadas por precio creciente");
+        List<ObjetoTienda> listaBebidas = this.listaObjetosTipo("Bebida");
+        int num = listaBebidas.size();
+        logger.info("Hay " + num + " bebidas en la tienda");
+        return listaBebidas;
     }
 
     // OPERACIÓN 11: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerPocionesTienda() {
-        return null;
+        logger.info("Se quiere obtener las pociones de la tienda ordenadas por precio creciente");
+        List<ObjetoTienda> listaPociones = this.listaObjetosTipo("Pocion");
+        int num = listaPociones.size();
+        logger.info("Hay " + num + " pociones en la tienda");
+        return listaPociones;
     }
 
     // OPERACIÓN 12: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS ROPAS DE LA TIENDA
 
     @Override
     public List<ObjetoTienda> obtenerRopasTienda() {
-        return null;
+        logger.info("Se quiere obtener las prendas de ropa de la tienda ordenadas por precio creciente");
+        List<ObjetoTienda> listaRopa = this.listaObjetosTipo("Ropa");
+        int num = listaRopa.size();
+        logger.info("Hay " + num + " prendas de ropa en la tienda");
+        return listaRopa;
     }
 
     // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)

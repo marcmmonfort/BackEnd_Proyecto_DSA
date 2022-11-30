@@ -29,7 +29,11 @@ public class PouGameImplTest {
         this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
         this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
+        this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
+        this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
         this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+
+
 
         this.jvm.crearSala("marcmmonfort","S001","cocina");
         this.jvm.crearSala("marcmmonfort","S002","dormitorio");
@@ -83,6 +87,15 @@ public class PouGameImplTest {
     }
 
     @Test
+    public void testObtenerObjetoTienda() throws ObjetoTiendaNoExisteException{
+        // CASO 1 = El objeto no existe. No se encuentra el Id.
+        Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.obtenerObjetoTienda("A001"));
+        // CASO 2 = El objeto sí que existe.
+        ObjetoTienda test = this.jvm.obtenerObjetoTienda("C001");
+        Assert.assertEquals("C001",test.getArticuloId());
+    }
+
+    @Test
     public void testObtenerComidasTienda() throws ObjetoTiendaYaExisteException {
         List<ObjetoTienda> listaComidas = this.jvm.obtenerComidasTienda();
         int numComidas = listaComidas.size();
@@ -97,17 +110,49 @@ public class PouGameImplTest {
         Assert.assertEquals(3, numComidas);
     }
 
-
-    
-
+    @Test
+    public void testObtenerBebidasTienda() throws ObjetoTiendaYaExisteException {
+        List<ObjetoTienda> listaBebidas = this.jvm.obtenerBebidasTienda();
+        int numBebidas = listaBebidas.size();
+        Assert.assertEquals(1, numBebidas);
+        this.jvm.addObjetosATienda("B002","Fanta",10,"Bebida",5,0,0,0 );
+        this.jvm.addObjetosATienda("B003","Cafe",6,"Bebida",3,0,0,0 );
+        listaBebidas = this.jvm.obtenerBebidasTienda();
+        numBebidas = listaBebidas.size();
+        Assert.assertEquals("B001",listaBebidas.get(0).getArticuloId());
+        Assert.assertEquals("B003",listaBebidas.get(1).getArticuloId());
+        Assert.assertEquals("B002",listaBebidas.get(2).getArticuloId());
+        Assert.assertEquals(3, numBebidas);
+    }
 
     @Test
-    public void testObtenerObjetoTienda() throws ObjetoTiendaNoExisteException{
-        // CASO 1 = El objeto no existe. No se encuentra el Id.
-        Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.obtenerObjetoTienda("A001"));
-        // CASO 2 = El objeto sí que existe.
-        ObjetoTienda test = this.jvm.obtenerObjetoTienda("C001");
-        Assert.assertEquals("C001",test.getArticuloId());
+    public void testObtenerPocionesTienda() throws ObjetoTiendaYaExisteException {
+        List<ObjetoTienda> listaPociones = this.jvm.obtenerPocionesTienda();
+        int numPociones = listaPociones.size();
+        Assert.assertEquals(1, numPociones);
+        this.jvm.addObjetosATienda("P002","Hambre",12,"Pocion",20,0,0,0);
+        this.jvm.addObjetosATienda("P003","Energia",11,"Pocion",0,0,0,20);
+        listaPociones = this.jvm.obtenerPocionesTienda();
+        numPociones = listaPociones.size();
+        Assert.assertEquals("P001",listaPociones.get(0).getArticuloId());
+        Assert.assertEquals("P003",listaPociones.get(1).getArticuloId());
+        Assert.assertEquals("P002",listaPociones.get(2).getArticuloId());
+        Assert.assertEquals(3, numPociones);
+    }
+
+    @Test
+    public void testObtenerRopasTienda() throws ObjetoTiendaYaExisteException {
+        List<ObjetoTienda> listaRopas = this.jvm.obtenerRopasTienda();
+        int numPociones = listaRopas.size();
+        Assert.assertEquals(1, numPociones);
+        this.jvm.addObjetosATienda("R002","Gorra",20,"Ropa",0,0,0,0);
+        this.jvm.addObjetosATienda("R003","Camiseta",15,"Ropa",0,0,0,0);
+        listaRopas = this.jvm.obtenerRopasTienda();
+        numPociones = listaRopas.size();
+        Assert.assertEquals("R003",listaRopas.get(0).getArticuloId());
+        Assert.assertEquals("R002",listaRopas.get(1).getArticuloId());
+        Assert.assertEquals("R001",listaRopas.get(2).getArticuloId());
+        Assert.assertEquals(3, numPociones);
     }
 }
 
