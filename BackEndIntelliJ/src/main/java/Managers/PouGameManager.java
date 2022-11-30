@@ -90,7 +90,7 @@ public interface PouGameManager {
     // EXCEPCIONES: (SALA YA EXISTE)
 
     public void crearSala(String pouId, String salaId, String nombreSala) throws
-            SalaYaExisteException;
+            SalaYaExisteException, PouIDNoExisteException;
 
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     // DEVUELVE: -
@@ -198,4 +198,11 @@ public interface PouGameManager {
     // EXCEPCIONES: -
 
     public Integer dameNumArticulosTienda();
+
+    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO QUE SE PIDE.
+    //DEVUELVE: LISTA
+    //EXCEPCIONES: -
+
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo);
+
 }

@@ -65,7 +65,7 @@ public class PouGameService {
     @POST
     @ApiOperation(value = "Login", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Login correcto"),
+            @ApiResponse(code = 200, message = "Login correcto"),
             @ApiResponse(code = 404, message = "El correo no exite"),
             @ApiResponse(code = 405, message = "Contraseña incorrecta")
     })
@@ -79,7 +79,7 @@ public class PouGameService {
         }catch (PasswordIncorrectaException e){
             return Response.status(405).build();
         }
-        return Response.status(201).build();
+        return Response.status(200).build();
     }
 
     // OPERACION 3: Obtener la lista de objetos de la tienda

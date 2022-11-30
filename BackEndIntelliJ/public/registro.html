@@ -52,7 +52,8 @@
                                 alert("Registro con exito!");
                             })
                             .fail(function(xhr, err){
-                                if(status === 405){
+                                console.log(xhr.status);
+                                if(xhr.status === 405){
                                     alert("¡Ya hay un usuario con ese ID!");
                                 }
                                 else{
@@ -68,7 +69,7 @@
         <div id="links">
             <h3>Selecciona la opción que deseas:</h3>
             <ul>
-                <li><a href="home.html">Index</a></li>
+                <li><a href="home.html">Home</a></li>
                 <li><a href="login.html">Login</a></li>
             </ul>
         </div>
