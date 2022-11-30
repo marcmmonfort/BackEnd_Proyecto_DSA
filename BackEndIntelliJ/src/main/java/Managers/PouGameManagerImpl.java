@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 public class PouGameManagerImpl implements PouGameManager {
 
-    Map<String, Pou> pousGame; // Hashmap on  todos los pous registrados. ---> KEY = "pouId" (String)
+    Map<String, Pou> pousGame; // Hashmap con todos los pous registrados. ---> KEY = "pouId" (String)
     Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
 
     private static PouGameManager instance;

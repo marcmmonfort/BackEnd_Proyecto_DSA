@@ -98,7 +98,6 @@ public class PouGameService {
         GenericEntity<List<ObjetoTienda>> listaObjetosTienda = new GenericEntity<List<ObjetoTienda>>(this.jvm.obtenerObjetosTienda()) {};
         return Response.status(201).entity(listaObjetosTienda).build();
     }
-
 /*
     // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
     // MÉTODO HTTP: GET.
