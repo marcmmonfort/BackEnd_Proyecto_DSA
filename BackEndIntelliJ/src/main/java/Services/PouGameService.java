@@ -90,13 +90,13 @@ public class PouGameService {
     @GET
     @ApiOperation(value = "Obtener la lista de objetos de la tienda", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!", response = ObjetoTienda.class, responseContainer="List"),
+            @ApiResponse(code = 200, message = "¡Hecho!", response = ObjetoTienda.class, responseContainer="List"),
     })
     @Path("/tienda/listaObjetos")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerObjetosTienda() {
         GenericEntity<List<ObjetoTienda>> listaObjetosTienda = new GenericEntity<List<ObjetoTienda>>(this.jvm.obtenerObjetosTienda()) {};
-        return Response.status(201).entity(listaObjetosTienda).build();
+        return Response.status(200).entity(listaObjetosTienda).build();
     }
 /*
     // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
