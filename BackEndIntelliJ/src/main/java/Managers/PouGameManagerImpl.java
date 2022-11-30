@@ -246,10 +246,19 @@ public class PouGameManagerImpl implements PouGameManager {
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
+    // Podríem fer aquí que
 
     @Override
     public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
-        return null;
+        logger.info("Se quiere que el Pou con id " + pouId + " consuma un artículo de la tienda con id "+ articuloId + ".");
+        Pou miPou = this.obtenerPou(pouId);
+        ObjetoTienda miObjeto = this.obtenerObjetoTienda(articuloId);
+        Armario miArmario = miPou.getArmarioPou();
+        if (miArmario.getBebidas().containsKey(articuloId)){
+            logger.info("El artículo es una bebida");
+
+        }
+        return miObjeto;
     }
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
@@ -284,28 +293,77 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
-
+        logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelHambre+" puntos.");
+        Pou miPou = this.obtenerPou(pouId);
+        Estado miEstado = miPou.getEstadoPou();
+        miEstado.setNivelHambrePou(miEstado.getNivelHambrePou()+varNivelHambre);
+        if(miEstado.getNivelHambrePou()>100){
+            miEstado.setNivelHambrePou(100);
+            throw new NivelPorEncimaDelMaximoException();
+        }
+        if(miEstado.getNivelHambrePou()<0){
+            miEstado.setNivelHambrePou(0);
+            throw new NivelPorDebajoDelMinimoException();
+        }
+        miPou.setEstadoPou(miEstado);
     }
 
     // OPERACIÓN 21: POU MODIFICA SU NIVEL DE SALUD
 
     @Override
     public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
-
+        logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelSalud+" puntos.");
+        Pou miPou = this.obtenerPou(pouId);
+        Estado miEstado = miPou.getEstadoPou();
+        miEstado.setNivelSaludPou(miEstado.getNivelSaludPou()+varNivelSalud);
+        if(miEstado.getNivelSaludPou()>100){
+            miEstado.setNivelSaludPou(100);
+            throw new NivelPorEncimaDelMaximoException();
+        }
+        if(miEstado.getNivelSaludPou()<0){
+            miEstado.setNivelSaludPou(0);
+            throw new NivelPorDebajoDelMinimoException();
+        }
+        miPou.setEstadoPou(miEstado);
     }
+
 
     // OPERACIÓN 22: POU MODIFICA SU NIVEL DE DIVERSION
 
     @Override
     public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
-
+        logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelDiversion+" puntos.");
+        Pou miPou = this.obtenerPou(pouId);
+        Estado miEstado = miPou.getEstadoPou();
+        miEstado.setNivelDiversionPou(miEstado.getNivelDiversionPou()+varNivelDiversion);
+        if(miEstado.getNivelDiversionPou()>100){
+            miEstado.setNivelDiversionPou(100);
+            throw new NivelPorEncimaDelMaximoException();
+        }
+        if(miEstado.getNivelDiversionPou()<0){
+            miEstado.setNivelDiversionPou(0);
+            throw new NivelPorDebajoDelMinimoException();
+        }
+        miPou.setEstadoPou(miEstado);
     }
 
     // OPERACIÓN 23: POU MODIFICA SU NIVEL DE SUEÑO
 
     @Override
     public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
-
+        logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelSueno+" puntos.");
+        Pou miPou = this.obtenerPou(pouId);
+        Estado miEstado = miPou.getEstadoPou();
+        miEstado.setNivelSuenoPou(miEstado.getNivelSuenoPou()+varNivelSueno);
+        if(miEstado.getNivelSuenoPou()>100){
+            miEstado.setNivelSuenoPou(100);
+            throw new NivelPorEncimaDelMaximoException();
+        }
+        if(miEstado.getNivelSuenoPou()<0){
+            miEstado.setNivelSuenoPou(0);
+            throw new NivelPorDebajoDelMinimoException();
+        }
+        miPou.setEstadoPou(miEstado);
     }
 
     // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
