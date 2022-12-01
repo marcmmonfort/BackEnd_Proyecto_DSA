@@ -1,6 +1,7 @@
 import Entities.Exceptions.*;
 import Entities.ObjetoTienda;
 import Entities.Pou;
+import Entities.ValueObjects.Estado;
 import Managers.*;
 
 import org.junit.After;
@@ -154,6 +155,89 @@ public class PouGameImplTest {
         Assert.assertEquals("R001",listaRopas.get(2).getArticuloId());
         Assert.assertEquals(3, numPociones);
     }
+
+    @Test
+    public void testPouModificaNivelHambre()throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+        //CASO 1 = ID del pou no existe
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouModificaNivelHambre("eloimoncho",20));
+        //CASO 2 = Nivel por debajo del mínimo
+        Assert.assertThrows(NivelPorDebajoDelMinimoException.class, () -> this.jvm.pouModificaNivelHambre("marcmmonfort",-120));
+        //CASO 3 = Nivel por encima del máximo
+        Assert.assertThrows(NivelPorEncimaDelMaximoException.class, () -> this.jvm.pouModificaNivelHambre("marcmmonfort",120));
+        //CASO 4 = Se resta el nivel de hambre
+        this.jvm.pouModificaNivelHambre("albaserra",-30);
+        Estado miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        int miNivel = miEstado.getNivelHambrePou();
+        Assert.assertEquals(70, miNivel);
+        //CASO 5 = Se suma el nivel de hambre
+        this.jvm.pouModificaNivelHambre("albaserra",5);
+        miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        miNivel = miEstado.getNivelHambrePou();
+        Assert.assertEquals(75, miNivel);
+    }
+
+    @Test
+    public void pouModificaNivelSalud()throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+        //CASO 1 = ID del pou no existe
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouModificaNivelSalud("eloimoncho",20));
+        //CASO 2 = Nivel por debajo del mínimo
+        Assert.assertThrows(NivelPorDebajoDelMinimoException.class, () -> this.jvm.pouModificaNivelSalud("marcmmonfort",-120));
+        //CASO 3 = Nivel por encima del máximo
+        Assert.assertThrows(NivelPorEncimaDelMaximoException.class, () -> this.jvm.pouModificaNivelSalud("marcmmonfort",120));
+        //CASO 4 = Se resta el nivel de hambre
+        this.jvm.pouModificaNivelSalud("albaserra",-30);
+        Estado miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        int miNivel = miEstado.getNivelSaludPou();
+        Assert.assertEquals(70, miNivel);
+        //CASO 5 = Se suma el nivel de hambre
+        this.jvm.pouModificaNivelSalud("albaserra",5);
+        miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        miNivel = miEstado.getNivelSaludPou();
+        Assert.assertEquals(75, miNivel);
+    }
+
+    @Test
+    public void pouModificaNivelDiversion()throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+        //CASO 1 = ID del pou no existe
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouModificaNivelDiversion("eloimoncho",20));
+        //CASO 2 = Nivel por debajo del mínimo
+        Assert.assertThrows(NivelPorDebajoDelMinimoException.class, () -> this.jvm.pouModificaNivelDiversion("marcmmonfort",-120));
+        //CASO 3 = Nivel por encima del máximo
+        Assert.assertThrows(NivelPorEncimaDelMaximoException.class, () -> this.jvm.pouModificaNivelDiversion("marcmmonfort",120));
+        //CASO 4 = Se resta el nivel de hambre
+        this.jvm.pouModificaNivelDiversion("albaserra",-40);
+        Estado miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        int miNivel = miEstado.getNivelDiversionPou();
+        Assert.assertEquals(60, miNivel);
+        //CASO 5 = Se suma el nivel de hambre
+        this.jvm.pouModificaNivelDiversion("albaserra",30);
+        miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        miNivel = miEstado.getNivelDiversionPou();
+        Assert.assertEquals(90, miNivel);
+    }
+
+    @Test
+    public void pouModificaNivelSueno()throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException{
+        //CASO 1 = ID del pou no existe
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouModificaNivelSueno("eloimoncho",20));
+        //CASO 2 = Nivel por debajo del mínimo
+        Assert.assertThrows(NivelPorDebajoDelMinimoException.class, () -> this.jvm.pouModificaNivelSueno("marcmmonfort",-120));
+        //CASO 3 = Nivel por encima del máximo
+        Assert.assertThrows(NivelPorEncimaDelMaximoException.class, () -> this.jvm.pouModificaNivelSueno("marcmmonfort",120));
+        //CASO 4 = Se resta el nivel de hambre
+        this.jvm.pouModificaNivelSueno("albaserra",-30);
+        Estado miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        int miNivel = miEstado.getNivelSuenoPou();
+        Assert.assertEquals(70, miNivel);
+        //CASO 5 = Se suma el nivel de hambre
+        this.jvm.pouModificaNivelSueno("albaserra",10);
+        miEstado = this.jvm.obtenerPou("albaserra").getEstadoPou();
+        miNivel = miEstado.getNivelSuenoPou();
+        Assert.assertEquals(80, miNivel);
+    }
+
+
+
 }
 
     /*

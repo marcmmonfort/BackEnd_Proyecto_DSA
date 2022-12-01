@@ -246,17 +246,38 @@ public class PouGameManagerImpl implements PouGameManager {
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
-    // Podríem fer aquí que
+    // Podríem fer aquí que aquí es cridi les funcions de modificar nivel i així és com que et prens la poció o lo que sigui
 
     @Override
-    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
         logger.info("Se quiere que el Pou con id " + pouId + " consuma un artículo de la tienda con id "+ articuloId + ".");
         Pou miPou = this.obtenerPou(pouId);
         ObjetoTienda miObjeto = this.obtenerObjetoTienda(articuloId);
         Armario miArmario = miPou.getArmarioPou();
+        if (miArmario.getComidas().containsKey(articuloId)){
+            logger.info("El artículo es una comida");
+            int varNivel = miObjeto.getRecargaHambre();
+            this.pouModificaNivelHambre(pouId, varNivel);
+            Map<String, ObjetoTienda> map = miArmario.getBebidas();
+            map.remove(miObjeto);
+            miArmario.setBebidas(map);
+            miPou.setArmarioPou(miArmario);
+        }
         if (miArmario.getBebidas().containsKey(articuloId)){
             logger.info("El artículo es una bebida");
+            int varNivel = miObjeto.getRecargaHambre();
+            this.pouModificaNivelHambre(pouId, varNivel);
+            Map<String, ObjetoTienda> map = miArmario.getBebidas();
+            map.remove(miObjeto);
+            miArmario.setBebidas(map);
+            miPou.setArmarioPou(miArmario);
+        }
+        if (miArmario.getPociones().containsKey(articuloId)){
+            logger.info("El artículo es una pocion");
 
+        }
+        if (miArmario.getRopa().containsKey(articuloId)){
+            logger.info("El artículo es una prenda de ropa");
         }
         return miObjeto;
     }
@@ -305,7 +326,9 @@ public class PouGameManagerImpl implements PouGameManager {
             miEstado.setNivelHambrePou(0);
             throw new NivelPorDebajoDelMinimoException();
         }
+
         miPou.setEstadoPou(miEstado);
+        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelHambrePou()+" nivel de hambre.");
     }
 
     // OPERACIÓN 21: POU MODIFICA SU NIVEL DE SALUD
@@ -325,6 +348,7 @@ public class PouGameManagerImpl implements PouGameManager {
             throw new NivelPorDebajoDelMinimoException();
         }
         miPou.setEstadoPou(miEstado);
+        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelSaludPou()+" nivel de salud.");
     }
 
 
@@ -345,6 +369,7 @@ public class PouGameManagerImpl implements PouGameManager {
             throw new NivelPorDebajoDelMinimoException();
         }
         miPou.setEstadoPou(miEstado);
+        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelDiversionPou()+" nivel de diversión.");
     }
 
     // OPERACIÓN 23: POU MODIFICA SU NIVEL DE SUEÑO
@@ -364,6 +389,7 @@ public class PouGameManagerImpl implements PouGameManager {
             throw new NivelPorDebajoDelMinimoException();
         }
         miPou.setEstadoPou(miEstado);
+        logger.info("El pou con id "+pouId+" tiene "+varNivelSueno+" nivel de sueño.");
     }
 
     // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO

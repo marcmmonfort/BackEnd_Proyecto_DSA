@@ -104,7 +104,7 @@ public interface PouGameManager {
     // EXCEPCIONES: (ARTICULO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
 
     public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws
-            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+            ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
     // DEVUELVE: -
