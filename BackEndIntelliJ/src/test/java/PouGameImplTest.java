@@ -33,9 +33,7 @@ public class PouGameImplTest {
         this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
         this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
         this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
-
-
-
+        
         this.jvm.crearSala("marcmmonfort","S001","cocina");
         this.jvm.crearSala("marcmmonfort","S002","dormitorio");
 
