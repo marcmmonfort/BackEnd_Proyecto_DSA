@@ -119,7 +119,7 @@ public class PouGameManagerImpl implements PouGameManager {
     public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
         logger.info("Se quiere obtener el Pou que se identifica con el id " + pouId + ".");
         Pou pouEncontrado = new Pou();
-        if (this.pousGame.containsKey(pouId) == true) {
+        if (this.pousGame.containsKey(pouId)) {
             logger.info("El Pou si que existe. Vamos a realizar una búsqueda para encontrarlo.");
             if (this.pousGame.containsKey(pouId)){
                 logger.info("El Pou sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
@@ -164,10 +164,10 @@ public class PouGameManagerImpl implements PouGameManager {
         if (this.objetosTienda.containsKey(articuloId)){
             logger.info("El objeto con id "+articuloId+" sí que existe. Vamos a realizar una búsqueda para encontrarlo.");
             List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
-            for (int i = 0; i<listaObjetosTienda.size(); i++){
-                if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
-                    objetoTiendaEncontrado = listaObjetosTienda.get(i);
-                    logger.info("Se ha encontrado el objeto con id "+articuloId+".");
+            for (ObjetoTienda objetoTienda : listaObjetosTienda) {
+                if (Objects.equals(objetoTienda.getArticuloId(), articuloId)) {
+                    objetoTiendaEncontrado = objetoTienda;
+                    logger.info("Se ha encontrado el objeto con id " + articuloId + ".");
                 }
             }
         }

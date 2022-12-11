@@ -38,17 +38,15 @@
 
         // Send a request
         console.log("Se envía la petición");
-        //var url='http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
-        var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
+        var url='http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
+        //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
         xhttp.open("GET",url, true);
         xhttp.send();
       }
     </script>
 
     <script>
-      $(document).ready(function() {
-        $("#btn").click(GetListaObjectosTienda)
-      });
+      $(document).ready(GetListaObjectosTienda);
     </script>
 
   </head>
@@ -57,11 +55,11 @@
       <h1>Tienda de productos para tu POU</h1>
     </header>
     <div id="buscador">
-      <label for="btn">Clicka al boton para obtener la lista de objetos de la tienda:</label><br>
-      <input type="button" id="btn" value="Buscar"><br>
+      <label for="btn">Clicka al boton para realizar la compra:</label><br>
+      <input type="button" id="btn" value="Comprar"><br>
       <li><a href="home.html" type="button">Home</a></li>
     </div>
-    <div id="repositorios">
+    <div id="tienda">
       <table id="tabla_general">
         <thead>
         <tr>
