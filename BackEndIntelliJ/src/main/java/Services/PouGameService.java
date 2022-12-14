@@ -40,7 +40,7 @@ public class PouGameService {
     @POST
     @ApiOperation(value = "Registro", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Juego creado satisfactoriamente"),
+            @ApiResponse(code = 200, message = "Juego creado satisfactoriamente"),
             @ApiResponse(code = 404, message = "Ya existe el correo"),
             @ApiResponse(code = 405, message = "Ya existe el PouID")
     })
@@ -97,6 +97,38 @@ public class PouGameService {
     public Response obtenerObjetosTienda() {
         GenericEntity<List<ObjetoTienda>> listaObjetosTienda = new GenericEntity<List<ObjetoTienda>>(this.jvm.obtenerObjetosTienda()) {};
         return Response.status(200).entity(listaObjetosTienda).build();
+    }
+
+    // OPERACION 3: Obtener un Pou
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public Pou obtenerPou(String pouId) throws PouIDNoExisteException;
+    // EXCEPCIONES:-
+    @GET
+    @ApiOperation(value = "Obtener un Pou", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "¡Hecho!", response = Pou.class),
+    })
+    @Path("/perfil/pou_id")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPou(String id) throws PouIDNoExisteException {
+        GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPou(id)) {};
+        return Response.status(200).entity(miPou).build();
+    }
+
+    // OPERACION 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public Pou obtenerPouByCredentials(Credenciales credenciales);
+    // EXCEPCIONES: -
+    @POST
+    @ApiOperation(value = "Obtener un Pou", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "¡Hecho!", response = Pou.class)
+    })
+    @Path("/perfil/pou")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response obtenerPouByCredentials(Credenciales credenciales){
+        GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPouByCredentials(credenciales)) {};
+        return Response.status(200).entity(miPou).build();
     }
 /*
     // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.

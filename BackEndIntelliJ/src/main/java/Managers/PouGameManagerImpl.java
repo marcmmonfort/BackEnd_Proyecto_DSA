@@ -241,7 +241,9 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
 
     @Override
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+
 
     }
 
@@ -447,4 +449,25 @@ public class PouGameManagerImpl implements PouGameManager {
         listaTipo.sort(Comparator.comparingDouble(ObjetoTienda::getPrecioArticulo));
         return listaTipo;
     }
+
+    //OPERACIÓN 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    @Override
+    public Pou obtenerPouByCredentials(Credenciales credenciales) {
+        logger.info("Se quiere obtener el pou que tenga el correo" + credenciales.getCorreoPou() + " y la contraseña " + credenciales.getPasswordPou() + ".");
+        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        String pouId = "";
+        Pou miPou = new Pou();
+        for (Pou pous : listaPous) {
+            if (Objects.equals(pous.getCredencialesPou().getCorreoPou(), credenciales.getCorreoPou())) {
+                if (Objects.equals(pous.getCredencialesPou().getPasswordPou(), credenciales.getPasswordPou())) {
+                    pouId = pous.getPouId();
+                    miPou = pous;
+                }
+                break;
+            }
+        }
+        logger.info("La ID del Pou encontrado es" + pouId + ".");
+        return miPou;
+    }
+
 }

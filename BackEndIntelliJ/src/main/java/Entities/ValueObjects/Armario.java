@@ -27,7 +27,6 @@ public class Armario {
 
     // GETTER Y SETTERS
 
-
     public Map<String, ObjetoTienda> getComidas() {
         return comidas;
     }

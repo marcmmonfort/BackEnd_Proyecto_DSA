@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="css/estilo.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="funciones.js"></script>
     </head>
     <body>
         <h1>Las aventuras de Pou</h1>
@@ -17,7 +18,7 @@
                     <input type="text" id="login_email" placeholder="Mail">
                 </div>
                 <div>
-                    <input type="text" id="login_password" placeholder="Password">
+                    <input type="password" id="login_password" placeholder="Password">
                 </div>
             </div>
             <div>
@@ -27,41 +28,9 @@
                 <h3>Selecciona la opción que deseas:</h3>
                 <ul>
                     <li><a href="registro.html">Registro</a></li>
-                    <li><a href="home.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                 </ul>
             </div>
-            <script>
-                function login() {
-                    var email = $('#login_email').val();
-                    var password = $('#login_password').val();
-
-                    if (email === "" || password === "")
-                        alert("Asegurate de que no hayas dejado ningun textbox en blanco");
-                    else{
-                        $.post({
-                            url: '/dsaApp/pougame/pou/login',
-                            data: JSON.stringify({"correoPou": email, "passwordPou": password}),
-                            contentType: 'application/json; charset=utf-8'
-                        })
-                        .done(function(data, status){
-                            console.log(status);
-                            console.log(data);
-                            alert("Login con exito!");
-                            //window.location.href = "";
-                        })
-                        .fail(function(xhr, err){
-                            console.log(xhr.status);
-                            if(xhr.status === 405){
-                                alert("¡La contraseña introducida es incorrecta!");
-                            }
-                            else{
-                                alert("¡El correo introducido no existe, registrate!");
-                                window.location.href = "registro.html";
-                            }
-                        });
-                    }
-                }
-            </script>
         </div>
     </body>
 </html>

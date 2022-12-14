@@ -3,48 +3,13 @@
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estiloTienda.css">
     <meta charset="UTF-8">
     <title>Tienda</title>
     <style>
 
     </style>
-    <script>
-      function GetListaObjectosTienda(){
-        // Create an XMLHttpRequest object
-        const xhttp = new XMLHttpRequest();
-
-        // Define a callback function
-        xhttp.onload = function() {
-          // Here you can use the Data
-          console.log("Información recibida");
-          var datos=  JSON.parse(this.responseText);
-          console.log(datos);
-          $('#resultados').empty();
-          for (var i=0;i<datos.length;++i)
-          {
-            $("#resultados").append("<tr>"+
-                    "<td>"+datos[i].nombreArticulo+"</td>"+
-                    "<td>"+datos[i].articuloId+"</td>"+
-                    "<td>"+datos[i].precioArticulo+"</td>"+
-                    "<td>"+datos[i].tipoArticulo+"</td>"+
-                    "<td>"+datos[i].recargaHambre+"</td>"+
-                    "<td>"+datos[i].recargaSalud+"</td>"+
-                    "<td>"+datos[i].recargaDiversion+"</td>"+
-                    "<td>"+datos[i].recargaSueno+"</td>"+
-                    "</tr>");
-          }
-        }
-
-        // Send a request
-        console.log("Se envía la petición");
-        var url='http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
-        //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
-        xhttp.open("GET",url, true);
-        xhttp.send();
-      }
-    </script>
-
     <script>
       $(document).ready(GetListaObjectosTienda);
     </script>
@@ -55,9 +20,21 @@
       <h1>Tienda de productos para tu POU</h1>
     </header>
     <div id="buscador">
+      <h5>Porfavor, introduzca tu ID de usuario, la ID de un objecto y cantidad, en los siguientes textbox:</h5>
+      <div>
+        <div>
+          <input type="text" id="id_pou" placeholder="ID Pou">
+        </div>
+        <div>
+          <input type="text" id="id_compra" placeholder="ID Objecto">
+        </div>
+        <div>
+          <input type="text" id="cantidad_compra" placeholder="Cantidad">
+        </div>
+      </div>
       <label for="btn">Clicka al boton para realizar la compra:</label><br>
-      <input type="button" id="btn" value="Comprar"><br>
-      <li><a href="home.html" type="button">Home</a></li>
+      <button type="button" id ="btn" onclick="comprarObjecto()">Comprar</button><br>
+      <li><a href="index.html" type="button">Home</a></li>
     </div>
     <div id="tienda">
       <table id="tabla_general">
