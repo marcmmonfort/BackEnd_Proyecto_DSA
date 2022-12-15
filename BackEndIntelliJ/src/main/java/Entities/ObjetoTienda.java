@@ -95,4 +95,8 @@ public class ObjetoTienda {
     public void setTipoArticulo(String tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
     }
+
+    public void aumentarCantidad(Integer cantidadObjeto){
+        this.cantidadObjeto=this.cantidadObjeto+cantidadObjeto;
+    }
 }

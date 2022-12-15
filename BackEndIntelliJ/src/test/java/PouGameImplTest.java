@@ -74,8 +74,6 @@ public class PouGameImplTest {
         Assert.assertEquals("marcmmonfort",test.getPouId());
     }
 
-
-
     @Test
     public void testObtenerPous() throws PouIDYaExisteException, CorreoYaExisteException {
         Map<String, Pou> pouMap = this.jvm.obtenerPous();
@@ -233,8 +231,10 @@ public class PouGameImplTest {
         miNivel = miEstado.getNivelSuenoPou();
         Assert.assertEquals(80, miNivel);
     }
+    @Test
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
-
+    }
 
 }
 

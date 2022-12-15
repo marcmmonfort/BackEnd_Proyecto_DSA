@@ -5,9 +5,12 @@ function registro() {
     var birthday = $('#registro_birthday').val();
     var email = $('#registro_email').val();
     var password = $('#registro_password').val();
+    var password2 = $('#registro_password2').val();
 
-    if (userid === "" || pouname === "" || birthday === "" || email === "" || password === "" ){
+    if (userid === "" || pouname === "" || birthday === "" || email === "" || password === "" || password2 === ""){
         alert("Asegurate de que no hayas dejado ningun textbox en blanco");
+    }else if ( password !== password2) {
+        alert("Las contraseñas que has introducido no son iguales");
     }else{
         $.post({
             url: '/dsaApp/pougame/pou/registro',
