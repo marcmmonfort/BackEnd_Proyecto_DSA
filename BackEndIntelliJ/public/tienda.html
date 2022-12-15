@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estiloTienda.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Tienda</title>
     <style>
@@ -13,14 +15,13 @@
     <script>
       $(document).ready(GetListaObjectosTienda);
     </script>
-
   </head>
   <body>
     <header id="titulo">
       <h1>Tienda de productos para tu POU</h1>
     </header>
     <div id="buscador">
-      <h5>Porfavor, introduzca tu ID de usuario, la ID de un objecto y cantidad, en los siguientes textbox:</h5>
+      <h5>Porfavor, introduzca tu ID de usuario, la ID de un objecto, cantidad y tipo, en los siguientes textbox:</h5>
       <div>
         <div>
           <input type="text" id="id_pou" placeholder="ID Pou">
@@ -31,9 +32,12 @@
         <div>
           <input type="text" id="cantidad_compra" placeholder="Cantidad">
         </div>
+        <div>
+          <input type="text" id="tipo_compra" placeholder="Tipo">
+        </div>
       </div>
       <label for="btn">Clicka al boton para realizar la compra:</label><br>
-      <button type="button" id ="btn" onclick="comprarObjecto()">Comprar</button><br>
+      <button type="button" id ="btn" onclick="comprarObjeto()">Comprar</button><br>
       <li><a href="index.html" type="button">Home</a></li>
     </div>
     <div id="tienda">

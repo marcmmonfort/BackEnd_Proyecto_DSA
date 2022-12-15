@@ -258,8 +258,7 @@ public class PouGameManagerImpl implements PouGameManager {
                         if(Objects.equals(tipoArticulo,"Comida")){
                             logger.info("El objeto es de tipo Comida.");
                             if(miPou.getArmarioPou().getComidas().containsKey(articuloId)){
-                                ObjetoTienda objetoComprado = miPou.getArmarioPou().getComidas().get(articuloId);
-                                objetoComprado.aumentarCantidad(cantidad);
+                                miPou.getArmarioPou().getComidas().get(articuloId).aumentarCantidad(cantidad);
                             }
                             else{
                                 miPou.getArmarioPou().getComidas().put(articuloId,objetoPorAnadir);
@@ -268,8 +267,7 @@ public class PouGameManagerImpl implements PouGameManager {
                         if(Objects.equals(tipoArticulo,"Bebida")){
                             logger.info("El objeto es de tipo Bebida.");
                             if(miPou.getArmarioPou().getBebidas().containsKey(articuloId)){
-                                ObjetoTienda objetoComprado = miPou.getArmarioPou().getBebidas().get(articuloId);
-                                objetoComprado.aumentarCantidad(cantidad);
+                                miPou.getArmarioPou().getBebidas().get(articuloId).aumentarCantidad(cantidad);
                             }
                             else{
                                 miPou.getArmarioPou().getBebidas().put(articuloId,objetoPorAnadir);
@@ -278,8 +276,7 @@ public class PouGameManagerImpl implements PouGameManager {
                         if(Objects.equals(tipoArticulo,"Pocion")){
                             logger.info("El objeto es de tipo Pocion.");
                             if(miPou.getArmarioPou().getPociones().containsKey(articuloId)){
-                                ObjetoTienda objetoComprado = miPou.getArmarioPou().getPociones().get(articuloId);
-                                objetoComprado.aumentarCantidad(cantidad);
+                                miPou.getArmarioPou().getPociones().get(articuloId).aumentarCantidad(cantidad);
                             }
                             else{
                                 miPou.getArmarioPou().getPociones().put(articuloId,objetoPorAnadir);
@@ -288,8 +285,7 @@ public class PouGameManagerImpl implements PouGameManager {
                         if(Objects.equals(tipoArticulo,"Ropa")){
                             logger.info("El objeto es de tipo Ropa.");
                             if(miPou.getArmarioPou().getRopa().containsKey(articuloId)){
-                                ObjetoTienda objetoComprado = miPou.getArmarioPou().getRopa().get(articuloId);
-                                objetoComprado.aumentarCantidad(cantidad);
+                                miPou.getArmarioPou().getRopa().get(articuloId).aumentarCantidad(cantidad);
                             }
                             else{
                                 miPou.getArmarioPou().getRopa().put(articuloId,objetoPorAnadir);
@@ -299,8 +295,9 @@ public class PouGameManagerImpl implements PouGameManager {
                 }
             }
         }
-        else
+        else{
             throw new ObjetoTiendaNoExisteException();
+        }
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))

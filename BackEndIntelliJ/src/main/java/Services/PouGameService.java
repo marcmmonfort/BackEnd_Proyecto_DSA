@@ -20,15 +20,20 @@ import java.util.*;
 public class PouGameService {
     private PouGameManager jvm;
 
-    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
+    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
             this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
             this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
             this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
-            this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
-            this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
+            this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
+            this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
+            this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
+            this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+
+            this.jvm.crearSala("marcmmonfort","S001","cocina");
+            this.jvm.crearSala("marcmmonfort","S002","dormitorio");
         }
     }
 
@@ -113,6 +118,30 @@ public class PouGameService {
     public Response obtenerPou(String id) throws PouIDNoExisteException {
         GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPou(id)) {};
         return Response.status(200).entity(miPou).build();
+    }
+
+    // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA: public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo);
+    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException
+
+    @PUT
+    @ApiOperation(value = "Comprar objeto", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 406, message = "El objeto introducido no existe")
+    })
+    @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comprarObjeto(@PathParam("idPou") String idPou,@PathParam("idCompra") String idCompra,@PathParam("cantidadCompra") String cantidadCompra,@PathParam("tipo") String tipo) {
+        try {
+            this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
+        }catch (ObjetoTiendaNoExisteException e) {
+            return Response.status(406).build();
+        } catch (PouIDNoExisteException e) {
+            return Response.status(404).build();
+        }
+        return Response.status(201).build();
     }
 
     // OPERACION 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
