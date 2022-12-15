@@ -123,33 +123,37 @@ function obtenerPouByCredentials(){
         .done(function(data, status){
             //console.log(status);
             console.log(data);
-            var datos =  JSON.stringify(data);
-            alert("Cargados los datos del Pou!");
-            console.log(datos);
+            console.log("gorraIdd: ",data.outfitPou.gorraId);
+            alert("** Cargados los datos del Pou!");
+
 
             $('#comidasArmarioTabla').empty();
             $('#bebidasArmarioTabla').empty();
             $('#pocionesArmarioTabla').empty();
             $('#ropaArmarioTabla').empty();
 
-            var pouId = datos.pouId;
-            console.log(pouId);
-            var nombrePou = datos.nombrePou;
+            //var pouId = data.pouId;
+            $('pouId').text(data.pouId);
+            console.log(data.pouId);
+
+            var nombrePou = data.nombrePou;
             console.log(nombrePou);
-            var nacimientoPou = datos.nacimientoPou;
-            var credencialesPou = datos.credencialesPou;
-            var estadoPou = datos.estadoPou;
+            var nacimientoPou = data.nacimientoPou;
+            var credencialesPou = data.credencialesPou;
+            var estadoPou = data.estadoPou;
             var dinertoPou = estadoPou.dineroPou;
             var nivelHambrePou = estadoPou.nivelHambrePou;
             var nivelSaludPou = estadoPou.nivelSaludPou;
             var nivelDiversionPou = estadoPou.nivelDiversionPou;
             var nivelSuenoPou = estadoPou.nivelSuenoPou;
-            var outfitPou = datos.outfitPou;
-            var armarioPou = datos.armarioPou;
-            var comidasArmario = armarioPou.hash.comidas;
-            var bebidasArmario = armarioPou.hash.bebidas;
-            var pocionesArmario = armarioPou.hash.pociones;
-            var ropaArmario = armarioPou.hash.ropa;
+            var outfitPou = data.outfitPou;
+            var armarioPou = data.armarioPou;
+            var comidasArmario = armarioPou['comidas'].entry;
+            var bebidasArmario = armarioPou['bebidas'];
+            var pocionesArmario = armarioPou['pociones'];
+            var ropaArmario = armarioPou['ropa'];
+
+            console.log("2222*********************************comidas", comidasArmario);
 
             document.getElementById("estadoHambre").innerText = nivelHambrePou;
             $("#estadoHambre").value = nivelHambrePou;
@@ -157,19 +161,36 @@ function obtenerPouByCredentials(){
             $("#estadoDiversion").value = nivelDiversionPou;
             $("#estadoSueño").value = nivelSuenoPou;
 
-            for (var i1=0;i<comidasArmario.length;++i)
+            console.log("3333*********************************comidas", comidasArmario);
+            console.log("222*********************************comidas.len", comidasArmario.length);
+
+            console.log("articuloID: ",comidasArmario[0].value.nombreArticulo);
+            console.log("articuloID: ",comidasArmario[0].value.articuloId);
+            console.log("articuloID: ",comidasArmario[0].value.precioArticulo);
+            console.log("articuloID: ",comidasArmario[0].value.tipoArticulo);
+            console.log("articuloID: ",comidasArmario[0].value.recargaHambre);
+            console.log("articuloID: ",comidasArmario[0].value.recargaSalud);
+
+            for (var i1=0; i1<comidasArmario.length;++i1)
             {
+                console.log("articuloID: ",comidasArmario[0].value.nombreArticulo);
+                console.log("articuloID: ",comidasArmario[0].value.articuloId);
+                console.log("articuloID: ",comidasArmario[0].value.precioArticulo);
+                console.log("articuloID: ",comidasArmario[0].value.tipoArticulo);
+                console.log("articuloID: ",comidasArmario[0].value.recargaHambre);
+                console.log("articuloID: ",comidasArmario[0].value.recargaSalud);
+
                 $("#comidasArmarioTabla").append("<tr>"+
-                    "<td>"+comidasArmario[i1].nombreArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].articuloId+"</td>"+
-                    "<td>"+comidasArmario[i1].precioArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].tipoArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].recargaHambre+"</td>"+
-                    "<td>"+comidasArmario[i1].recargaSalud+"</td>"+
+                    "<td>"+comidasArmario[i1].value.nombreArticulo+"</td>"+
+                    "<td>"+comidasArmario[i1].value.articuloId+"</td>"+
+                    "<td>"+comidasArmario[i1].value.precioArticulo+"</td>"+
+                    "<td>"+comidasArmario[i1].value.tipoArticulo+"</td>"+
+                    "<td>"+comidasArmario[i1].value.recargaHambre+"</td>"+
+                    "<td>"+comidasArmario[i1].value.recargaSalud+"</td>"+
                     "</tr>");
             }
 
-            for (var i2=0;i<bebidasArmario.length;++i)
+            for (var i2=0;i2<bebidasArmario.length;++i2)
             {
                 $("#bebidasArmarioTabla").append("<tr>"+
                     "<td>"+bebidasArmario[i2].nombreArticulo+"</td>"+
@@ -181,7 +202,7 @@ function obtenerPouByCredentials(){
                     "</tr>");
             }
 
-            for (var i3=0;i<pocionesArmario.length;++i)
+            for (var i3=0;i3<pocionesArmario.length;++i3)
             {
                 $("#pocionesArmarioTabla").append("<tr>"+
                     "<td>"+pocionesArmario[i3].nombreArticulo+"</td>"+
@@ -195,7 +216,7 @@ function obtenerPouByCredentials(){
                     "</tr>");
             }
 
-            for (var i4=0;i<ropaArmario.length;++i)
+            for (var i4=0;i4<ropaArmario.length;++i4)
             {
                 $("#ropaArmarioTabla").append("<tr>"+
                     "<td>"+ropaArmario[i4].nombreArticulo+"</td>"+
@@ -245,32 +266,4 @@ function comprarObjeto(){
 
 }
 
-function comprarObjeto2(){
 
-    var idPou1 = $('#id_pou').val();
-    console.log(idPou1);
-    var idCompra1 = $('#id_compra').val();
-    console.log(idCompra1);
-    var cantidadCompra1 = $('#cantidad_compra').val();
-    console.log(cantidadCompra1);
-    var tipo1 = $('#tipo_compra').val();
-    console.log(tipo1);
-    // Create an XMLHttpRequest object
-    const xhttp1 = new XMLHttpRequest();
-
-    // Define a callback function
-    xhttp1.onload = function() {
-        // Here you can use the Data
-        console.log("Información recibida");
-        var datos=  JSON.parse(this.responseText);
-        console.log(datos);
-
-    }
-
-    // Send a request
-    console.log("Se envía la petición");
-    var url='http://localhost:8080/dsaApp/pougame/tienda/comprar/' + idPou1 + '/' + idCompra1 + '/' + cantidadCompra1 + '/' + tipo1;
-    //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
-    xhttp.open("PUT",url, true);
-    xhttp.send();
-}
