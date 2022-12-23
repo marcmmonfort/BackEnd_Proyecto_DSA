@@ -4,15 +4,13 @@
   <head>
     <META HTTP-EQUIV='Pragma' CONTENT='no-cache'>
     <META HTTP-EQUIV='Cache-Control' CONTENT='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estilo.css">
     <meta charset="UTF-8">
     <title>Tienda</title>
-    <style>
-
-    </style>
 
     <script>
       $(document).ready(obtenerPouByCredentials);
@@ -21,17 +19,18 @@
   </head>
   <body>
     <header id="titulo">
-      <h1>1111 Perfil de tu Pou</h1>
+      <h1>Perfil de tu Pou</h1>
     </header>
     <div>
       <input type="text" id="pouId" placeholder="ID Pou">
     </div>
     <div id="buscador">
-      <label for="estadoHambre">FFFFF33333*****Estado del Pou:</label><br>
+      <label for="estadoHambre">Estado del Pou:</label><br>
       <progress id="estadoHambre" max="100" value="80"></progress><br>
       <progress id="estadoSalud" max="100" value="70"></progress><br>
       <progress id="estadoDiversion" max="100" value="50"></progress><br>
       <progress id="estadoSueño" max="100" value="50"></progress><br>
+
     </div>
     <div>
       <table id="tabla_comida">

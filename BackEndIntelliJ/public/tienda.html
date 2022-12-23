@@ -2,12 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
   <head>
+    <meta HTTP-EQUIV='Pragma' CONTENT='no-cache'>
+    <meta HTTP-EQUIV='Cache-Control' CONTENT='no-cache'>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estiloTienda.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
     <title>Tienda</title>
     <style>
 
@@ -18,45 +20,67 @@
   </head>
   <body>
     <header id="titulo">
-      <h1>Tienda de productos para tu POU</h1>
-    </header>
-    <div id="buscador">
-      <h5>Porfavor, introduzca tu ID de usuario, la ID de un objecto, cantidad y tipo, en los siguientes textbox:</h5>
-      <div>
-        <div>
-          <input type="text" id="id_pou" placeholder="ID Pou">
-        </div>
-        <div>
-          <input type="text" id="id_compra" placeholder="ID Objecto">
-        </div>
-        <div>
-          <input type="text" id="cantidad_compra" placeholder="Cantidad">
-        </div>
-        <div>
-          <input type="text" id="tipo_compra" placeholder="Tipo">
+      <div class="container__menu">
+        <div class="menu">
+          <input type="checkbox" id="check__menu">
+          <label for="check__menu" id="label__check">
+            <i class="fas fa-bars icon__menu"></i>
+          </label>
+          <nav>
+            <ul>
+              <li><a href="tienda.html">Tienda de productos para tu POU</a></li>
+              <li><a href="registro.html">REGISTER</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
-      <label for="btn">Clicka al boton para realizar la compra:</label><br>
-      <button type="button" id ="btn" onclick="comprarObjeto()">Comprar</button><br>
-      <li><a href="index.html" type="button">Home</a></li>
-    </div>
-    <div id="tienda">
-      <table id="tabla_general">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>ID</th>
-          <th>Precio (euros)</th>
-          <th>Tipo</th>
-          <th>Recarga hambre</th>
-          <th>Recarga salud</th>
-          <th>Recarga diversión</th>
-          <th>Recarga sueño</th>
-        </tr>
-        </thead>
-        <tbody id="resultados">
-        </tbody>
-      </table>
-    </div>
+    </header>
+    <main>
+      <article>
+        <h2>HOME</h2>
+        <p>La idea del videojuego surgió durante el año 2022 como una aplicación para cuidar una mascota virtual y personalizarla con accesorios tras la obtención de monedas en minijuegos</p>
+        <p>El juego consiste en poder llegar a un alto nivel, en donde se representa a Pou, una mascota con una característica similar a la de un huevo triangular, a quien se lo debe alimentar, cuidar y mantenerlo como si fuera una mascota de verdad. También hay minijuegos dentro de la aplicación y se pueden ganar monedas para comprar ropa, disfraces, mascotas, comida, decoraciones y modificaciones del entorno del juego jugando diferentes minijuegos o alcanzando los logros.</p>
+      </article>
+      <article>
+        <div id="buscador">
+          <h5>Porfavor, introduzca tu ID de usuario, la ID de un objecto, cantidad y tipo, en los siguientes textbox:</h5>
+          <div>
+            <div>
+              <input type="text" id="id_pou" placeholder="ID Pou">
+            </div>
+            <div>
+              <input type="text" id="id_compra" placeholder="ID Objecto">
+            </div>
+            <div>
+              <input type="text" id="cantidad_compra" placeholder="Cantidad">
+            </div>
+            <div>
+              <input type="text" id="tipo_compra" placeholder="Tipo">
+            </div>
+          </div>
+          <label for="btn">Clicka al boton para realizar la compra:</label><br>
+          <button type="button" id ="btn" onclick="comprarObjeto()">Comprar</button><br>
+          <li><a href="index.html" type="button">Home</a></li>
+        </div>
+        <div id="tienda">
+          <table id="tabla_general">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>ID</th>
+              <th>Precio (euros)</th>
+              <th>Tipo</th>
+              <th>Recarga hambre</th>
+              <th>Recarga salud</th>
+              <th>Recarga diversión</th>
+              <th>Recarga sueño</th>
+            </tr>
+            </thead>
+            <tbody id="resultados">
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </main>
   </body>
 </html>

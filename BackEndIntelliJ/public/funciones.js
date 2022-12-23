@@ -121,55 +121,36 @@ function obtenerPouByCredentials(){
         contentType: 'application/json; charset=utf-8',
     })
         .done(function(data, status){
-            //console.log(status);
-            console.log(data);
-            console.log("gorraIdd: ",data.outfitPou.gorraId);
-            alert("** Cargados los datos del Pou!");
-
 
             $('#comidasArmarioTabla').empty();
             $('#bebidasArmarioTabla').empty();
             $('#pocionesArmarioTabla').empty();
             $('#ropaArmarioTabla').empty();
 
-            //var pouId = data.pouId;
             $('pouId').text(data.pouId);
             console.log(data.pouId);
 
-            var nombrePou = data.nombrePou;
+            const nombrePou = data.nombrePou;
             console.log(nombrePou);
-            var nacimientoPou = data.nacimientoPou;
-            var credencialesPou = data.credencialesPou;
-            var estadoPou = data.estadoPou;
-            var dinertoPou = estadoPou.dineroPou;
-            var nivelHambrePou = estadoPou.nivelHambrePou;
-            var nivelSaludPou = estadoPou.nivelSaludPou;
-            var nivelDiversionPou = estadoPou.nivelDiversionPou;
-            var nivelSuenoPou = estadoPou.nivelSuenoPou;
-            var outfitPou = data.outfitPou;
-            var armarioPou = data.armarioPou;
-            var comidasArmario = armarioPou['comidas'].entry;
-            var bebidasArmario = armarioPou['bebidas'];
-            var pocionesArmario = armarioPou['pociones'];
-            var ropaArmario = armarioPou['ropa'];
+            const nacimientoPou = data.nacimientoPou;
+            const credencialesPou = data.credencialesPou;
+            const estadoPou = data.estadoPou;
+            const dinertoPou = estadoPou.dineroPou;
+            const nivelHambrePou = estadoPou.nivelHambrePou;
+            const nivelSaludPou = estadoPou.nivelSaludPou;
+            const nivelDiversionPou = estadoPou.nivelDiversionPou;
+            const nivelSuenoPou = estadoPou.nivelSuenoPou;
+            const outfitPou = data.outfitPou;
+            const armarioPou = data.armarioPou;
+            const comidasArmario = armarioPou['comidas'].entry;
+            const bebidasArmario = armarioPou['bebidas'];
+            const pocionesArmario = armarioPou['pociones'];
+            const ropaArmario = armarioPou['ropa'];
 
-            console.log("2222*********************************comidas", comidasArmario);
-
-            document.getElementById("estadoHambre").innerText = nivelHambrePou;
-            $("#estadoHambre").value = nivelHambrePou;
-            $("#estadoSalud").value = nivelSaludPou;
-            $("#estadoDiversion").value = nivelDiversionPou;
-            $("#estadoSueño").value = nivelSuenoPou;
-
-            console.log("3333*********************************comidas", comidasArmario);
-            console.log("222*********************************comidas.len", comidasArmario.length);
-
-            console.log("articuloID: ",comidasArmario[0].value.nombreArticulo);
-            console.log("articuloID: ",comidasArmario[0].value.articuloId);
-            console.log("articuloID: ",comidasArmario[0].value.precioArticulo);
-            console.log("articuloID: ",comidasArmario[0].value.tipoArticulo);
-            console.log("articuloID: ",comidasArmario[0].value.recargaHambre);
-            console.log("articuloID: ",comidasArmario[0].value.recargaSalud);
+            document.getElementById("estadoHambre").value = nivelHambrePou;
+            document.getElementById("estadoSalud").value = nivelSaludPou;
+            document.getElementById("estadoDiversion").value = nivelDiversionPou;
+            document.getElementById("estadoSueño").value = nivelSuenoPou;
 
             for (var i1=0; i1<comidasArmario.length;++i1)
             {
@@ -225,11 +206,12 @@ function obtenerPouByCredentials(){
                     "<td>"+ropaArmario[i4].tipoArticulo+"</td>"+
                     "</tr>");
             }
+            alert("¡Cargados los datos del Pou!");
         })
         .fail(function(xhr, err){
             console.log(xhr.status);
             if(xhr.status === 405){
-                alert("No funciona esta mierda");
+                alert("¡¡No funciona!!");
             }
         });
 
