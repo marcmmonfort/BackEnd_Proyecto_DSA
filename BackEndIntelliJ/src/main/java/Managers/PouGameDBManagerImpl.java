@@ -1,0 +1,359 @@
+package Managers;
+
+import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
+import Entities.ObjetoTienda;
+import Entities.Pou;
+import edu.upc.eetac.dsa.FactorySession;
+import edu.upc.eetac.dsa.Session;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+
+public class PouGameDBManagerImpl implements PouGameManager {
+
+    Session session;
+
+    Map<String, Pou> pousGame; // Hashmap con todos los pous registrados. ---> KEY = "pouId" (String)
+    List<ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
+
+    private static PouGameManager instance;
+    final static org.apache.log4j.Logger logger = Logger.getLogger(PouGameManagerImpl.class);
+
+    public static PouGameManager getInstance(){
+        if (instance==null) instance = new PouGameDBManagerImpl();
+        return instance;
+    }
+
+    public PouGameDBManagerImpl(){
+        this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/crud","eloim", "YES");
+        this.pousGame = new HashMap<>();
+        this.objetosTienda = new ArrayList<>();
+        this.pousGame = this.obtenerPous();
+        this.objetosTienda = this.obtenerObjetosTienda();
+    }
+
+    public int size() {
+        int ret = this.pousGame.size();
+        return ret;
+    }
+
+    @Override
+    public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws CorreoYaExisteException, PouIDYaExisteException {
+        Pou miPou = new Pou(pouId,nombrePou,nacimientoPou,correo, password);
+
+        for(Pou p:this.pousGame.values()){
+            if(Objects.equals(p.getCorreoPou(),correo)){
+                throw new CorreoYaExisteException();
+            }
+        }
+        this.session.save(miPou);
+        this.pousGame.put(pouId,miPou);
+        logger.info("El usuario pou "+ pouId + " se ha añadido correctamente");
+    }
+
+    @Override
+    public void loginPou(String correo, String password) throws CorreoNoExisteException, PasswordIncorrectaException {
+        List<Object> listaPous = this.session.findAll(Pou.class);
+        boolean mailExiste = false;
+        boolean contraCorrecta = false;
+        String pouId = null;
+        for(Object pou : listaPous){
+            Pou p = (Pou) pou;
+            if(Objects.equals(p.getCorreoPou(), correo)) {
+                mailExiste = true;
+                if (Objects.equals(p.getPasswordPou(), password)) {
+                    contraCorrecta = true;
+                    pouId = p.getPouId();
+                }
+            }
+        }
+        if (!mailExiste) {
+            logger.warn("No hay ningún Pou registrado con el correo " + correo + ".");
+            throw new CorreoNoExisteException();
+        } else if (!contraCorrecta) {
+            logger.warn("La contraseña introducida, " + password + ", no es la correcta para este correo.");
+            throw new PasswordIncorrectaException();
+        } else {
+            logger.info("Se ha hecho correctamente el login en el Pou con ID " + pouId + ".");
+        }
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerObjetosTienda() {
+        List<ObjetoTienda> list = this.session.findAll(ObjetoTienda.class);
+        return list;
+    }
+
+    @Override
+    public Map<String, Pou> obtenerPous() {
+        List<Object> usersList= this.session.findAll(Pou.class);
+        for(int i=0; i<usersList.size();i++) {
+            Pou pou = (Pou) usersList.get(i);
+            this.pousGame.put(pou.getPouId(), pou);
+        }
+        return pousGame;
+    }
+
+    @Override
+    public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
+        Pou p = (Pou) this.session.get(Pou.class, pouId);
+        return p;
+    }
+
+    @Override
+    public void addObjetosATienda(String articuloId, String nombreArticulo, Integer precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException {
+        ObjetoTienda o = new ObjetoTienda(articuloId,nombreArticulo,precioArticulo,tipoArticulo,recargaHambre,recargaSalud,recargaDiversion,recargaSueno);
+        this.objetosTienda.add(o);
+        this.session.save(o);
+
+    }
+
+    @Override
+    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException {
+        ObjetoTienda o = (ObjetoTienda) this.session.get(ObjetoTienda.class,articuloId);
+        return o;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerComidasTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerBebidasTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerPocionesTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerRopasTienda() {
+        return null;
+    }
+
+    @Override
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible {
+        return null;
+    }
+
+    @Override
+    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaGorra(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaGafas(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerComidasArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerBebidasArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerPocionesArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerRopaArmario() {
+        return null;
+    }
+
+    @Override
+    public void pouModificaDinero(String pouId, double varDinero) throws PouIDNoExisteException, PouNoTieneDineroSuficienteException {
+
+    }
+
+    @Override
+    public Integer dameNumArticulosTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+        return null;
+    }
+/*
+    @Override
+    public List<ObjetoTienda> obtenerObjetosTienda() {
+        return null;
+    }
+
+    @Override
+    public Map<String, Pou> obtenerPous() {
+        return null;
+    }
+
+    @Override
+    public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
+        return null;
+    }
+
+    @Override
+    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException {
+
+    }
+
+    @Override
+    public ObjetoTienda obtenerObjetoTienda(String articuloId) throws ObjetoTiendaNoExisteException {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerComidasTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerBebidasTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerPocionesTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerRopasTienda() {
+        return null;
+    }
+
+    @Override
+    public void crearSala(String pouId, String salaId, String nombreSala) throws SalaYaExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+        return null;
+    }
+
+    @Override
+    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaGorra(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouCambiaGafas(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+
+    }
+
+    @Override
+    public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerComidasArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerBebidasArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerPocionesArmario() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerRopaArmario() {
+        return null;
+    }
+
+    @Override
+    public void pouModificaDinero(String pouId, double varDinero) throws PouIDNoExisteException, PouNoTieneDineroSuficienteException {
+
+    }
+
+    @Override
+    public Integer dameNumArticulosTienda() {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+        return null;
+    }
+
+*/
+}

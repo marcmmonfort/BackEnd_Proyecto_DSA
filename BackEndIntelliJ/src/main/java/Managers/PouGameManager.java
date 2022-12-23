@@ -28,10 +28,6 @@ public interface PouGameManager {
 
     public void loginPou(String correo, String password) throws
             CorreoNoExisteException, PasswordIncorrectaException;
-
-    // OPERACIÓN 4: OBTENER TODOS LOS OBJETOS TIENDA
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
     public List<ObjetoTienda> obtenerObjetosTienda();
 
     // OPERACIÓN 5: OBTENER TODOS LOS POUS
@@ -51,7 +47,7 @@ public interface PouGameManager {
     // DEVUELVE: -
     // EXCEPCIONES: (EL ARTICULO YA EXISTE)
 
-    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws
+    public void addObjetosATienda(String articuloId, String nombreArticulo, Integer precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws
             ObjetoTiendaYaExisteException;
 
     // OPERACIÓN 8: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
@@ -85,13 +81,6 @@ public interface PouGameManager {
 
     public List<ObjetoTienda> obtenerRopasTienda();
 
-    // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
-    // DEVUELVE: -
-    // EXCEPCIONES: (SALA YA EXISTE)
-
-    public void crearSala(String pouId, String salaId, String nombreSala) throws
-            SalaYaExisteException, PouIDNoExisteException;
-
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     // DEVUELVE: -
     // EXCEPCIONES: (SALA NO EXISTE) / (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
@@ -103,8 +92,8 @@ public interface PouGameManager {
     // DEVUELVE: ObjetoTienda
     // EXCEPCIONES: (ARTICULO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
 
-    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws
-            ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
+    public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible;
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
     // DEVUELVE: -

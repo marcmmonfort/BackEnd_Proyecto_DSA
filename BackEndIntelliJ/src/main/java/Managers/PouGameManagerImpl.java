@@ -2,7 +2,6 @@ package Managers;
 
 import Entities.*;
 import Entities.Exceptions.*;
-import Entities.ValueObjects.*;
 
 import java.util.*;
 import org.apache.log4j.Logger;
@@ -13,6 +12,8 @@ public class PouGameManagerImpl implements PouGameManager {
     Map<String, Pou> pousGame; // Hashmap con todos los pous registrados. ---> KEY = "pouId" (String)
 
     Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
+
+    Map<String, ObjetoArmario> objetosArmario; // Lista con todos los elementos del armario. ---> KEY = "articuloId" (Integer)
 
     private static PouGameManager instance;
 
@@ -42,13 +43,12 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws CorreoYaExisteException, PouIDYaExisteException {
         logger.info("Se quiere registrar un Pou con ID " + pouId + ".");
-        Credenciales pouCredentials = new Credenciales(correo, password);
-        Pou nuevoPou = new Pou(pouId, nombrePou, nacimientoPou, pouCredentials);
+        Pou nuevoPou = new Pou(pouId, nombrePou, nacimientoPou, correo, password);
         // Recorremos los Pous registrados para ver si hay alguno con este correo.
         boolean mailYaExiste = false;
         List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
         for (int i = 0; i < listaPous.size(); i++) {
-            if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
+            if (Objects.equals(listaPous.get(i).getCorreoPou(), correo)) {
                 mailYaExiste = true;
                 break;
             }
@@ -75,9 +75,9 @@ public class PouGameManagerImpl implements PouGameManager {
         String pouId = null;
         List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
         for (int i = 0; i < listaPous.size(); i++) {
-            if (Objects.equals(listaPous.get(i).getCredencialesPou().getCorreoPou(), correo)) {
+            if (Objects.equals(listaPous.get(i).getCorreoPou(), correo)) {
                 mailExiste = true;
-                if (Objects.equals(listaPous.get(i).getCredencialesPou().getPasswordPou(), password)) {
+                if (Objects.equals(listaPous.get(i).getPasswordPou(), password)) {
                     contraCorrecta = true;
                     pouId = listaPous.get(i).getPouId();
                 }
@@ -142,7 +142,7 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 7: AÑADIR OBJETOS A LA TIENDA
 
     @Override
-    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException {
+    public void addObjetosATienda(String articuloId, String nombreArticulo, Integer precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws ObjetoTiendaYaExisteException {
         logger.info("Se quiere añadir un ObjetoTienda con ID " + articuloId + ".");
         ObjetoTienda nuevoObjetoTienda = new ObjetoTienda(articuloId, nombreArticulo, precioArticulo, tipoArticulo, recargaHambre, recargaSalud, recargaDiversion, recargaSueno);
         if (this.objetosTienda.containsKey(articuloId)) {
@@ -222,22 +222,6 @@ public class PouGameManagerImpl implements PouGameManager {
         return listaRopa;
     }
 
-    // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
-
-    @Override
-    public void crearSala(String pouId, String salaId, String nombreSala) throws SalaYaExisteException, PouIDNoExisteException {
-        logger.info("Se quiere crear una sala con ID "+salaId+".");
-        Pou miPou = this.obtenerPou(pouId);
-        Sala nuevaSala = new Sala(salaId, nombreSala);
-        if (miPou.getSalasPou().containsKey(salaId)){
-            logger.info("La sala con ID "+salaId+" ya existe para el Pou con ID "+pouId+".");
-            throw new SalaYaExisteException();
-        }
-        else{
-            miPou.getSalasPou().put(salaId, nuevaSala);
-            }
-    }
-
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
 
     @Override
@@ -249,43 +233,42 @@ public class PouGameManagerImpl implements PouGameManager {
     // Podríem fer aquí que aquí es cridi les funcions de modificar nivel i així és com que et prens la poció o lo que sigui
 
     @Override
-    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
-        logger.info("Se quiere que el Pou con id " + pouId + " consuma un artículo de la tienda con id "+ articuloId + ".");
+    public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws ObjetoArmarioNoDisponible, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
+        logger.info("Se quiere que el Pou con id " + pouId + " consuma un artículo de su armario con id "+ articuloId + ".");
         Pou miPou = this.obtenerPou(pouId);
-        ObjetoTienda miObjeto = this.obtenerObjetoTienda(articuloId);
-        Armario miArmario = miPou.getArmarioPou();
-        if (miArmario.getComidas().containsKey(articuloId)){
-            logger.info("El artículo es una comida");
-            int varNivel = miObjeto.getRecargaHambre();
-            this.pouModificaNivelHambre(pouId, varNivel);
-            Map<String, ObjetoTienda> map = miArmario.getBebidas();
-            map.remove(miObjeto);
-            miArmario.setBebidas(map);
-            miPou.setArmarioPou(miArmario);
+        ObjetoArmario objetoEncontrado = new ObjetoArmario();
+        ObjetoTienda objetoTienda = new ObjetoTienda();
+        List<ObjetoArmario> listaArmario = new ArrayList<>(this.objetosArmario.values());
+        for (int i = 0; i < listaArmario.size(); i++) {
+            if (Objects.equals(listaArmario.get(i).getIdProducto(), articuloId)) {
+                objetoEncontrado = listaArmario.get(i);
+                logger.info("Se ha encontrado el artículo con id " + articuloId + ".");
+                Integer cantidad = objetoEncontrado.getCantidad() - 1;
+                objetoEncontrado.setCantidad(cantidad);
+                if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Comida")) {
+                    logger.info("El artículo es una comida");
+                    int varNivel = objetoTienda.getRecargaHambre();
+                    this.pouModificaNivelHambre(pouId, varNivel);
+                } else if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Bebida")) {
+                    logger.info("El artículo es una bebida");
+                    int varNivel = objetoTienda.getRecargaHambre();
+                    this.pouModificaNivelHambre(pouId, varNivel);
+                } else if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Pocion")) {
+                    logger.info("El artículo es una poción");
+                    int varNivel = objetoTienda.getRecargaSalud();
+                    this.pouModificaNivelSalud(pouId, varNivel);
+                }
+            } else {
+                throw new ObjetoArmarioNoDisponible();
+            }
         }
-        if (miArmario.getBebidas().containsKey(articuloId)){
-            logger.info("El artículo es una bebida");
-            int varNivel = miObjeto.getRecargaHambre();
-            this.pouModificaNivelHambre(pouId, varNivel);
-            Map<String, ObjetoTienda> map = miArmario.getBebidas();
-            map.remove(miObjeto);
-            miArmario.setBebidas(map);
-            miPou.setArmarioPou(miArmario);
-        }
-        if (miArmario.getPociones().containsKey(articuloId)){
-            logger.info("El artículo es una pocion");
-
-        }
-        if (miArmario.getRopa().containsKey(articuloId)){
-            logger.info("El artículo es una prenda de ropa");
-        }
-        return miObjeto;
+        return objetoEncontrado;
     }
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
 
     @Override
-    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCambiaCamiseta(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
 
     }
 
@@ -316,19 +299,17 @@ public class PouGameManagerImpl implements PouGameManager {
     public void pouModificaNivelHambre(String pouId, Integer varNivelHambre) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
         logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelHambre+" puntos.");
         Pou miPou = this.obtenerPou(pouId);
-        Estado miEstado = miPou.getEstadoPou();
-        miEstado.setNivelHambrePou(miEstado.getNivelHambrePou()+varNivelHambre);
-        if(miEstado.getNivelHambrePou()>100){
-            miEstado.setNivelHambrePou(100);
+        miPou.setNivelHambrePou(miPou.getNivelHambrePou()+varNivelHambre);
+        if(miPou.getNivelHambrePou()>100){
+            miPou.setNivelHambrePou(100);
             throw new NivelPorEncimaDelMaximoException();
         }
-        if(miEstado.getNivelHambrePou()<0){
-            miEstado.setNivelHambrePou(0);
+        if(miPou.getNivelHambrePou()<0){
+            miPou.setNivelHambrePou(0);
             throw new NivelPorDebajoDelMinimoException();
         }
 
-        miPou.setEstadoPou(miEstado);
-        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelHambrePou()+" nivel de hambre.");
+        logger.info("El pou con id "+pouId+" tiene "+miPou.getNivelHambrePou()+" nivel de hambre.");
     }
 
     // OPERACIÓN 21: POU MODIFICA SU NIVEL DE SALUD
@@ -337,18 +318,16 @@ public class PouGameManagerImpl implements PouGameManager {
     public void pouModificaNivelSalud(String pouId, Integer varNivelSalud) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
         logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelSalud+" puntos.");
         Pou miPou = this.obtenerPou(pouId);
-        Estado miEstado = miPou.getEstadoPou();
-        miEstado.setNivelSaludPou(miEstado.getNivelSaludPou()+varNivelSalud);
-        if(miEstado.getNivelSaludPou()>100){
-            miEstado.setNivelSaludPou(100);
+        miPou.setNivelSaludPou(miPou.getNivelSaludPou()+varNivelSalud);
+        if(miPou.getNivelSaludPou()>100){
+            miPou.setNivelSaludPou(100);
             throw new NivelPorEncimaDelMaximoException();
         }
-        if(miEstado.getNivelSaludPou()<0){
-            miEstado.setNivelSaludPou(0);
+        if(miPou.getNivelSaludPou()<0){
+            miPou.setNivelSaludPou(0);
             throw new NivelPorDebajoDelMinimoException();
         }
-        miPou.setEstadoPou(miEstado);
-        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelSaludPou()+" nivel de salud.");
+        logger.info("El pou con id "+pouId+" tiene "+miPou.getNivelSaludPou()+" nivel de salud.");
     }
 
 
@@ -358,18 +337,16 @@ public class PouGameManagerImpl implements PouGameManager {
     public void pouModificaNivelDiversion(String pouId, Integer varNivelDiversion) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
         logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelDiversion+" puntos.");
         Pou miPou = this.obtenerPou(pouId);
-        Estado miEstado = miPou.getEstadoPou();
-        miEstado.setNivelDiversionPou(miEstado.getNivelDiversionPou()+varNivelDiversion);
-        if(miEstado.getNivelDiversionPou()>100){
-            miEstado.setNivelDiversionPou(100);
+        miPou.setNivelDiversionPou(miPou.getNivelDiversionPou()+varNivelDiversion);
+        if(miPou.getNivelDiversionPou()>100){
+            miPou.setNivelDiversionPou(100);
             throw new NivelPorEncimaDelMaximoException();
         }
-        if(miEstado.getNivelDiversionPou()<0){
-            miEstado.setNivelDiversionPou(0);
+        if(miPou.getNivelDiversionPou()<0){
+            miPou.setNivelDiversionPou(0);
             throw new NivelPorDebajoDelMinimoException();
         }
-        miPou.setEstadoPou(miEstado);
-        logger.info("El pou con id "+pouId+" tiene "+miEstado.getNivelDiversionPou()+" nivel de diversión.");
+        logger.info("El pou con id "+pouId+" tiene "+miPou.getNivelDiversionPou()+" nivel de diversión.");
     }
 
     // OPERACIÓN 23: POU MODIFICA SU NIVEL DE SUEÑO
@@ -378,17 +355,15 @@ public class PouGameManagerImpl implements PouGameManager {
     public void pouModificaNivelSueno(String pouId, Integer varNivelSueno) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException {
         logger.info("Se quiere que el Pou con id "+pouId+" modifique su nivel de hambre en " +varNivelSueno+" puntos.");
         Pou miPou = this.obtenerPou(pouId);
-        Estado miEstado = miPou.getEstadoPou();
-        miEstado.setNivelSuenoPou(miEstado.getNivelSuenoPou()+varNivelSueno);
-        if(miEstado.getNivelSuenoPou()>100){
-            miEstado.setNivelSuenoPou(100);
+        miPou.setNivelSuenoPou(miPou.getNivelSuenoPou()+varNivelSueno);
+        if(miPou.getNivelSuenoPou()>100){
+            miPou.setNivelSuenoPou(100);
             throw new NivelPorEncimaDelMaximoException();
         }
-        if(miEstado.getNivelSuenoPou()<0){
-            miEstado.setNivelSuenoPou(0);
+        if(miPou.getNivelSuenoPou()<0){
+            miPou.setNivelSuenoPou(0);
             throw new NivelPorDebajoDelMinimoException();
         }
-        miPou.setEstadoPou(miEstado);
         logger.info("El pou con id "+pouId+" tiene "+varNivelSueno+" nivel de sueño.");
     }
 

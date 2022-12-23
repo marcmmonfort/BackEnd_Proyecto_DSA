@@ -12,7 +12,7 @@ public class ObjetoTienda {
     Integer recargaSalud;
     Integer recargaDiversion;
     Integer recargaSueno;
-    Integer cantidadObjeto;
+
 
     // CONSTRUCTORES
 
@@ -27,7 +27,6 @@ public class ObjetoTienda {
         this.recargaSalud = recargaSalud;
         this.recargaDiversion = recargaDiversion;
         this.recargaSueno = recargaSueno;
-        this.cantidadObjeto = 0;
     }
 
     // GETTERS Y SETTERS

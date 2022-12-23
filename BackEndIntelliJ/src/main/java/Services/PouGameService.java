@@ -27,8 +27,8 @@ public class PouGameService {
             this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
             this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
-            this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
-            this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
+           // this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
+           // this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
         }
     }
 
@@ -87,7 +87,7 @@ public class PouGameService {
     // ESTRUCTURA: public List<ObjetoTienda> obtenerObjetosTienda();
     // EXCEPCIONES:-
 
-    @GET
+/*    @GET
     @ApiOperation(value = "Obtener la lista de objetos de la tienda", notes = "-")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "¡Hecho!", response = ObjetoTienda.class, responseContainer="List"),
@@ -98,7 +98,7 @@ public class PouGameService {
         GenericEntity<List<ObjetoTienda>> listaObjetosTienda = new GenericEntity<List<ObjetoTienda>>(this.jvm.obtenerObjetosTienda()) {};
         return Response.status(200).entity(listaObjetosTienda).build();
     }
-/*
+
     // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public int pedirNivelJuegoDePartida (String usuarioId);
