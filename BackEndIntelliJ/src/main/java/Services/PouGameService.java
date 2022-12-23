@@ -1,18 +1,20 @@
 package Services;
 
+import Entities.Exceptions.*;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InfoRegistro;
-import Managers.*;
-import Entities.*;
-import Entities.Exceptions.*;
-import Entities.ValueObjects.Estado;
+import Managers.PouGameManager;
+import Managers.PouGameManagerImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
-import javax.ws.rs.*;
-import io.swagger.annotations.*;
-import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
 
 @Api(value = "/pougame", description = "Endpoint to Pou Game Service")
 @Path("/pougame")
@@ -20,7 +22,7 @@ import java.util.*;
 public class PouGameService {
     private PouGameManager jvm;
 
-    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException {
+    public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
             this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
@@ -29,6 +31,12 @@ public class PouGameService {
 
            // this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
            // this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
+
+            this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
+            this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
+            this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
+            this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+
         }
     }
 
@@ -40,7 +48,7 @@ public class PouGameService {
     @POST
     @ApiOperation(value = "Registro", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Juego creado satisfactoriamente"),
+            @ApiResponse(code = 200, message = "Juego creado satisfactoriamente"),
             @ApiResponse(code = 404, message = "Ya existe el correo"),
             @ApiResponse(code = 405, message = "Ya existe el PouID")
     })
@@ -99,6 +107,65 @@ public class PouGameService {
         return Response.status(200).entity(listaObjetosTienda).build();
     }
 
+<<<<<<< HEAD
+=======
+    // OPERACION 3: Obtener un Pou
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public Pou obtenerPou(String pouId) throws PouIDNoExisteException;
+    // EXCEPCIONES:-
+    @GET
+    @ApiOperation(value = "Obtener un Pou", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "¡Hecho!", response = Pou.class),
+    })
+    @Path("/perfil/pou_id")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPou(String id) throws PouIDNoExisteException {
+        GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPou(id)) {};
+        return Response.status(200).entity(miPou).build();
+    }
+
+    // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA: public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo);
+    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException
+
+    @PUT
+    @ApiOperation(value = "Comprar objeto", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 406, message = "El objeto introducido no existe")
+    })
+    @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comprarObjeto(@PathParam("idPou") String idPou,@PathParam("idCompra") String idCompra,@PathParam("cantidadCompra") String cantidadCompra,@PathParam("tipo") String tipo) {
+        try {
+            this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
+        }catch (ObjetoTiendaNoExisteException e) {
+            return Response.status(406).build();
+        } catch (PouIDNoExisteException e) {
+            return Response.status(404).build();
+        }
+        return Response.status(201).build();
+    }
+
+    // OPERACION 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public Pou obtenerPouByCredentials(Credenciales credenciales);
+    // EXCEPCIONES: -
+    @POST
+    @ApiOperation(value = "Obtener un Pou", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "¡Hecho!", response = Pou.class)
+    })
+    @Path("/perfil/pou")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response obtenerPouByCredentials(Credenciales credenciales){
+        GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPouByCredentials(credenciales)) {};
+        return Response.status(200).entity(miPou).build();
+    }
+/*
+>>>>>>> 97b2c2e7d5f44c6250b070abcdc8ac7c4e41dd11
     // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public int pedirNivelJuegoDePartida (String usuarioId);

@@ -1,0 +1,19 @@
+.header{
+    text-align: center;
+    height: 300px;
+    padding: 12px;
+    background-image: url("https://pouandroid.com/wp-content/uploads/2014/09/Sky-Hop-1024x576.png") ;
+    background-size: cover;
+}
+.avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.pouId{
+    font-size: 10px;
+    margin-top: 14px;
+}
+.acerca{
+    padding: 10px;
+}

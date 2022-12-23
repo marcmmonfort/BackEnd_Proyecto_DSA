@@ -6,19 +6,19 @@ public class ObjetoArmario {
 
     int idArmario;
     String pouId;
-    String tipoObjeto;
-    String idProducto;
+    String tipoArticulo;
+    String idArticulo;
     Integer cantidad;
 
 
     // CONSTRUCTOR
     public ObjetoArmario(){}
 
-    public ObjetoArmario(int idArmario, String pouId, String tipoObjeto, String idProducto, Integer cantidad) {
+    public ObjetoArmario(int idArmario, String pouId, String tipoObjeto, String idArticulo, Integer cantidad) {
         this.idArmario = idArmario;
         this.pouId = pouId;
-        this.tipoObjeto = tipoObjeto;
-        this.idProducto = idProducto;
+        this.tipoArticulo = tipoObjeto;
+        this.idArticulo = idArticulo;
         this.cantidad = cantidad;
     }
 
@@ -38,20 +38,20 @@ public class ObjetoArmario {
         this.pouId = pouId;
     }
 
-    public String getTipoObjeto() {
-        return tipoObjeto;
+    public String getTipoArticulo() {
+        return tipoArticulo;
     }
 
-    public void setTipoObjeto(String tipoObjeto) {
-        this.tipoObjeto = tipoObjeto;
+    public void setTipoArticulo(String tipoArticulo) {
+        this.tipoArticulo = tipoArticulo;
     }
 
-    public String getIdProducto() {
-        return idProducto;
+    public String getIdArticulo() {
+        return idArticulo;
     }
 
-    public void setIdProducto(String idProducto) {
-        this.idProducto = idProducto;
+    public void setIdArticulo(String idArticulo) {
+        this.idArticulo = idArticulo;
     }
 
     public Integer getCantidad() {

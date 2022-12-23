@@ -28,6 +28,7 @@ public class PouGameImplTest {
         this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
         this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
+        this.jvm.addObjetosATienda("C002","Pan",1,"Comida",10,0,0,0 );
         this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
         this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
         this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
@@ -71,8 +72,6 @@ public class PouGameImplTest {
         Assert.assertEquals("marcmmonfort",test.getPouId());
     }
 
-
-
     @Test
     public void testObtenerPous() throws PouIDYaExisteException, CorreoYaExisteException {
         Map<String, Pou> pouMap = this.jvm.obtenerPous();
@@ -95,15 +94,16 @@ public class PouGameImplTest {
     public void testObtenerComidasTienda() throws ObjetoTiendaYaExisteException {
         List<ObjetoTienda> listaComidas = this.jvm.obtenerComidasTienda();
         int numComidas = listaComidas.size();
-        Assert.assertEquals(1, numComidas);
-        this.jvm.addObjetosATienda("C002","Patatas",2,"Comida",10,0,0,0 );
-        this.jvm.addObjetosATienda("C003","Arroz",3,"Comida",15,0,0,0 );
+        Assert.assertEquals(2, numComidas);
+        this.jvm.addObjetosATienda("C100","Patatas",2,"Comida",10,0,0,0 );
+        this.jvm.addObjetosATienda("C103","Arroz",3,"Comida",15,0,0,0 );
         listaComidas = this.jvm.obtenerComidasTienda();
         numComidas = listaComidas.size();
-        Assert.assertEquals("C001",listaComidas.get(0).getArticuloId());
-        Assert.assertEquals("C002",listaComidas.get(1).getArticuloId());
-        Assert.assertEquals("C003",listaComidas.get(2).getArticuloId());
-        Assert.assertEquals(3, numComidas);
+        Assert.assertEquals("C002",listaComidas.get(0).getArticuloId());
+        Assert.assertEquals("C001",listaComidas.get(1).getArticuloId());
+        Assert.assertEquals("C100",listaComidas.get(2).getArticuloId());
+        Assert.assertEquals("C103",listaComidas.get(3).getArticuloId());
+        Assert.assertEquals(4, numComidas);
     }
 
     @Test
@@ -224,9 +224,46 @@ public class PouGameImplTest {
     }
 
     @Test
+    public void pouCompraArticulosTest() throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+        /*
+        //CASO 1 = ID del pou no existe
+        Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouCompraArticulos("carlossainz","C001",1,"Comida"));
+        //CASO 2 = ID del objeto no existe
+        Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.pouCompraArticulos("albaserra","AAAA",1,"Comida"));
+        //CASO 3 = Todos los datos son correctos.
+        this.jvm.pouCompraArticulos("albaserra","B001",1,"Bebida");
+        this.jvm.pouCompraArticulos("albaserra","C002",1,"Comida");
+        this.jvm.pouCompraArticulos("albaserra","C001",2,"Comida");
+        Map<String, ObjetoTienda> listaBebidas = this.jvm.obtenerPou("albaserra").getArmarioPou().getBebidas();
+        Map<String, ObjetoTienda> listaComidas = this.jvm.obtenerPou("albaserra").getComidas();
+        Assert.assertEquals(1, listaBebidas.size());
+        Assert.assertEquals(2, listaComidas.size());
+
+         */
+    }
+
+}
+
+    /*
+
+    VIEJO ...
+
+    @Test
+    public void testCrearJuego() {
+        // Creamos un juego.
+        this.jvm.crearJuego("Fall Guys", "Juego de retos", 3);
+        Assert.assertEquals(4, this.jvm.numJuegos());
+
+        // Creamos otro juego.
+        this.jvm.crearJuego("NBA", "Juego de baloncesto", 4);
+        Assert.assertEquals(5, this.jvm.numJuegos());
+    }
+>>>>>>> 97b2c2e7d5f44c6250b070abcdc8ac7c4e41dd11
+
+    @Test
     public void pouCompraArticulos(){
 
     }
 }
 
-
+     */

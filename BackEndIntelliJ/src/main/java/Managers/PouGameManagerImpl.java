@@ -1,10 +1,13 @@
 package Managers;
 
-import Entities.*;
 import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
+import Entities.ObjetoTienda;
+import Entities.Pou;
+import Entities.ValueObjects.Credenciales;
+import org.apache.log4j.Logger;
 
 import java.util.*;
-import org.apache.log4j.Logger;
 
 public class PouGameManagerImpl implements PouGameManager {
 
@@ -223,10 +226,64 @@ public class PouGameManagerImpl implements PouGameManager {
     }
 
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
-
     @Override
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+        /*
+        logger.info("El Pou con ID "+pouId+" quiere comprar "+cantidad+" objetos con ID "+articuloId+" que son del tipo "+tipoArticulo+".");
+        ObjetoArmario objetoArmario = new ObjetoArmario();
+        if(this.objetosTienda.containsKey(articuloId)){
+            logger.info("El objeto existe.");
+            List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+            for (int i = 0; i<listaObjetosTienda.size(); i++){
+                if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
+                    logger.info("El objeto con ID "+articuloId+" ha sido encontrado.");
+                    ObjetoTienda objetoPorAnadir = listaObjetosTienda.get(i);
+                    if(Objects.equals(objetoPorAnadir.getTipoArticulo(),tipoArticulo)){
+                        if(Objects.equals(tipoArticulo,"Comida")){
+                            logger.info("El objeto es de tipo Comida.");
+                            if(miPou.getComidas().containsKey(articuloId)){
+                                miPou.getArmarioPou().getComidas().get(articuloId).aumentarCantidad(cantidad);
+                            }
+                            else{
+                                miPou.getArmarioPou().getComidas().put(articuloId,objetoPorAnadir);
+                            }
+                        }
+                        if(Objects.equals(tipoArticulo,"Bebida")){
+                            logger.info("El objeto es de tipo Bebida.");
+                            if(miPou.getArmarioPou().getBebidas().containsKey(articuloId)){
+                                miPou.getArmarioPou().getBebidas().get(articuloId).aumentarCantidad(cantidad);
+                            }
+                            else{
+                                miPou.getArmarioPou().getBebidas().put(articuloId,objetoPorAnadir);
+                            }
+                        }
+                        if(Objects.equals(tipoArticulo,"Pocion")){
+                            logger.info("El objeto es de tipo Pocion.");
+                            if(miPou.getArmarioPou().getPociones().containsKey(articuloId)){
+                                miPou.getArmarioPou().getPociones().get(articuloId).aumentarCantidad(cantidad);
+                            }
+                            else{
+                                miPou.getArmarioPou().getPociones().put(articuloId,objetoPorAnadir);
+                            }
+                        }
+                        if(Objects.equals(tipoArticulo,"Ropa")){
+                            logger.info("El objeto es de tipo Ropa.");
+                            if(miPou.getArmarioPou().getRopa().containsKey(articuloId)){
+                                miPou.getArmarioPou().getRopa().get(articuloId).aumentarCantidad(cantidad);
+                            }
+                            else{
+                                miPou.getArmarioPou().getRopa().put(articuloId,objetoPorAnadir);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            throw new ObjetoTiendaNoExisteException();
+        }
 
+         */
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
@@ -240,20 +297,20 @@ public class PouGameManagerImpl implements PouGameManager {
         ObjetoTienda objetoTienda = new ObjetoTienda();
         List<ObjetoArmario> listaArmario = new ArrayList<>(this.objetosArmario.values());
         for (int i = 0; i < listaArmario.size(); i++) {
-            if (Objects.equals(listaArmario.get(i).getIdProducto(), articuloId)) {
+            if (Objects.equals(listaArmario.get(i).getIdArticulo(), articuloId)) {
                 objetoEncontrado = listaArmario.get(i);
                 logger.info("Se ha encontrado el artículo con id " + articuloId + ".");
                 Integer cantidad = objetoEncontrado.getCantidad() - 1;
                 objetoEncontrado.setCantidad(cantidad);
-                if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Comida")) {
+                if (Objects.equals(objetoEncontrado.getTipoArticulo(), "Comida")) {
                     logger.info("El artículo es una comida");
                     int varNivel = objetoTienda.getRecargaHambre();
                     this.pouModificaNivelHambre(pouId, varNivel);
-                } else if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Bebida")) {
+                } else if (Objects.equals(objetoEncontrado.getTipoArticulo(), "Bebida")) {
                     logger.info("El artículo es una bebida");
                     int varNivel = objetoTienda.getRecargaHambre();
                     this.pouModificaNivelHambre(pouId, varNivel);
-                } else if (Objects.equals(objetoEncontrado.getTipoObjeto(), "Pocion")) {
+                } else if (Objects.equals(objetoEncontrado.getTipoArticulo(), "Pocion")) {
                     logger.info("El artículo es una poción");
                     int varNivel = objetoTienda.getRecargaSalud();
                     this.pouModificaNivelSalud(pouId, varNivel);
@@ -422,4 +479,25 @@ public class PouGameManagerImpl implements PouGameManager {
         listaTipo.sort(Comparator.comparingDouble(ObjetoTienda::getPrecioArticulo));
         return listaTipo;
     }
+
+    //OPERACIÓN 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    @Override
+    public Pou obtenerPouByCredentials(Credenciales credenciales) {
+        logger.info("Se quiere obtener el pou que tenga el correo" + credenciales.getCorreoPou() + " y la contraseña " + credenciales.getPasswordPou() + ".");
+        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        String pouId = "";
+        Pou miPou = new Pou();
+        for (Pou pous : listaPous) {
+            if (Objects.equals(pous.getCorreoPou(), credenciales.getCorreoPou())) {
+                if (Objects.equals(pous.getPasswordPou(), credenciales.getPasswordPou())) {
+                    pouId = pous.getPouId();
+                    miPou = pous;
+                }
+                break;
+            }
+        }
+        logger.info("La ID del Pou encontrado es " + pouId + ".");
+        return miPou;
+    }
+
 }

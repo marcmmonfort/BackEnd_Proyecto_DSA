@@ -4,6 +4,7 @@ import Entities.Exceptions.*;
 import Entities.ObjetoArmario;
 import Entities.ObjetoTienda;
 import Entities.Pou;
+import Entities.ValueObjects.Credenciales;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
 import org.apache.log4j.Logger;
@@ -136,7 +137,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
@@ -217,6 +218,11 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+        return null;
+    }
+
+    @Override
+    public Pou obtenerPouByCredentials(Credenciales credenciales) {
         return null;
     }
 /*

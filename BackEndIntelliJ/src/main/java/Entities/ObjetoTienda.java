@@ -94,4 +94,5 @@ public class ObjetoTienda {
     public void setTipoArticulo(String tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
     }
+
 }

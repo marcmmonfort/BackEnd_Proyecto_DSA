@@ -1,8 +1,10 @@
 package Managers;
 
-import Entities.*;
-import Entities.ValueObjects.*;
 import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
+import Entities.ObjetoTienda;
+import Entities.Pou;
+import Entities.ValueObjects.Credenciales;
 
 import java.util.List;
 import java.util.Map;
@@ -83,10 +85,10 @@ public interface PouGameManager {
 
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     // DEVUELVE: -
-    // EXCEPCIONES: (SALA NO EXISTE) / (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
+    // EXCEPCIONES: (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
 
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad) throws
-            SalaNoExisteException, ObjetoTiendaNoExisteException, PouIDNoExisteException;
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws
+            ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
     // DEVUELVE: ObjetoTienda
@@ -194,4 +196,6 @@ public interface PouGameManager {
 
     public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo);
 
+    //OPERACIÓN 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    Pou obtenerPouByCredentials(Credenciales credenciales);
 }

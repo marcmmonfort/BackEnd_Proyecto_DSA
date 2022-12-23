@@ -1,81 +1,100 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/estilo.css">
-  <meta charset="UTF-8">
-  <title>Tienda</title>
-  <style>
+  <head>
+    <META HTTP-EQUIV='Pragma' CONTENT='no-cache'>
+    <META HTTP-EQUIV='Cache-Control' CONTENT='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="funciones.js"></script>
+    <link rel="stylesheet" href="css/estilo.css">
+    <meta charset="UTF-8">
+    <title>Tienda</title>
 
-  </style>
-  <script>
-    function GetListaObjectosTienda(){
-      // Create an XMLHttpRequest object
-      const xhttp = new XMLHttpRequest();
+    <script>
+      $(document).ready(obtenerPouByCredentials);
+    </script>
 
-      // Define a callback function
-      xhttp.onload = function() {
-        // Here you can use the Data
-        console.log("Información recibida");
-        var datos=  JSON.parse(this.responseText);
-        console.log(datos);
-        $('#resultados').empty();
-        for (var i=0;i<datos.length;++i)
-        {
-          $("#resultados").append("<tr>"+
-                  "<td>"+datos[i].nombreArticulo+"</td>"+
-                  "<td>"+datos[i].articuloId+"</td>"+
-                  "<td>"+datos[i].precioArticulo+"</td>"+
-                  "<td>"+datos[i].tipoArticulo+"</td>"+
-                  "<td>"+datos[i].recargaHambre+"</td>"+
-                  "<td>"+datos[i].recargaSalud+"</td>"+
-                  "<td>"+datos[i].recargaDiversion+"</td>"+
-                  "<td>"+datos[i].recargaSueno+"</td>"+
-                  "</tr>");
-        }
-      }
+  </head>
+  <body>
+    <header id="titulo">
+      <h1>Perfil de tu Pou</h1>
+    </header>
+    <div>
+      <input type="text" id="pouId" placeholder="ID Pou">
+    </div>
+    <div id="buscador">
+      <label for="estadoHambre">Estado del Pou:</label><br>
+      <progress id="estadoHambre" max="100" value="80"></progress><br>
+      <progress id="estadoSalud" max="100" value="70"></progress><br>
+      <progress id="estadoDiversion" max="100" value="50"></progress><br>
+      <progress id="estadoSueño" max="100" value="50"></progress><br>
 
-      // Send a request
-      console.log("Se envía la petición");
-      var url='http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
-      //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
-      xhttp.open("GET",url, true);
-      xhttp.send();
-    }
-  </script>
-
-  <script>
-    $(document).ready(GetListaObjectosTienda);
-  </script>
-
-</head>
-<body>
-<header id="titulo">
-  <h1>Perfil de tu Pou</h1>
-</header>
-<div id="buscador">
-  <label for="btn">Clicka al boton para realizar la compra:</label><br>
-  <input type="button" id="btn" value="Comprar"><br>
-  <li><a href="home.html" type="button">Home</a></li>
-</div>
-<div id="estado">
-  <table id="tabla_general">
-    <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>ID</th>
-      <th>Precio (euros)</th>
-      <th>Tipo</th>
-      <th>Recarga hambre</th>
-      <th>Recarga salud</th>
-      <th>Recarga diversión</th>
-      <th>Recarga sueño</th>
-    </tr>
-    </thead>
-    <tbody id="resultados">
-    </tbody>
-  </table>
-</div>
-</body>
+    </div>
+    <div>
+      <table id="tabla_comida">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID</th>
+          <th>Precio (euros)</th>
+          <th>Tipo</th>
+          <th>Recarga hambre</th>
+          <th>Recarga salud</th>
+        </tr>
+        </thead>
+        <tbody id="comidasArmarioTabla">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table id="tabla_bebidas">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID</th>
+          <th>Precio (euros)</th>
+          <th>Tipo</th>
+          <th>Recarga salud</th>
+          <th>Recarga sueño</th>
+        </tr>
+        </thead>
+        <tbody id="bebidasArmarioTabla">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table id="tabla_pociones">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID</th>
+          <th>Precio (euros)</th>
+          <th>Tipo</th>
+          <th>Recarga hambre</th>
+          <th>Recarga salud</th>
+          <th>Recarga diversión</th>
+          <th>Recarga sueño</th>
+        </tr>
+        </thead>
+        <tbody id="pocionesArmarioTabla">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table id="tabla_ropa">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID</th>
+          <th>Precio (euros)</th>
+          <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody id="ropaArmarioTabla">
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>
