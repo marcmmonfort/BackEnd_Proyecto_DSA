@@ -187,22 +187,22 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
-    public List<ObjetoTienda> obtenerComidasArmario() {
+    public List<ObjetoArmario> obtenerComidasArmario() {
         return null;
     }
 
     @Override
-    public List<ObjetoTienda> obtenerBebidasArmario() {
+    public List<ObjetoArmario> obtenerBebidasArmario() {
         return null;
     }
 
     @Override
-    public List<ObjetoTienda> obtenerPocionesArmario() {
+    public List<ObjetoArmario> obtenerPocionesArmario() {
         return null;
     }
 
     @Override
-    public List<ObjetoTienda> obtenerRopaArmario() {
+    public List<ObjetoArmario> obtenerRopaArmario() {
         return null;
     }
 
@@ -217,13 +217,34 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public List<ObjetoTienda> listaObjetosTiendaTipo(String tipoArticulo) {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoArmario> listaObjetosArmarioTipo(String tipoArticulo) {
+        return null;
+    }
+
+    @Override
     public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+
         return null;
     }
 
     @Override
     public Pou obtenerPouByCredentials(Credenciales credenciales) {
         return null;
+    }
+
+    @Override
+    public ObjetoArmario obtenerObjetoArmario(String pouId) throws PouIDNoExisteException {
+        return null;
+    }
+
+    @Override
+    public void addObjetosAArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad) {
+
     }
 /*
     @Override

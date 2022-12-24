@@ -30,6 +30,7 @@ public class PouGameManagerImpl implements PouGameManager {
     public PouGameManagerImpl() {
         this.pousGame = new HashMap<>();
         this.objetosTienda = new HashMap<>();
+        this.objetosArmario = new HashMap<>();
     }
 
     // OPERACIÓN 1: OBTENER NÚMERO DE POUS
@@ -186,7 +187,7 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public List<ObjetoTienda> obtenerComidasTienda() {
         logger.info("Se quiere obtener las comidas de la tienda ordenadas por precio creciente");
-        List<ObjetoTienda> listaComidas = this.listaObjetosTipo("Comida");
+        List<ObjetoTienda> listaComidas = this.listaObjetosTiendaTipo("Comida");
         int num = listaComidas.size();
         logger.info("Hay " + num + " comidas en la tienda");
         return listaComidas;
@@ -197,7 +198,7 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public List<ObjetoTienda> obtenerBebidasTienda() {
         logger.info("Se quiere obtener las bebidas de la tienda ordenadas por precio creciente");
-        List<ObjetoTienda> listaBebidas = this.listaObjetosTipo("Bebida");
+        List<ObjetoTienda> listaBebidas = this.listaObjetosTiendaTipo("Bebida");
         int num = listaBebidas.size();
         logger.info("Hay " + num + " bebidas en la tienda");
         return listaBebidas;
@@ -208,7 +209,7 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public List<ObjetoTienda> obtenerPocionesTienda() {
         logger.info("Se quiere obtener las pociones de la tienda ordenadas por precio creciente");
-        List<ObjetoTienda> listaPociones = this.listaObjetosTipo("Pocion");
+        List<ObjetoTienda> listaPociones = this.listaObjetosTiendaTipo("Pocion");
         int num = listaPociones.size();
         logger.info("Hay " + num + " pociones en la tienda");
         return listaPociones;
@@ -219,7 +220,7 @@ public class PouGameManagerImpl implements PouGameManager {
     @Override
     public List<ObjetoTienda> obtenerRopasTienda() {
         logger.info("Se quiere obtener las prendas de ropa de la tienda ordenadas por precio creciente");
-        List<ObjetoTienda> listaRopa = this.listaObjetosTipo("Ropa");
+        List<ObjetoTienda> listaRopa = this.listaObjetosTiendaTipo("Ropa");
         int num = listaRopa.size();
         logger.info("Hay " + num + " prendas de ropa en la tienda");
         return listaRopa;
@@ -228,62 +229,55 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     @Override
     public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
-        /*
         logger.info("El Pou con ID "+pouId+" quiere comprar "+cantidad+" objetos con ID "+articuloId+" que son del tipo "+tipoArticulo+".");
-        ObjetoArmario objetoArmario = new ObjetoArmario();
         if(this.objetosTienda.containsKey(articuloId)){
             logger.info("El objeto existe.");
-            List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
-            for (int i = 0; i<listaObjetosTienda.size(); i++){
-                if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
-                    logger.info("El objeto con ID "+articuloId+" ha sido encontrado.");
-                    ObjetoTienda objetoPorAnadir = listaObjetosTienda.get(i);
-                    if(Objects.equals(objetoPorAnadir.getTipoArticulo(),tipoArticulo)){
-                        if(Objects.equals(tipoArticulo,"Comida")){
-                            logger.info("El objeto es de tipo Comida.");
-                            if(miPou.getComidas().containsKey(articuloId)){
-                                miPou.getArmarioPou().getComidas().get(articuloId).aumentarCantidad(cantidad);
-                            }
-                            else{
-                                miPou.getArmarioPou().getComidas().put(articuloId,objetoPorAnadir);
-                            }
-                        }
-                        if(Objects.equals(tipoArticulo,"Bebida")){
-                            logger.info("El objeto es de tipo Bebida.");
-                            if(miPou.getArmarioPou().getBebidas().containsKey(articuloId)){
-                                miPou.getArmarioPou().getBebidas().get(articuloId).aumentarCantidad(cantidad);
-                            }
-                            else{
-                                miPou.getArmarioPou().getBebidas().put(articuloId,objetoPorAnadir);
-                            }
-                        }
-                        if(Objects.equals(tipoArticulo,"Pocion")){
-                            logger.info("El objeto es de tipo Pocion.");
-                            if(miPou.getArmarioPou().getPociones().containsKey(articuloId)){
-                                miPou.getArmarioPou().getPociones().get(articuloId).aumentarCantidad(cantidad);
-                            }
-                            else{
-                                miPou.getArmarioPou().getPociones().put(articuloId,objetoPorAnadir);
-                            }
-                        }
-                        if(Objects.equals(tipoArticulo,"Ropa")){
-                            logger.info("El objeto es de tipo Ropa.");
-                            if(miPou.getArmarioPou().getRopa().containsKey(articuloId)){
-                                miPou.getArmarioPou().getRopa().get(articuloId).aumentarCantidad(cantidad);
-                            }
-                            else{
-                                miPou.getArmarioPou().getRopa().put(articuloId,objetoPorAnadir);
+            if (this.pousGame.containsKey(pouId)){
+                logger.info("El Pou existe.");
+                List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
+                logger.info("El armario "+ listaObjetosTienda.size() + ".");
+                for (int i = 0; i<listaObjetosTienda.size(); i++){
+                    if(Objects.equals(listaObjetosTienda.get(i).getArticuloId(), articuloId)){
+                        logger.info("El objeto con ID "+articuloId+" ha sido encontrado.");
+                        ObjetoTienda objetoTienda = listaObjetosTienda.get(i);
+                        List<ObjetoArmario> listaObjetosArmario = new ArrayList<>(this.objetosArmario.values());
+                        logger.info("El armario "+ listaObjetosArmario.size() + ".");
+                        for (int n = 0; n<listaObjetosArmario.size(); n++){
+                            logger.info("El armario" );
+                            if(Objects.equals(listaObjetosArmario.get(i).getPouId(), pouId)) {
+                                logger.info("El armario correspondiente al Pou con identificador " + pouId + " ha sido encontrado.");
+                                ObjetoArmario objetoArmario = listaObjetosArmario.get(i);
+                                if (Objects.equals(objetoTienda.getTipoArticulo(), tipoArticulo)) {
+                                    if (Objects.equals(tipoArticulo, "Comida")) {
+                                        logger.info("El objeto es de tipo Comida.");
+                                        objetoArmario.setCantidad(objetoArmario.getCantidad()+cantidad);
+                                    }
+                                    if (Objects.equals(tipoArticulo, "Bebida")) {
+                                        logger.info("El objeto es de tipo Bebida.");
+                                        objetoArmario.setCantidad(objetoArmario.getCantidad()+cantidad);
+                                    }
+                                    if (Objects.equals(tipoArticulo, "Pocion")) {
+                                        logger.info("El objeto es de tipo Pocion.");
+                                        objetoArmario.setCantidad(objetoArmario.getCantidad()+cantidad);
+                                    }
+                                    if (Objects.equals(tipoArticulo, "Ropa")) {
+                                        logger.info("El objeto es de tipo Ropa.");
+                                        objetoArmario.setCantidad(objetoArmario.getCantidad()+cantidad);
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+            else{
+                throw new PouIDNoExisteException();
+            }
+
         }
         else{
             throw new ObjetoTiendaNoExisteException();
         }
-
-         */
     }
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
@@ -427,29 +421,45 @@ public class PouGameManagerImpl implements PouGameManager {
     // OPERACIÓN 24: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS COMIDAS DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerComidasArmario() {
-        return null;
+    public List<ObjetoArmario> obtenerComidasArmario() {
+        logger.info("Se quiere obtener las comidas del armario.");
+        List<ObjetoArmario> listaComidas = this.listaObjetosArmarioTipo("Comida");
+        int num = listaComidas.size();
+        logger.info("Hay " + num + " comidas en el armario");
+        return listaComidas;
     }
 
     // OPERACIÓN 25: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerBebidasArmario() {
-        return null;
+    public List<ObjetoArmario> obtenerBebidasArmario() {
+        logger.info("Se quiere obtener las bebidas del armario.");
+        List<ObjetoArmario> listaBebidas = this.listaObjetosArmarioTipo("Bebida");
+        int num = listaBebidas.size();
+        logger.info("Hay " + num + " bebidas en el armario");
+        return listaBebidas;
     }
 
     // OPERACIÓN 26: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerPocionesArmario() {
-        return null;
+    public List<ObjetoArmario> obtenerPocionesArmario() {
+        logger.info("Se quiere obtener las pociones del armario.");
+        List<ObjetoArmario> listaPociones = this.listaObjetosArmarioTipo("Pocion");
+        int num = listaPociones.size();
+        logger.info("Hay " + num + " pociones en el armario");
+        return listaPociones;
     }
 
     // OPERACIÓN 27: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
 
     @Override
-    public List<ObjetoTienda> obtenerRopaArmario() {
-        return null;
+    public List<ObjetoArmario> obtenerRopaArmario() {
+        logger.info("Se quiere obtener la ropa del armario.");
+        List<ObjetoArmario> listaRopa = this.listaObjetosArmarioTipo("Ropa");
+        int num = listaRopa.size();
+        logger.info("Hay " + num + " prendas de ropa en el armario");
+        return listaRopa;
     }
 
     // OPERACIÓN 28: POU GASTA DINERO / GANA DINERO.
@@ -465,9 +475,9 @@ public class PouGameManagerImpl implements PouGameManager {
         return this.objetosTienda.size();
     }
 
-    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO QUE SE PIDE.
+    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO DE LA TIENDA QUE SE PIDE.
     @Override
-    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+    public List<ObjetoTienda> listaObjetosTiendaTipo(String tipoArticulo) {
         logger.info("Se quiere obtener una lista de objetos de tipo " + tipoArticulo + ".");
         List<ObjetoTienda> listaObjetosTienda = new ArrayList<>(this.objetosTienda.values());
         List<ObjetoTienda> listaTipo = new ArrayList<>();
@@ -480,7 +490,26 @@ public class PouGameManagerImpl implements PouGameManager {
         return listaTipo;
     }
 
-    //OPERACIÓN 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    //OPERACIÓN 31: OBTENER UN LISTA DEL TIPO DE ARTÍCULO DEL ARMARIO QUE SE PIDE.
+    @Override
+    public List<ObjetoArmario> listaObjetosArmarioTipo(String tipoArticulo) {
+        logger.info("Se quiere obtener una lista de objetos de tipo " + tipoArticulo + ".");
+        List<ObjetoArmario> listaObjetosArmario = new ArrayList<>(this.objetosArmario.values());
+        List<ObjetoArmario> listaTipo = new ArrayList<>();
+        for (int i = 0; i < this.objetosArmario.size(); i++) {
+            if (Objects.equals(listaObjetosArmario.get(i).getTipoArticulo(), tipoArticulo)) {
+                listaTipo.add(listaObjetosArmario.get(i));
+            }
+        }
+        return listaTipo;
+    }
+
+    @Override
+    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo) {
+        return null;
+    }
+
+    //OPERACIÓN 32: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
     @Override
     public Pou obtenerPouByCredentials(Credenciales credenciales) {
         logger.info("Se quiere obtener el pou que tenga el correo" + credenciales.getCorreoPou() + " y la contraseña " + credenciales.getPasswordPou() + ".");
@@ -500,4 +529,40 @@ public class PouGameManagerImpl implements PouGameManager {
         return miPou;
     }
 
+    // OPERACIÓN 33: OBTENER OBJETOARMARIO POR EL ID DE UN POU ("pouId")
+    public ObjetoArmario obtenerObjetoArmario(String pouId) throws PouIDNoExisteException{
+        logger.info("Se quiere obtener el Armario del Pou que se identifica con el id " + pouId + ".");
+        ObjetoArmario objetoArmarioEncontrado = new ObjetoArmario();
+        if (this.objetosArmario.containsKey(pouId)) {
+            logger.info("El ObjetoArmario si que existe. Vamos a realizar una búsqueda para encontrarlo.");
+            if (this.objetosArmario.containsKey(pouId)){
+                List<ObjetoArmario> listaObjetosArmario = new ArrayList<>(this.objetosArmario.values());
+                for (int i = 0; i < listaObjetosArmario.size(); i++) {
+                    if (Objects.equals(listaObjetosArmario.get(i).getPouId(), pouId)) {
+                        objetoArmarioEncontrado = listaObjetosArmario.get(i);
+                        logger.info("Se ha encontrado el objeto del Armario del Pou con id " + pouId + ".");
+                    }
+                }
+            }
+        }
+        else {
+            logger.info("El Pou con id " + pouId + " no existe.");
+            throw new PouIDNoExisteException();
+        }
+        return objetoArmarioEncontrado;
+    }
+
+    // OPERACIÓN 34: AÑADIR OBJETO AL ARMARIO
+    @Override
+    public void addObjetosAArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad) {
+        logger.info("Se quiere añadir un ObjetoArmario con ID " + idArticulo + ".");
+        ObjetoArmario nuevoObjetoArmario = new ObjetoArmario(idArmario, pouId, tipoArticulo, idArticulo, cantidad);
+        if (this.objetosArmario.containsKey(idArticulo)) {
+            logger.warn("La ID del articulo " + idArticulo + " ya existe, se añaden "+cantidad+" unidad.");
+            nuevoObjetoArmario.setCantidad(nuevoObjetoArmario.getCantidad()+cantidad);
+        } else {
+            this.objetosArmario.put(idArticulo, nuevoObjetoArmario);
+            logger.info("Artículo con ID " + idArticulo + " añadido.");
+        }
+    }
 }

@@ -1,4 +1,5 @@
 import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
 import Entities.ObjetoTienda;
 import Entities.Pou;
 import Managers.PouGameManager;
@@ -20,7 +21,7 @@ public class PouGameImplTest {
 
     @Before
 
-    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
+    public void setUp() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException, ObjetoTiendaNoExisteException {
         this.jvm = new PouGameManagerImpl();
 
         this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
@@ -33,6 +34,9 @@ public class PouGameImplTest {
         this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
         this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
 
+        this.jvm.addObjetosAArmario(0,"albaserra","Bebida","B001", 1);
+        this.jvm.addObjetosAArmario(1,"albaserra","Comida","C001",2);
+        this.jvm.addObjetosAArmario(2,"albaserra","Comida","C002",1);
     }
 
     @After
@@ -225,21 +229,19 @@ public class PouGameImplTest {
 
     @Test
     public void pouCompraArticulosTest() throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
-        /*
         //CASO 1 = ID del pou no existe
         Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouCompraArticulos("carlossainz","C001",1,"Comida"));
         //CASO 2 = ID del objeto no existe
         Assert.assertThrows(ObjetoTiendaNoExisteException.class, () -> this.jvm.pouCompraArticulos("albaserra","AAAA",1,"Comida"));
         //CASO 3 = Todos los datos son correctos.
         this.jvm.pouCompraArticulos("albaserra","B001",1,"Bebida");
-        this.jvm.pouCompraArticulos("albaserra","C002",1,"Comida");
         this.jvm.pouCompraArticulos("albaserra","C001",2,"Comida");
-        Map<String, ObjetoTienda> listaBebidas = this.jvm.obtenerPou("albaserra").getArmarioPou().getBebidas();
-        Map<String, ObjetoTienda> listaComidas = this.jvm.obtenerPou("albaserra").getComidas();
+        this.jvm.pouCompraArticulos("albaserra","C002",2,"Comida");
+        List<ObjetoArmario> listaBebidas = this.jvm.listaObjetosArmarioTipo("Bebida");
+        List<ObjetoArmario> listaComidas = this.jvm.listaObjetosArmarioTipo("Comida");
         Assert.assertEquals(1, listaBebidas.size());
         Assert.assertEquals(2, listaComidas.size());
 
-         */
     }
 
 }
