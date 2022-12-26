@@ -14,9 +14,9 @@ public class PouGameManagerImpl implements PouGameManager {
 
     Map<String, Pou> pousGame; // Hashmap con todos los pous registrados. ---> KEY = "pouId" (String)
 
-    Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
+    Map<String, ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (String)
 
-    Map<String, ObjetoArmario> objetosArmario; // Lista con todos los elementos del armario. ---> KEY = "articuloId" (Integer)
+    Map<String, ObjetoArmario> objetosArmario; // Lista con todos los elementos del armario. ---> KEY = "articuloId" (String)
 
     private static PouGameManager instance;
 
@@ -115,6 +115,12 @@ public class PouGameManagerImpl implements PouGameManager {
         int num = this.pousGame.size();
         logger.info("Número de Pous: " + num);
         return this.pousGame;
+    }
+
+    @Override
+    public Map<String, ObjetoArmario> obtenerObjetosArmarioPou(String pouId) {
+
+        return null;
     }
 
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")

@@ -18,6 +18,8 @@ public class PouGameDBManagerImpl implements PouGameManager {
     Map<String, Pou> pousGame; // Hashmap con todos los pous registrados. ---> KEY = "pouId" (String)
     List<ObjetoTienda> objetosTienda; // Lista con todos los elementos de la tienda. ---> KEY = "articuloId" (Integer)
 
+    Map<String, ObjetoArmario> objetosArmario; // Lista con todos los elementos del armario. ---> KEY = "articuloId" (Integer)
+
     private static PouGameManager instance;
     final static org.apache.log4j.Logger logger = Logger.getLogger(PouGameManagerImpl.class);
 
@@ -30,6 +32,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
         this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/crud","eloim", "YES");
         this.pousGame = new HashMap<>();
         this.objetosTienda = new ArrayList<>();
+        this.objetosArmario = new HashMap<>();
         this.pousGame = this.obtenerPous();
         this.objetosTienda = this.obtenerObjetosTienda();
     }
@@ -88,12 +91,23 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public Map<String, Pou> obtenerPous() {
-        List<Object> usersList= this.session.findAll(Pou.class);
-        for(int i=0; i<usersList.size();i++) {
-            Pou pou = (Pou) usersList.get(i);
+        List<Object> listaPous= this.session.findAll(Pou.class);
+        for(int i=0; i<listaPous.size();i++) {
+            Pou pou = (Pou) listaPous.get(i);
             this.pousGame.put(pou.getPouId(), pou);
         }
         return pousGame;
+    }
+
+
+    @Override
+    public Map<String, ObjetoArmario> obtenerObjetosArmarioPou(String pouId) {
+        Map<String, ObjetoArmario> armarioPou = new HashMap<>();
+        List<ObjetoArmario> armarioPouLista = (List<ObjetoArmario>) this.session.getElementos(ObjetoArmario.class, "pouId",pouId);
+        for(int i=0; i<armarioPouLista.size();i++) {
+            armarioPou.put(armarioPouLista.get(i).getIdArticulo(),armarioPouLista.get(i));
+        }
+        return armarioPou;
     }
 
     @Override
@@ -138,6 +152,16 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+        ObjetoTienda objetoTienda = (ObjetoTienda) this.session.get(ObjetoTienda.class, articuloId);
+        Pou pou = (Pou) this.session.get(Pou.class,pouId);
+        List<Object> lista = this.session.findAll(ObjetoArmario.class);
+        int idArmario = lista.size();
+        String tipoProducto = objetoTienda.getTipoArticulo();
+        ObjetoArmario a = new ObjetoArmario(idArmario,pouId,tipoProducto,articuloId,cantidad);
+        int precio = (int) objetoTienda.getPrecioArticulo();
+        int descuento = precio * cantidad;
+        pou.setDineroPou(pou.getDineroPou()-descuento);
+        this.session.save(a);
 
     }
 
@@ -244,7 +268,9 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public void addObjetosAArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad) {
-
+        ObjetoArmario a = new ObjetoArmario(idArmario,pouId,tipoArticulo, idArticulo,cantidad);
+        this.session.save(a);
+        this.objetosArmario.put(pouId, a);
     }
 /*
     @Override

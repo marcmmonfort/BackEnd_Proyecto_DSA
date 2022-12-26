@@ -39,6 +39,12 @@ public interface PouGameManager {
 
     public Map<String, Pou> obtenerPous();
 
+    // OPERACIÓN 6: OBTENER EL ARMARIO DE UN POU POR SU ID ("pouId")
+    // DEVUELVE: Map<String, ObjetoArmario>
+    // EXCEPCIONES: (NO EXISTE ESTE POU)
+
+    public  Map<String, ObjetoArmario> obtenerObjetosArmarioPou(String pouId);
+
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
     // DEVUELVE: Pou
     // EXCEPCIONES: (NO EXISTE ESTE POU)

@@ -14,10 +14,10 @@ public class ObjetoArmario {
     // CONSTRUCTOR
     public ObjetoArmario(){}
 
-    public ObjetoArmario(int idArmario, String pouId, String tipoObjeto, String idArticulo, Integer cantidad) {
+    public ObjetoArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad) {
         this.idArmario = idArmario;
         this.pouId = pouId;
-        this.tipoArticulo = tipoObjeto;
+        this.tipoArticulo = tipoArticulo;
         this.idArticulo = idArticulo;
         this.cantidad = cantidad;
     }
