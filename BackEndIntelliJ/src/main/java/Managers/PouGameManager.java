@@ -95,7 +95,7 @@ public interface PouGameManager {
     // EXCEPCIONES: (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
 
     public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws
-            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+            ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException;
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
     // DEVUELVE: ObjetoTienda

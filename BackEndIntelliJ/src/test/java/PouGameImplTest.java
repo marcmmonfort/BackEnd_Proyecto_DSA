@@ -228,7 +228,7 @@ public class PouGameImplTest {
     }
 
     @Test
-    public void pouCompraArticulosTest() throws ObjetoTiendaNoExisteException, PouIDNoExisteException{
+    public void pouCompraArticulosTest() throws ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException{
         //CASO 1 = ID del pou no existe
         Assert.assertThrows(PouIDNoExisteException.class, () -> this.jvm.pouCompraArticulos("carlossainz","C001",1,"Comida"));
         //CASO 2 = ID del objeto no existe

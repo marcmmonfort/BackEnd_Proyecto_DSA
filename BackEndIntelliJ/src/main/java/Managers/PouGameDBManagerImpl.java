@@ -151,18 +151,35 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
-    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
-        ObjetoTienda objetoTienda = (ObjetoTienda) this.session.get(ObjetoTienda.class, articuloId);
+    public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException {
+        List<ObjetoTienda> listaTienda = (List<ObjetoTienda>) this.session.getElementos(ObjetoTienda.class, "articuloId", articuloId);
+        ObjetoTienda objetoTienda = listaTienda.get(0);
         Pou pou = (Pou) this.session.get(Pou.class,pouId);
-        List<Object> lista = this.session.findAll(ObjetoArmario.class);
-        int idArmario = lista.size();
         String tipoProducto = objetoTienda.getTipoArticulo();
-        ObjetoArmario a = new ObjetoArmario(idArmario,pouId,tipoProducto,articuloId,cantidad);
         int precio = (int) objetoTienda.getPrecioArticulo();
         int descuento = precio * cantidad;
+        if(pou.getDineroPou()-descuento < 0){
+            throw new PouNoTieneDineroSuficienteException();
+        }
         pou.setDineroPou(pou.getDineroPou()-descuento);
-        this.session.save(a);
-
+        Map<String, ObjetoArmario> miArmario = this.obtenerObjetosArmarioPou(pouId);
+        List<ObjetoArmario> listaArmario = new ArrayList<>(miArmario.values());
+        this.session.update(pou);
+        for(int i=0;i< listaArmario.size();i++){
+            if(Objects.equals(listaArmario.get(i).getIdArticulo(), articuloId)){
+                int idArmario = listaArmario.get(i).getIdArmario();
+                int nuevaCantidad = listaArmario.get(i).getCantidad()+cantidad;
+                ObjetoArmario a = new ObjetoArmario(idArmario,pouId,tipoProducto,articuloId, nuevaCantidad);
+                logger.info("El objeto es "+articuloId+ " y tendrá " +nuevaCantidad + ".");
+                this.session.update(a);
+                return;
+            }
+        }
+        List<Object> lista = this.session.findAll(ObjetoArmario.class);
+        int idArmario = lista.size();
+        ObjetoArmario b = new ObjetoArmario(idArmario,pouId,tipoProducto,articuloId,cantidad);
+        this.session.save(b);
+        logger.info("El objeto añadido es: " + articuloId);
     }
 
     @Override
@@ -258,7 +275,21 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public Pou obtenerPouByCredentials(Credenciales credenciales) {
-        return null;
+        logger.info("Se quiere obtener el pou que tenga el correo" + credenciales.getCorreoPou() + " y la contraseña " + credenciales.getPasswordPou() + ".");
+        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        String pouId = "";
+        Pou miPou = new Pou();
+        for (Pou pous : listaPous) {
+            if (Objects.equals(pous.getCorreoPou(), credenciales.getCorreoPou())) {
+                if (Objects.equals(pous.getPasswordPou(), credenciales.getPasswordPou())) {
+                    pouId = pous.getPouId();
+                    miPou = pous;
+                }
+                break;
+            }
+        }
+        logger.info("La ID del Pou encontrado es " + pouId + ".");
+        return miPou;
     }
 
     @Override

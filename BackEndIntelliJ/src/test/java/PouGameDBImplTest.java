@@ -57,4 +57,14 @@ public class PouGameDBImplTest {
         Assert.assertEquals("B001", lista.get(2).getIdArticulo());
     }
 
+    @Test
+    public void pouCompraArticulosTest() throws PouIDNoExisteException, ObjetoTiendaNoExisteException, PouNoTieneDineroSuficienteException {
+        this.pgm.pouCompraArticulos("eloimoncho", "R001",1,"Ropa");
+        Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("eloimoncho");
+        List<ObjetoArmario> lista = new ArrayList<>(armario.values());
+        Assert.assertEquals(2, armario.size());
+        //Assert.assertEquals("B002", lista.get(0).getIdArticulo());
+        //Assert.assertEquals("B001", lista.get(1).getIdArticulo());
+    }
+
 }
