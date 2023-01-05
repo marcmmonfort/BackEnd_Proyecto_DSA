@@ -1,20 +1,22 @@
 package Services;
 
 import Entities.Exceptions.*;
+import Entities.ObjetoTienda;
+import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InfoRegistro;
+import Managers.PouGameDBManagerImpl;
 import Managers.PouGameManager;
-import Managers.PouGameManagerImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/pougame", description = "Endpoint to Pou Game Service")
 @Path("/pougame")
@@ -23,11 +25,11 @@ public class PouGameService {
     private PouGameManager jvm;
 
     public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
-        this.jvm = PouGameManagerImpl.getInstance();
+        this.jvm = PouGameDBManagerImpl.getInstance();
         if (jvm.size()==0) {
-            this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
-            this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
-            this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
+            //this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
+            //this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
+            //this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
            // this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
            // this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
@@ -95,7 +97,7 @@ public class PouGameService {
     // ESTRUCTURA: public List<ObjetoTienda> obtenerObjetosTienda();
     // EXCEPCIONES:-
 
-/*    @GET
+    @GET
     @ApiOperation(value = "Obtener la lista de objetos de la tienda", notes = "-")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "¡Hecho!", response = ObjetoTienda.class, responseContainer="List"),
@@ -107,9 +109,7 @@ public class PouGameService {
         return Response.status(200).entity(listaObjetosTienda).build();
     }
 
-<<<<<<< HEAD
-=======
-    // OPERACION 3: Obtener un Pou
+    // OPERACION 4: Obtener un Pou
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public Pou obtenerPou(String pouId) throws PouIDNoExisteException;
     // EXCEPCIONES:-

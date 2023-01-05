@@ -49,13 +49,12 @@ public class PouGameDBImplTest {
 
     @Test
     public void obtenerObjetosArmarioPouTest() throws PouIDNoExisteException {
-        Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("prueba");
+        Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("albaseerra");
         List<ObjetoArmario> lista = new ArrayList<>(armario.values());
         Assert.assertEquals(3, armario.size());
-        Assert.assertEquals("C001", lista.get(0).getIdArticulo());
-        Assert.assertEquals("B001", lista.get(1).getIdArticulo());
-        Assert.assertEquals("P001", lista.get(2).getIdArticulo());
-        //Assert.assertEquals("C001", lista.get(0).getIdArticulo());
+        Assert.assertEquals("C002", lista.get(0).getIdArticulo());
+        Assert.assertEquals("C001", lista.get(1).getIdArticulo());
+        Assert.assertEquals("B001", lista.get(2).getIdArticulo());
     }
 
 }
