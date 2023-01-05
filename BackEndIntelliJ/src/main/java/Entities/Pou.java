@@ -1,9 +1,5 @@
 package Entities;
 
-import Entities.ValueObjects.*;
-
-import java.util.*;
-
 public class Pou {
 
     // ATRIBUTOS
@@ -19,7 +15,7 @@ public class Pou {
     Integer nivelDiversionPou;
     Integer nivelSuenoPou;
     Integer camisetaId;
-    Integer pantalonId;
+    Integer zapatosId;
     Integer gorraId;
     Integer gafasId;
 
@@ -40,7 +36,7 @@ public class Pou {
         this.nivelSaludPou = 100;
         this.nivelSuenoPou = 100;
         this.camisetaId = 0;
-        this.pantalonId = 0;
+        this.zapatosId = 0;
         this.gorraId = 0;
         this.gafasId = 0;
     }
@@ -135,12 +131,12 @@ public class Pou {
         this.camisetaId = camisetaId;
     }
 
-    public Integer getPantalonId() {
-        return pantalonId;
+    public Integer getZapatosId() {
+        return zapatosId;
     }
 
-    public void setPantalonId(Integer pantalonId) {
-        this.pantalonId = pantalonId;
+    public void setZapatosId(Integer zapatosId) {
+        this.zapatosId = zapatosId;
     }
 
     public Integer getGorraId() {

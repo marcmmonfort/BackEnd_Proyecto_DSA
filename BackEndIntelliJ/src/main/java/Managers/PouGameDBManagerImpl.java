@@ -176,7 +176,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
-    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCambiaZapatos(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 

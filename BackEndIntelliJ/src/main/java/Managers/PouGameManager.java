@@ -111,11 +111,11 @@ public interface PouGameManager {
     public void pouCambiaCamiseta(String pouId, String camisetaId) throws
             ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
-    // OPERACIÓN 17: POU MODIFICA SU PANTALON (OUTFIT)
+    // OPERACIÓN 17: POU MODIFICA SUS ZAPATOS (OUTFIT)
     // DEVUELVE: -
     // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
 
-    public void pouCambiaPantalon(String pouId, String camisetaId) throws
+    public void pouCambiaZapatos(String pouId, String camisetaId) throws
             ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
     // OPERACIÓN 18: POU MODIFICA SU GORRA (OUTFIT)

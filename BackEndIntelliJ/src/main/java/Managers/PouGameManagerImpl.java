@@ -329,10 +329,10 @@ public class PouGameManagerImpl implements PouGameManager {
 
     }
 
-    // OPERACIÓN 17: POU MODIFICA SU PANTALON (OUTFIT)
+    // OPERACIÓN 17: POU MODIFICA SUS ZAPATOS (OUTFIT)
 
     @Override
-    public void pouCambiaPantalon(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
+    public void pouCambiaZapatos(String pouId, String camisetaId) throws ObjetoTiendaNoExisteException, PouIDNoExisteException {
 
     }
 
