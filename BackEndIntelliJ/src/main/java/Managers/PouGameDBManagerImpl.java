@@ -303,6 +303,11 @@ public class PouGameDBManagerImpl implements PouGameManager {
         this.session.save(a);
         this.objetosArmario.put(pouId, a);
     }
+
+    @Override
+    public void updateObjeto(Object objeto) {
+        this.session.update(objeto);
+    }
 /*
     @Override
     public List<ObjetoTienda> obtenerObjetosTienda() {

@@ -1,5 +1,6 @@
 import Entities.Exceptions.*;
 import Entities.ObjetoArmario;
+import Entities.Pou;
 import Managers.PouGameDBManagerImpl;
 import Managers.PouGameManager;
 import org.junit.After;
@@ -65,6 +66,17 @@ public class PouGameDBImplTest {
         Assert.assertEquals(2, armario.size());
         //Assert.assertEquals("B002", lista.get(0).getIdArticulo());
         //Assert.assertEquals("B001", lista.get(1).getIdArticulo());
+    }
+
+    @Test
+    public void updateObjetoTest() throws PouIDNoExisteException {
+        Pou pou = this.pgm.obtenerPou("palancasFC");
+        pou.setDineroPou(300);
+        pou.setNivelDiversionPou(70);
+        pou.setNivelSuenoPou(60);
+        pou.setRecord(88);
+        pou.setGafasId("RG001");
+        this.pgm.updateObjeto(pou);
     }
 
 }
