@@ -1,18 +1,22 @@
 package Services;
 
+import Entities.Exceptions.*;
+import Entities.ObjetoTienda;
+import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InfoRegistro;
-import Managers.*;
-import Entities.*;
-import Entities.Exceptions.*;
-import Entities.ValueObjects.Estado;
+import Managers.PouGameDBManagerImpl;
+import Managers.PouGameManager;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.*;
-import io.swagger.annotations.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.List;
 
 @Api(value = "/pougame", description = "Endpoint to Pou Game Service")
 @Path("/pougame")
@@ -21,17 +25,20 @@ public class PouGameService {
     private PouGameManager jvm;
 
     public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
-        this.jvm = PouGameManagerImpl.getInstance();
+        this.jvm = PouGameDBManagerImpl.getInstance();
         if (jvm.size()==0) {
+            //this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
+            //this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
+            //this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
-            this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
-            this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
-            this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
 
-            this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
-            this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
-            this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
-            this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+           // this.jvm.addObjetosATienda("B001","Manzana",1,"Comida",10,0,0,0 );
+           // this.jvm.addObjetosATienda("B002","Gafas de sol",30,"Ropa",0,0,0,0);
+
+            //this.jvm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
+            //this.jvm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
+            //this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
+            //this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
 
         }
     }
@@ -103,7 +110,7 @@ public class PouGameService {
         return Response.status(200).entity(listaObjetosTienda).build();
     }
 
-    // OPERACION 3: Obtener un Pou
+    // OPERACION 4: Obtener un Pou
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public Pou obtenerPou(String pouId) throws PouIDNoExisteException;
     // EXCEPCIONES:-
@@ -139,9 +146,14 @@ public class PouGameService {
             return Response.status(406).build();
         } catch (PouIDNoExisteException e) {
             return Response.status(404).build();
+        } catch (PouNoTieneDineroSuficienteException e) {
+            throw new RuntimeException(e);
         }
         return Response.status(201).build();
     }
+
+
+
 
     // OPERACION 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
     // MÉTODO HTTP: GET.
@@ -158,108 +170,8 @@ public class PouGameService {
         GenericEntity<Pou> miPou = new GenericEntity<Pou>(this.jvm.obtenerPouByCredentials(credenciales)) {};
         return Response.status(200).entity(miPou).build();
     }
+
 /*
-    // OPERACION 4: Pedir el Nivel Actual de la Partida en la que está el Usuario introducido.
-    // MÉTODO HTTP: GET.
-    // ESTRUCTURA: public int pedirNivelJuegoDePartida (String usuarioId);
-    // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
-
-    @GET
-    @ApiOperation(value = "Pedir el nivel actual de la partida en la que está el usuario introducido", notes = "-")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!", response = Integer.class),
-            @ApiResponse(code = 406, message = "El usuario introducido no existe"),
-            @ApiResponse(code = 408, message = "El usuario introducido no está en ninguna partida")
-    })
-    @Path("/partida/nivelpartida/{usuarioId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response funcionPedirNivel(@PathParam("usuarioId") String usuarioId) {
-        int nivel;
-        try{
-            nivel = this.jvm.pedirNivelJuegoDePartida(usuarioId);
-        } catch (UsuarioIdNoExisteException e) {
-            return Response.status(406).build();
-        } catch (UsuarioIdNoEstaEnPartidaException e) {
-            return Response.status(408).build();
-        }
-        return Response.status(201).entity(nivel).build();
-    }
-
-    // OPERACION 5: Pedir la Puntuación Actual en una Partida (por parte de un Usuario).
-    // MÉTODO HTTP: GET.
-    // ESTRUCTURA: public int pedirPuntosDePartida(String usuarioId);
-    // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
-
-    @GET
-    @ApiOperation(value = "Pedir la puntuación actual de la partida en la que está el usuario introducido", notes = "-")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!", response = Integer.class),
-            @ApiResponse(code = 406, message = "El usuario introducido no existe"),
-            @ApiResponse(code = 408, message = "El usuario introducido no está en ninguna partida")
-    })
-    @Path("/partida/puntuacionpartida/{usuarioId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response funcionPedirPuntuacion(@PathParam("usuarioId") String usuarioId) {
-        int puntos;
-        try{
-            puntos = this.jvm.pedirPuntosDePartida(usuarioId);
-        } catch (UsuarioIdNoExisteException e) {
-            return Response.status(406).build();
-        } catch (UsuarioIdNoEstaEnPartidaException e) {
-            return Response.status(408).build();
-        }
-        return Response.status(201).entity(puntos).build();
-    }
-
-    // OPERACION 6: Pasar de Nivel en una Partida.
-    // MÉTODO HTTP: PUT.
-    // ESTRUCTURA: public void pasarDeNivel(String usuarioId, int puntosLogrados, String fechaCambioNivel);
-    // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
-
-    @PUT
-    @ApiOperation(value = "Pasar de nivel en una partida", notes = "-")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!"),
-            @ApiResponse(code = 406, message = "El usuario introducido no existe"),
-            @ApiResponse(code = 408, message = "El usuario introducido no está en ninguna partida")
-    })
-    @Path("/partida/pasardenivel")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response funcionPasarDeNivel(InfoPasoNivel actualizarNivel) {
-        try {
-            this.jvm.pasarDeNivel(actualizarNivel.getUsuarioId(), actualizarNivel.getPuntosLogrados(), actualizarNivel.getFechaCambioNivel());
-        } catch (UsuarioIdNoExisteException e) {
-            return Response.status(406).build();
-        } catch (UsuarioIdNoEstaEnPartidaException e) {
-            return Response.status(408).build();
-        }
-        return Response.status(201).build();
-    }
-
-    // OPERACION 7: Finalizar una Partida.
-    // MÉTODO HTTP: PUT.
-    // ESTRUCTURA: public void finalizarPartida(String usuarioId);
-    // EXCEPCIONES: UsuarioIdNoExisteException, UsuarioIdNoEstaEnPartidaException.
-
-    @PUT
-    @ApiOperation(value = "Finalizar una partida", notes = "-")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!"),
-            @ApiResponse(code = 406, message = "El usuario introducido no existe"),
-            @ApiResponse(code = 408, message = "El usuario introducido no está en ninguna partida")
-    })
-    @Path("/partida/finalizar/{usuarioId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response funcionFinalizarPartida(@PathParam("usuarioId") String usuarioId) {
-        try {
-            this.jvm.finalizarPartida(usuarioId);
-        } catch (UsuarioIdNoExisteException e) {
-            return Response.status(406).build();
-        } catch (UsuarioIdNoEstaEnPartidaException e) {
-            return Response.status(408).build();
-        }
-        return Response.status(201).build();
-    }
 
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.

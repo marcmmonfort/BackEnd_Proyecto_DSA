@@ -127,26 +127,23 @@ function obtenerPouByCredentials(){
             $('#pocionesArmarioTabla').empty();
             $('#ropaArmarioTabla').empty();
 
-            $('pouId').text(data.pouId);
-            console.log(data.pouId);
 
+            const pouId = data.pouId;
             const nombrePou = data.nombrePou;
             console.log(nombrePou);
             const nacimientoPou = data.nacimientoPou;
-            const credencialesPou = data.credencialesPou;
-            const estadoPou = data.estadoPou;
-            const dinertoPou = estadoPou.dineroPou;
-            const nivelHambrePou = estadoPou.nivelHambrePou;
-            const nivelSaludPou = estadoPou.nivelSaludPou;
-            const nivelDiversionPou = estadoPou.nivelDiversionPou;
-            const nivelSuenoPou = estadoPou.nivelSuenoPou;
-            const outfitPou = data.outfitPou;
-            const armarioPou = data.armarioPou;
-            const comidasArmario = armarioPou['comidas'].entry;
-            const bebidasArmario = armarioPou['bebidas'];
-            const pocionesArmario = armarioPou['pociones'];
-            const ropaArmario = armarioPou['ropa'];
+            const dineroPou = data.dineroPou;
+            const nivelHambrePou = data.nivelHambrePou;
+            const nivelSaludPou = data.nivelSaludPou;
+            const nivelDiversionPou = data.nivelDiversionPou;
+            const nivelSuenoPou = data.nivelSuenoPou;
+            const camisetaId = data.camisetaId;
+            const zapatosId = data.zapatosId;
+            const gorrasId = data.gorrasId;
+            const gafasId = data.gafasId;
 
+            document.getElementById("pouId").value = pouId;
+            document.getElementById("dineroPou").value = dineroPou;
             document.getElementById("estadoHambre").value = nivelHambrePou;
             document.getElementById("estadoSalud").value = nivelSaludPou;
             document.getElementById("estadoDiversion").value = nivelDiversionPou;
@@ -227,7 +224,6 @@ function comprarObjeto(){
     console.log(cantidadCompra);
     var tipo = $('#tipo_compra').val();
     console.log(tipo);
-
     $.ajax({
         type: 'PUT',
         url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,

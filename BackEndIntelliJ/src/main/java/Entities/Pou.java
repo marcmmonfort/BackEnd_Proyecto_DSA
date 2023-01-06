@@ -1,9 +1,5 @@
 package Entities;
 
-import Entities.ValueObjects.*;
-
-import java.util.*;
-
 public class Pou {
 
     // ATRIBUTOS
@@ -11,24 +7,38 @@ public class Pou {
     String pouId;
     String nombrePou;
     String nacimientoPou;
-    Credenciales credencialesPou;
-    Estado estadoPou;
-    Outfit outfitPou;
-    Armario armarioPou;
-    Map<String, Sala> salasPou;
+    String correoPou;
+    String passwordPou;
+    int dineroPou;
+    Integer nivelHambrePou;
+    Integer nivelSaludPou;
+    Integer nivelDiversionPou;
+    Integer nivelSuenoPou;
+    Integer camisetaId;
+    Integer zapatosId;
+    Integer gorraId;
+    Integer gafasId;
+
+
 
     // CONSTRUCTORES
 
     public Pou() {}
-    public Pou(String pouId, String nombrePou, String nacimientoPou, Credenciales credencialesPou) {
+    public Pou(String pouId, String nombrePou, String nacimientoPou, String correoPou, String passwordPou) {
         this.pouId = pouId;
         this.nombrePou = nombrePou;
         this.nacimientoPou = nacimientoPou;
-        this.credencialesPou = credencialesPou;
-        this.estadoPou = new Estado(100,100,100,100,100);
-        this.outfitPou = new Outfit(0,0,0,0);
-        this.armarioPou = new Armario();
-        this.salasPou = new HashMap<>();
+        this.correoPou = correoPou;
+        this.passwordPou = passwordPou;
+        this.dineroPou = 100;
+        this.nivelDiversionPou = 100;
+        this.nivelHambrePou = 100;
+        this.nivelSaludPou = 100;
+        this.nivelSuenoPou = 100;
+        this.camisetaId = 0;
+        this.zapatosId = 0;
+        this.gorraId = 0;
+        this.gafasId = 0;
     }
 
     // GETTERS Y SETTERS
@@ -57,43 +67,91 @@ public class Pou {
         this.nacimientoPou = nacimientoPou;
     }
 
-    public Credenciales getCredencialesPou() {
-        return credencialesPou;
+    public String getCorreoPou() {
+        return correoPou;
     }
 
-    public void setCredencialesPou(Credenciales credencialesPou) {
-        this.credencialesPou = credencialesPou;
+    public void setCorreoPou(String correoPou) {
+        this.correoPou = correoPou;
     }
 
-    public Estado getEstadoPou() {
-        return estadoPou;
+    public String getPasswordPou() {
+        return passwordPou;
     }
 
-    public void setEstadoPou(Estado estadoPou) {
-        this.estadoPou = estadoPou;
+    public void setPasswordPou(String passwordPou) {
+        this.passwordPou = passwordPou;
     }
 
-    public Outfit getOutfitPou() {
-        return outfitPou;
+    public int getDineroPou() {
+        return dineroPou;
     }
 
-    public void setOutfitPou(Outfit outfitPou) {
-        this.outfitPou = outfitPou;
+    public void setDineroPou(int dineroPou) {
+        this.dineroPou = dineroPou;
     }
 
-    public Armario getArmarioPou() {
-        return armarioPou;
+    public Integer getNivelHambrePou() {
+        return nivelHambrePou;
     }
 
-    public void setArmarioPou(Armario armarioPou) {
-        this.armarioPou = armarioPou;
+    public void setNivelHambrePou(Integer nivelHambrePou) {
+        this.nivelHambrePou = nivelHambrePou;
     }
 
-    public Map<String, Sala> getSalasPou() {
-        return salasPou;
+    public Integer getNivelSaludPou() {
+        return nivelSaludPou;
     }
 
-    public void setSalasPou(Map<String, Sala> salasPou) {
-        this.salasPou = salasPou;
+    public void setNivelSaludPou(Integer nivelSaludPou) {
+        this.nivelSaludPou = nivelSaludPou;
+    }
+
+    public Integer getNivelDiversionPou() {
+        return nivelDiversionPou;
+    }
+
+    public void setNivelDiversionPou(Integer nivelDiversionPou) {
+        this.nivelDiversionPou = nivelDiversionPou;
+    }
+
+    public Integer getNivelSuenoPou() {
+        return nivelSuenoPou;
+    }
+
+    public void setNivelSuenoPou(Integer nivelSuenoPou) {
+        this.nivelSuenoPou = nivelSuenoPou;
+    }
+
+    public Integer getCamisetaId() {
+        return camisetaId;
+    }
+
+    public void setCamisetaId(Integer camisetaId) {
+        this.camisetaId = camisetaId;
+    }
+
+    public Integer getZapatosId() {
+        return zapatosId;
+    }
+
+    public void setZapatosId(Integer zapatosId) {
+        this.zapatosId = zapatosId;
+    }
+
+    public Integer getGorraId() {
+        return gorraId;
+    }
+
+    public void setGorraId(Integer gorraId) {
+        this.gorraId = gorraId;
+    }
+
+    public Integer getGafasId() {
+        return gafasId;
+    }
+
+    public void setGafasId(Integer gafasId) {
+        this.gafasId = gafasId;
     }
 }

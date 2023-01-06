@@ -1,8 +1,10 @@
 package Managers;
 
-import Entities.*;
-import Entities.ValueObjects.*;
 import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
+import Entities.ObjetoTienda;
+import Entities.Pou;
+import Entities.ValueObjects.Credenciales;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +31,6 @@ public interface PouGameManager {
     public void loginPou(String correo, String password) throws
             CorreoNoExisteException, PasswordIncorrectaException;
 
-    // OPERACIÓN 4: OBTENER TODOS LOS OBJETOS TIENDA
-    // DEVUELVE: List<ObjetoTienda>
-    // EXCEPCIONES: -
     public List<ObjetoTienda> obtenerObjetosTienda();
 
     // OPERACIÓN 5: OBTENER TODOS LOS POUS
@@ -39,6 +38,12 @@ public interface PouGameManager {
     // EXCEPCIONES: -
 
     public Map<String, Pou> obtenerPous();
+
+    // OPERACIÓN 6: OBTENER EL ARMARIO DE UN POU POR SU ID ("pouId")
+    // DEVUELVE: Map<String, ObjetoArmario>
+    // EXCEPCIONES: (NO EXISTE ESTE POU)
+
+    public  Map<String, ObjetoArmario> obtenerObjetosArmarioPou(String pouId);
 
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
     // DEVUELVE: Pou
@@ -51,7 +56,7 @@ public interface PouGameManager {
     // DEVUELVE: -
     // EXCEPCIONES: (EL ARTICULO YA EXISTE)
 
-    public void addObjetosATienda(String articuloId, String nombreArticulo, double precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws
+    public void addObjetosATienda(String articuloId, String nombreArticulo, Integer precioArticulo, String tipoArticulo, Integer recargaHambre, Integer recargaSalud, Integer recargaDiversion, Integer recargaSueno) throws
             ObjetoTiendaYaExisteException;
 
     // OPERACIÓN 8: OBTENER OBJETO DE LA TIENDA POR SU ID ("articuloId")
@@ -85,26 +90,19 @@ public interface PouGameManager {
 
     public List<ObjetoTienda> obtenerRopasTienda();
 
-    // OPERACIÓN 13: CREAR SALA (AÑADIENDO TAMBIEN LOS OBJETOS DE LA TIENDA QUE LE CORRESPONDAN)
-    // DEVUELVE: -
-    // EXCEPCIONES: (SALA YA EXISTE)
-
-    public void crearSala(String pouId, String salaId, String nombreSala) throws
-            SalaYaExisteException, PouIDNoExisteException;
-
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     // DEVUELVE: -
     // EXCEPCIONES: (OBJETOTIENDA NO EXISTE) / (POU NO EXISTE)
 
     public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo) throws
-            ObjetoTiendaNoExisteException, PouIDNoExisteException;
+            ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException;
 
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
     // DEVUELVE: ObjetoTienda
     // EXCEPCIONES: (ARTICULO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
 
-    public ObjetoTienda pouConsumeArticulo(String pouId, String articuloId) throws
-            ObjetoTiendaNoExisteException, PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException;
+    public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws
+            PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible;
 
     // OPERACIÓN 16: POU MODIFICA SU CAMISETA (OUTFIT)
     // DEVUELVE: -
@@ -113,11 +111,11 @@ public interface PouGameManager {
     public void pouCambiaCamiseta(String pouId, String camisetaId) throws
             ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
-    // OPERACIÓN 17: POU MODIFICA SU PANTALON (OUTFIT)
+    // OPERACIÓN 17: POU MODIFICA SUS ZAPATOS (OUTFIT)
     // DEVUELVE: -
     // EXCEPCIONES: (ARTICULO NO EXISTE (EN EL ARMARIO DE POU)) / (POU NO EXISTE)
 
-    public void pouCambiaPantalon(String pouId, String camisetaId) throws
+    public void pouCambiaZapatos(String pouId, String camisetaId) throws
             ObjetoTiendaNoExisteException, PouIDNoExisteException;
 
     // OPERACIÓN 18: POU MODIFICA SU GORRA (OUTFIT)
@@ -166,25 +164,25 @@ public interface PouGameManager {
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
-    public List<ObjetoTienda> obtenerComidasArmario();
+    public List<ObjetoArmario> obtenerComidasArmario();
 
     // OPERACIÓN 25: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS BEBIDAS DEL ARMARIO
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
-    public List<ObjetoTienda> obtenerBebidasArmario();
+    public List<ObjetoArmario> obtenerBebidasArmario();
 
     // OPERACIÓN 26: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LAS POCIONES DEL ARMARIO
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
-    public List<ObjetoTienda> obtenerPocionesArmario();
+    public List<ObjetoArmario> obtenerPocionesArmario();
 
     // OPERACIÓN 27: OBTENER, POR ORDEN DE PRECIO CRECIENTE (DE - A +), LA ROPA DEL ARMARIO
     // DEVUELVE: List<ObjetoTienda>
     // EXCEPCIONES: -
 
-    public List<ObjetoTienda> obtenerRopaArmario();
+    public List<ObjetoArmario> obtenerRopaArmario();
 
     // OPERACIÓN 28: POU GASTA DINERO / GANA DINERO.
     // DEVUELVE: -
@@ -199,12 +197,34 @@ public interface PouGameManager {
 
     public Integer dameNumArticulosTienda();
 
-    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO QUE SE PIDE.
+    //OPERACIÓN 30: OBTENER UN LISTA DEL TIPO DE ARTÍCULO DE LA TIENDA QUE SE PIDE.
     //DEVUELVE: LISTA
     //EXCEPCIONES: -
 
-    public List<ObjetoTienda> listaObjetosTipo(String tipoArticulo);
+    public List<ObjetoTienda> listaObjetosTiendaTipo(String tipoArticulo);
 
-    //OPERACIÓN 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
+    //OPERACIÓN 31: OBTENER UN LISTA DEL TIPO DE ARTÍCULO DEL ARMARIO QUE SE PIDE.
+    //DEVUELVE: LISTA
+    //EXCEPCIONES: -
+
+    public List<ObjetoArmario> listaObjetosArmarioTipo(String tipoArticulo);
+
+    List<ObjetoTienda> listaObjetosTipo(String tipoArticulo);
+
+    //OPERACIÓN 32: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
     Pou obtenerPouByCredentials(Credenciales credenciales);
+
+    // OPERACIÓN 33: OBTENER OBJETOARMARIO POR EL ID DE UN POU ("pouId")
+    // DEVUELVE: ObjetoArmario
+    // EXCEPCIONES: (NO EXISTE ESTE POU)
+
+    public ObjetoArmario obtenerObjetoArmario(String pouId) throws
+            PouIDNoExisteException;
+
+    // OPERACIÓN 34: AÑADIR OBJETO AL ARMARIO
+    // DEVUELVE: -
+    // EXCEPCIONES: -
+
+    public void addObjetosAArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad);
+
 }
