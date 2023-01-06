@@ -5,10 +5,12 @@
     <META HTTP-EQUIV='Pragma' CONTENT='no-cache'>
     <META HTTP-EQUIV='Cache-Control' CONTENT='no-cache'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/menuUsuario.css">
     <meta charset="UTF-8">
     <title>Tienda</title>
 
@@ -18,83 +20,116 @@
 
   </head>
   <body>
-    <header id="titulo">
-      <h1>Perfil de tu Pou</h1>
+    <header>
+      <div class="contenedor_cabecera">
+        <div class="logo">
+          <img src="img/LogoUPC.png" alt="">
+        </div>
+        <div class="titulo">
+          <h1>Las aventuras de Pou</h1>
+        </div>
+      </div>
+      <div class="contenedor_menu">
+        <div class="menu">
+          <input type="checkbox" id="check__menu">
+          <label for="check__menu" id="label__check">
+            <i class="fas fa-bars icon__menu"></i>
+          </label>
+          <nav>
+            <ul>
+              <li><a href="miPou.html" id="selected"></a></li>
+              <li><a href="tienda.html">Tienda de productos para tu POU</a></li>
+              <li><a href="armario.html">Armario</a>
+                <ul>
+                  <li><a href="">Comida</a></li>
+                  <li><a href="">Bebidas</a></li>
+                  <li><a href="">Pociones</a></li>
+                  <li><a href="">Ropa</a></li>
+                </ul>
+              </li>
+              <li><a href="index.html">LOG OUT</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
-    <div>
-      <input type="text" id="pouId" placeholder="ID Pou">
-    </div>
-    <div id="buscador">
-      <label for="estadoHambre">Estado del Pou:</label><br>
-      <progress id="estadoHambre" max="100" value="80"></progress><br>
-      <progress id="estadoSalud" max="100" value="70"></progress><br>
-      <progress id="estadoDiversion" max="100" value="50"></progress><br>
-      <progress id="estadoSueño" max="100" value="50"></progress><br>
+    <main>
+      <div>
+        <input type="text" id="pouId" placeholder="ID Pou">
+      </div>
+      <div id="buscador">
+        <label for="estadoHambre">Estado del Pou:</label><br>
+        <progress id="estadoHambre" max="100" value="80"></progress><br>
+        <progress id="estadoSalud" max="100" value="70"></progress><br>
+        <progress id="estadoDiversion" max="100" value="50"></progress><br>
+        <progress id="estadoSueño" max="100" value="50"></progress><br>
 
-    </div>
-    <div>
-      <table id="tabla_comida">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>ID</th>
-          <th>Precio (euros)</th>
-          <th>Tipo</th>
-          <th>Recarga hambre</th>
-          <th>Recarga salud</th>
-        </tr>
-        </thead>
-        <tbody id="comidasArmarioTabla">
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <table id="tabla_bebidas">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>ID</th>
-          <th>Precio (euros)</th>
-          <th>Tipo</th>
-          <th>Recarga salud</th>
-          <th>Recarga sueño</th>
-        </tr>
-        </thead>
-        <tbody id="bebidasArmarioTabla">
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <table id="tabla_pociones">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>ID</th>
-          <th>Precio (euros)</th>
-          <th>Tipo</th>
-          <th>Recarga hambre</th>
-          <th>Recarga salud</th>
-          <th>Recarga diversión</th>
-          <th>Recarga sueño</th>
-        </tr>
-        </thead>
-        <tbody id="pocionesArmarioTabla">
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <table id="tabla_ropa">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>ID</th>
-          <th>Precio (euros)</th>
-          <th>Tipo</th>
-        </tr>
-        </thead>
-        <tbody id="ropaArmarioTabla">
-        </tbody>
-      </table>
-    </div>
+      </div>
+      <div>
+        <table id="tabla_comida">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>ID</th>
+            <th>Precio (euros)</th>
+            <th>Tipo</th>
+            <th>Recarga hambre</th>
+            <th>Recarga salud</th>
+          </tr>
+          </thead>
+          <tbody id="comidasArmarioTabla">
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table id="tabla_bebidas">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>ID</th>
+            <th>Precio (euros)</th>
+            <th>Tipo</th>
+            <th>Recarga salud</th>
+            <th>Recarga sueño</th>
+          </tr>
+          </thead>
+          <tbody id="bebidasArmarioTabla">
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table id="tabla_pociones">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>ID</th>
+            <th>Precio (euros)</th>
+            <th>Tipo</th>
+            <th>Recarga hambre</th>
+            <th>Recarga salud</th>
+            <th>Recarga diversión</th>
+            <th>Recarga sueño</th>
+          </tr>
+          </thead>
+          <tbody id="pocionesArmarioTabla">
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table id="tabla_ropa">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>ID</th>
+            <th>Precio (euros)</th>
+            <th>Tipo</th>
+          </tr>
+          </thead>
+          <tbody id="ropaArmarioTabla">
+          </tbody>
+        </table>
+      </div>
+    </main>
+
   </body>
 </html>

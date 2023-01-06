@@ -23,6 +23,7 @@ public class PouGameService {
     public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = PouGameManagerImpl.getInstance();
         if (jvm.size()==0) {
+
             this.jvm.crearPou("marcmmonfort", "Marc", "28/10/2001", "marc@gmail.com", "28102001");
             this.jvm.crearPou("victorfernandez", "Victor", "13/06/2001", "victor@gmail.com", "13062001");
             this.jvm.crearPou("albaserra", "Alba", "29/06/2001", "alba@gmail.com", "29062001");
@@ -32,8 +33,6 @@ public class PouGameService {
             this.jvm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
             this.jvm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
 
-            this.jvm.crearSala("marcmmonfort","S001","cocina");
-            this.jvm.crearSala("marcmmonfort","S002","dormitorio");
         }
     }
 

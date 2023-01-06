@@ -229,10 +229,8 @@ function comprarObjeto(){
     console.log(tipo);
 
     $.ajax({
-        //contentType: "application/json",
         type: 'PUT',
         url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
-        //data: JSON.stringify({userId: n, objetoId: p, mail: m}),
         dataType: 'text',
         success: function(){
             alert("¡Objecto comprado con exito!");
@@ -245,7 +243,6 @@ function comprarObjeto(){
             }
         }
     });
-
 }
 
 

@@ -4,48 +4,70 @@
         <meta charset="UTF-8">
         <title>POU/registro</title>
         <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/menuGeneral.css">
+        <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="funciones.js"></script>
     </head>
     <body>
-        <h1>Las aventuras de Pou</h1>
-        <div>
-            <h2>Registro</h2>
-            <h5>Porfavor, introduzca un userID, PouName, birthday, email y password, en los siguientes textbox:</h5>
-            <div>
-                <div>
-                    <input type="text" id="registro_userId" placeholder="UserID">
+        <header>
+            <div class="contenedor_cabecera">
+                <div class="logo">
+                    <img src="img/LogoUPC.png" alt="">
                 </div>
-                <div>
-                    <input type="text" id="registro_pouname" placeholder="PouName">
-                </div>
-                <div>
-                    <input type="text" id="registro_birthday" placeholder="Birthday">
-                </div>
-                <div>
-                    <input type="text" id="registro_email" placeholder="Email">
-                </div>
-                <div>
-                    <input type="text" id="registro_email2" placeholder="Confirm Email">
-                </div>
-                <div>
-                    <input type="password" id="registro_password" placeholder="Password">
-                </div>
-                <div>
-                    <input type="password" id="registro_password2" placeholder="Confirm password">
-                </div>
-                <div>
-                    <button type="button" id ="registroBtn" onclick="registro()">Registro</button>
+                <div class="titulo">
+                    <h1>Las aventuras de Pou</h1>
                 </div>
             </div>
-        </div>
-        <div id="links">
-            <h3>Selecciona la opción que deseas:</h3>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </div>
+            <div class="contenedor_menu">
+                <div class="menu">
+                    <input type="checkbox" id="check__menu">
+                    <label for="check__menu" id="label__check">
+                        <i class="fas fa-bars icon__menu"></i>
+                    </label>
+                    <nav>
+                        <ul>
+                            <li><a href="index.html"></a></li>
+                            <li><a href="login.html">LOGIN</a></li>
+                            <li><a href="registro.html" id="selected">REGISTER</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div>
+                <h2>Registro</h2>
+                <h5>Porfavor, introduzca un userID, PouName, birthday, email y password, en los siguientes textbox:</h5>
+                <div>
+                    <div>
+                        <input type="text" id="registro_userId" placeholder="UserID">
+                    </div>
+                    <div>
+                        <input type="text" id="registro_pouname" placeholder="PouName">
+                    </div>
+                    <div>
+                        <input type="text" id="registro_birthday" placeholder="Birthday">
+                    </div>
+                    <div>
+                        <input type="text" id="registro_email" placeholder="Email">
+                    </div>
+                    <div>
+                        <input type="text" id="registro_email2" placeholder="Confirm Email">
+                    </div>
+                    <div>
+                        <input type="password" id="registro_password" placeholder="Password">
+                    </div>
+                    <div>
+                        <input type="password" id="registro_password2" placeholder="Confirm password">
+                    </div>
+                    <div>
+                        <button type="button" id ="registroBtn" onclick="registro()">Registro</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
     </body>
 </html>

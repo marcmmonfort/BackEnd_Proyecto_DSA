@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <META HTTP-EQUIV='Pragma' CONTENT='no-cache'>
+    <META HTTP-EQUIV='Cache-Control' CONTENT='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="funciones.js"></script>
+    <link rel="stylesheet" href="css/menuUsuario.css">
+    <meta charset="UTF-8">
+    <title>Armario</title>
+
+    <script>
+        $(document).ready(obtenerArmarioByCredentials);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="contenedor_cabecera">
+            <div class="logo">
+                <img src="img/LogoUPC.png" alt="">
+            </div>
+            <div class="titulo">
+                <h1>Las aventuras de Pou</h1>
+            </div>
+        </div>
+        <div class="contenedor_menu">
+            <div class="menu">
+                <input type="checkbox" id="check__menu">
+                <label for="check__menu" id="label__check">
+                    <i class="fas fa-bars icon__menu"></i>
+                </label>
+                <nav>
+                    <ul>
+                        <li><a href="miPou.html"></a></li>
+                        <li><a href="tienda.html">Tienda de productos para tu POU</a></li>
+                        <li><a href="armario.html" id="selected">Armario</a>
+                            <ul>
+                                <li><a href="">Comida</a></li>
+                                <li><a href="">Bebidas</a></li>
+                                <li><a href="">Pociones</a></li>
+                                <li><a href="">Ropa</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="index.html">LOG OUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

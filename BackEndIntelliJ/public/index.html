@@ -2,23 +2,26 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>POU</title>
-        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/menuGeneral.css">
+        <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 
     <body>
         <header>
-            <div class="header__superior">
+            <div class="contenedor_cabecera">
                 <div class="logo">
-                    <img src="LogoUPC.png" alt="">
+                    <img src="img/LogoUPC.png" alt="">
                 </div>
-                <div class="search">
-                    <input type="search" placeholder="¿Qué deseas buscar?">
+                <div class="titulo">
+                    <h1>Las aventuras de Pou</h1>
                 </div>
             </div>
-            <div class="container__menu">
+            <div class="contenedor_menu">
                 <div class="menu">
                     <input type="checkbox" id="check__menu">
                     <label for="check__menu" id="label__check">
@@ -26,6 +29,7 @@
                     </label>
                     <nav>
                         <ul>
+                            <li><a href="index.html" id="selected"></a></li>
                             <li><a href="login.html">LOGIN</a></li>
                             <li><a href="registro.html">REGISTER</a></li>
                         </ul>
@@ -40,20 +44,12 @@
                 <p>La idea del videojuego surgió durante el año 2022 como una aplicación para cuidar una mascota virtual y personalizarla con accesorios tras la obtención de monedas en minijuegos</p>
                 <p>El juego consiste en poder llegar a un alto nivel, en donde se representa a Pou, una mascota con una característica similar a la de un huevo triangular, a quien se lo debe alimentar, cuidar y mantenerlo como si fuera una mascota de verdad. También hay minijuegos dentro de la aplicación y se pueden ganar monedas para comprar ropa, disfraces, mascotas, comida, decoraciones y modificaciones del entorno del juego jugando diferentes minijuegos o alcanzando los logros.</p>
             </article>
-            <div>
+            <article>
+                <h1>Información sobre el juego:</h1>
                 <h2>Las aventuras de Pou</h2>
                 <h4>Projecto Grupo 1</h4>
                 <h5>DSA - Diseño y Servicio de Aplicaciones</h5>
-            </div>
-            <div id="links">
-                <h3>Selecciona la opción que deseas:</h3>
-                <ul>
-                    <li><a href="registro.html" type="submit" >Registro</a></li>
-                    <li><a href="login.html" type="button">Login</a></li>
-                    <li><a href="tienda.html" type="button">Tienda</a></li>
-                </ul>
-            </div>
+            </article>
         </main>
-
     </body>
 </html>
