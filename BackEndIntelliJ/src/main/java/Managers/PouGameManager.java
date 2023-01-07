@@ -227,4 +227,8 @@ public interface PouGameManager {
 
     public void addObjetosAArmario(int idArmario, String pouId, String tipoArticulo, String idArticulo, Integer cantidad);
 
+    // OPERACIÓN 35: Actualizar un objeto (ObjetoArmario, ObjetoTienda, Pou)
+
+    public void updateObjeto(Object objeto);
+
 }

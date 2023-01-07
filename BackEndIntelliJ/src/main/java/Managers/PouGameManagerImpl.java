@@ -571,4 +571,9 @@ public class PouGameManagerImpl implements PouGameManager {
             logger.info("Artículo con ID " + idArticulo + " añadido.");
         }
     }
+
+    @Override
+    public void updateObjeto(Object objeto) {
+
+    }
 }
