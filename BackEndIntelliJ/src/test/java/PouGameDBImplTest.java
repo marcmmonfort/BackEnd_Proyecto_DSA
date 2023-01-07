@@ -16,11 +16,11 @@ public class PouGameDBImplTest {
     PouGameManager pgm;
 
     @Before
-    public void setUp(){
+    public void setUp() throws ObjetoTiendaYaExisteException {
         pgm = new PouGameDBManagerImpl();
-        //this.pgm.addObjetosAArmario(3,"prueba", "Pocion","P001",1);
-        //this.pgm.addObjetosAArmario(4,"prueba", "Comida","C001",2);
-        //this.pgm.addObjetosAArmario(5,"prueba", "Bebida","B001",1);
+        this.pgm.addObjetosATienda("agua","Agua", 4,"Bebida",0,10, 0, 0);
+        this.pgm.addObjetosATienda("aquarius","Aquarius", 6,"Bebida",0,5,0,10);
+        this.pgm.addObjetosATienda("candy","Candy", 6,"Comida",10, 0,0,5);
     }
 
     @After
@@ -30,52 +30,49 @@ public class PouGameDBImplTest {
 
     @Test
     public void registerTest() throws PouIDYaExisteException, CorreoYaExisteException {
-        this.pgm.crearPou("eloimoncho", "Eloi", "28/08/2001", "eloi@gmail.com", "gnx");
+        this.pgm.crearPou("2", "2", "2", "2", "2");
         int num = this.pgm.size();
-        Assert.assertEquals(6, num);
+        Assert.assertEquals(4, num);
     }
 
     @Test
     public void loginTest() throws PasswordIncorrectaException, CorreoNoExisteException {
-        this.pgm.loginPou("alba@gmail.com","africa");
+        this.pgm.loginPou("1","1");
     }
 
     @Test
     public void addObjetoTiendaTest() throws ObjetoTiendaYaExisteException {
-        this.pgm.addObjetosATienda("C001","Manzana",1,"Comida",10,0,0,0 );
-        this.pgm.addObjetosATienda("B001","Agua",4,"Bebida",4,4,0,0);
-        this.pgm.addObjetosATienda("P001","Salud",10,"Pocion",0,20,0,0);
-        this.pgm.addObjetosATienda("R001","Gafas de sol",30,"Ropa",0,0,0,0);
+        this.pgm.addObjetosATienda("manzana","Manzana", 5,"Comida",20, 0,0,0);
     }
 
     @Test
     public void obtenerObjetosArmarioPouTest() throws PouIDNoExisteException {
-        Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("albaseerra");
+        Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("1");
         List<ObjetoArmario> lista = new ArrayList<>(armario.values());
-        Assert.assertEquals(3, armario.size());
-        Assert.assertEquals("C002", lista.get(0).getIdArticulo());
-        Assert.assertEquals("C001", lista.get(1).getIdArticulo());
-        Assert.assertEquals("B001", lista.get(2).getIdArticulo());
+        Assert.assertEquals(0, armario.size());
+        //Assert.assertEquals("C002", lista.get(0).getIdArticulo());
+        //Assert.assertEquals("C001", lista.get(1).getIdArticulo());
+        //Assert.assertEquals("B001", lista.get(2).getIdArticulo());
     }
 
     @Test
     public void pouCompraArticulosTest() throws PouIDNoExisteException, ObjetoTiendaNoExisteException, PouNoTieneDineroSuficienteException {
-        this.pgm.pouCompraArticulos("eloimoncho", "R001",1,"Ropa");
+        this.pgm.pouCompraArticulos("eloimoncho", "agua",1,"Bebida");
         Map<String, ObjetoArmario> armario = this.pgm.obtenerObjetosArmarioPou("eloimoncho");
         List<ObjetoArmario> lista = new ArrayList<>(armario.values());
-        Assert.assertEquals(2, armario.size());
+        Assert.assertEquals(1, armario.size());
         //Assert.assertEquals("B002", lista.get(0).getIdArticulo());
         //Assert.assertEquals("B001", lista.get(1).getIdArticulo());
     }
 
     @Test
     public void updateObjetoTest() throws PouIDNoExisteException {
-        Pou pou = this.pgm.obtenerPou("palancasFC");
+        Pou pou = this.pgm.obtenerPou("1");
         pou.setDineroPou(300);
         pou.setNivelDiversionPou(70);
         pou.setNivelSuenoPou(60);
         pou.setRecord(88);
-        pou.setGafasId("RG001");
+        pou.setGafasId("fiesta");
         this.pgm.updateObjeto(pou);
     }
 

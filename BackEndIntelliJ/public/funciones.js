@@ -248,6 +248,7 @@ function comprarObjeto(ID, Precio, tipo){
 function comprarObjeto(idCompra, cantidadCompra, tipo){
 
     const idPou = localStorage.getItem('pouId');
+    console.log(idPou);
     console.log(idCompra);
     console.log(cantidadCompra);
     console.log(tipo);
