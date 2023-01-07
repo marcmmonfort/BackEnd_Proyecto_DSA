@@ -70,3 +70,14 @@ hr{
     display: none;
 }
 
+.contenedor_precio{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.monedaImg{
+    width: 15px;
+    border-radius: 50%;
+}
+

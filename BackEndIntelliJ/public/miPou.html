@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
@@ -11,6 +10,7 @@
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/estiloPieWeb.css">
     <link rel="stylesheet" href="css/menuUsuario.css">
+    <link rel="stylesheet" href="css/estiloPerfil.css">
     <meta charset="UTF-8">
     <title>Tienda</title>
 
@@ -32,7 +32,7 @@
       <div class="contenedor_menu">
         <div class="menu">
           <input type="checkbox" id="check__menu">
-          <label for="check__menu" id="label__check">
+          <label for="check__menu" id="label_check">
             <i class="fas fa-bars icon__menu"></i>
           </label>
           <nav>
@@ -53,83 +53,39 @@
         </div>
       </div>
     </header>
-
     <main>
-      <div>
-        <input type="text" id="pouId" placeholder="ID Pou">
-      </div>
-      <div id="buscador">
-        <label for="estadoHambre">Estado del Pou:</label><br>
-        <progress id="estadoHambre" max="100" value="80"></progress><br>
-        <progress id="estadoSalud" max="100" value="70"></progress><br>
-        <progress id="estadoDiversion" max="100" value="50"></progress><br>
-        <progress id="estadoSueño" max="100" value="50"></progress><br>
-
-      </div>
-      <div>
-        <table id="tabla_comida">
-          <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>ID</th>
-            <th>Precio (euros)</th>
-            <th>Tipo</th>
-            <th>Recarga hambre</th>
-            <th>Recarga salud</th>
-          </tr>
-          </thead>
-          <tbody id="comidasArmarioTabla">
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <table id="tabla_bebidas">
-          <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>ID</th>
-            <th>Precio (euros)</th>
-            <th>Tipo</th>
-            <th>Recarga salud</th>
-            <th>Recarga sueño</th>
-          </tr>
-          </thead>
-          <tbody id="bebidasArmarioTabla">
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <table id="tabla_pociones">
-          <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>ID</th>
-            <th>Precio (euros)</th>
-            <th>Tipo</th>
-            <th>Recarga hambre</th>
-            <th>Recarga salud</th>
-            <th>Recarga diversión</th>
-            <th>Recarga sueño</th>
-          </tr>
-          </thead>
-          <tbody id="pocionesArmarioTabla">
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <table id="tabla_ropa">
-          <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>ID</th>
-            <th>Precio (euros)</th>
-            <th>Tipo</th>
-          </tr>
-          </thead>
-          <tbody id="ropaArmarioTabla">
-          </tbody>
-        </table>
-      </div>
+      <section class="card">
+        <div class="card__objeto">
+          <div class="card__cabecera">
+            <img src="img/extra_pou_logoapp.png">
+            <h3 id="nombrePou">Eloi</h3>
+            <p id="idPou">eloimoncho</p>
+            <p id="birthday">28/08/2001</p>
+            <p id="mailPou">eloi@gmail.com</p>
+            <p id="record">record: 145</p>
+          </div>
+          <hr>
+        </div>
+        <div class="card__wideCard">
+          <h3 for="estadoHambr">Estado del Pou:</h3><br>
+          <div class="pociones_estados">
+            <img class="imgPociones" src="img/articulo_tienda_hambre.png">
+            <progress class="barras" id="estadoHambr" max="100" value="100"></progress><br>
+          </div>
+          <div class="pociones_estados">
+            <img class="imgPociones" src="img/articulo_tienda_salud.png">
+            <progress class="barras" id="estadoSalu" max="100" value="70"></progress><br>
+          </div>
+          <div class="pociones_estados">
+            <img class="imgPociones" src="img/articulo_tienda_diversion.png">
+            <progress class="barras" id="estadoDiversio" max="100" value="50"></progress><br>
+          </div>
+          <div class="pociones_estados">
+            <img class="imgPociones" src="img/articulo_tienda_sueno.png">
+            <progress class="barras" id="estadoSueno" max="100" value="50"></progress><br>
+          </div>
+        </div>
+      </section>
     </main>
     <footer>
       <div class="container__footer">
