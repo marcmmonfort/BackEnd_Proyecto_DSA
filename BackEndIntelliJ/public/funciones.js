@@ -43,7 +43,7 @@ function login() {
     var password = $('#login_password').val();
     console.log(email);
     console.log(password);
-    localStorage.setItem('correo', email)
+    localStorage.setItem('correo', email);
     localStorage.setItem('password',password);
     if (email === "" || password === "")
         alert("Asegurate de que no hayas dejado ningun textbox en blanco");
@@ -129,6 +129,7 @@ function obtenerPouByCredentials(){
 
 
             const pouId = data.pouId;
+            localStorage.setItem('pouId', pouId);
             const nombrePou = data.nombrePou;
             console.log(nombrePou);
             const nacimientoPou = data.nacimientoPou;
@@ -214,7 +215,8 @@ function obtenerPouByCredentials(){
 
 }
 
-function comprarObjeto(){
+/*
+function comprarObjeto(ID, Precio, tipo){
 
     var idPou = $('#id_pou').val();
     console.log(idPou);
@@ -241,4 +243,28 @@ function comprarObjeto(){
     });
 }
 
+ */
 
+function comprarObjeto(idCompra, cantidadCompra, tipo){
+
+    const idPou = localStorage.getItem('pouId');
+    console.log(idCompra);
+    console.log(cantidadCompra);
+    console.log(tipo);
+
+    $.ajax({
+        type: 'PUT',
+        url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
+        dataType: 'text',
+        success: function(){
+            alert("¡Objecto comprado con exito!");
+        },
+        error: function(){
+            alert("Error al comprar un objeto");
+            console.log(xhr.status);
+            if(xhr.status === 406){
+                alert("Id del objeto incorrecto");
+            }
+        }
+    });
+}

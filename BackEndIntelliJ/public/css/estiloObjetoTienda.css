@@ -29,10 +29,10 @@ h1{
 .card__objeto:hover{
     border: solid rgb(3, 133, 255) 2px;
 }
-.card__objeto:hover img{
+.card__objeto:hover .imgTienda{
     transform: rotate(0);
 }
-img{
+.imgTienda{
     width: 140px;
     border-radius: 50%;
     box-shadow: 2px 2px 5px rgb(216, 216, 216);
@@ -65,3 +65,8 @@ hr{
     color: white;
     text-decoration: none;
 }
+
+.ids{
+    display: none;
+}
+

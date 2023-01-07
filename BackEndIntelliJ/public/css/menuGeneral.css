@@ -12,7 +12,7 @@
 
 header{
     width: 100%;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     background: #fff;
@@ -111,8 +111,8 @@ nav > ul > li > a:hover{
 /*ARTICULO*/
 
 main{
-    padding: 40px 20px;
-    margin-top: 194px;
+    padding: 10px 20px;
+    margin-top: 0px;
 }
 
 article{

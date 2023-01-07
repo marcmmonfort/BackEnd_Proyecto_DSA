@@ -22,216 +22,270 @@
     </script>
 </head>
 <body>
-<header>
-    <div class="contenedor_cabecera">
-        <div class="logo">
-            <img src="img/LogoUPC.png" alt="">
+    <header>
+        <div class="contenedor_cabecera">
+            <div class="logo">
+                <img class="imgLogo" src="img/LogoUPC.png" alt="">
+            </div>
+            <div class="titulo">
+                <h1>Las aventuras de Pou</h1>
+            </div>
         </div>
-        <div class="titulo">
-            <h1>Las aventuras de Pou</h1>
+        <div class="contenedor_menu">
+            <div class="menu">
+                <input type="checkbox" id="check__menu">
+                <label for="check__menu" id="label__check">
+                    <i class="fas fa-bars icon__menu"></i>
+                </label>
+                <nav>
+                    <ul>
+                        <li><a href="miPou.html"></a></li>
+                        <li><a href="objetoTienda.html" id="selected">Tienda de productos para tu POU</a></li>
+                        <li><a href="armario.html">Armario</a>
+                            <ul>
+                                <li><a href="">Comida</a></li>
+                                <li><a href="">Bebidas</a></li>
+                                <li><a href="">Pociones</a></li>
+                                <li><a href="">Ropa</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="index.html">LOG OUT</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
-    <div class="contenedor_menu">
-        <div class="menu">
-            <input type="checkbox" id="check__menu">
-            <label for="check__menu" id="label__check">
-                <i class="fas fa-bars icon__menu"></i>
-            </label>
-            <nav>
-                <ul>
-                    <li><a href="miPou.html"></a></li>
-                    <li><a href="tienda.html" id="selected">Tienda de productos para tu POU</a></li>
-                    <li><a href="armario.html">Armario</a>
-                        <ul>
-                            <li><a href="">Comida</a></li>
-                            <li><a href="">Bebidas</a></li>
-                            <li><a href="">Pociones</a></li>
-                            <li><a href="">Ropa</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="index.html">LOG OUT</a></li>
-                </ul>
-            </nav>
+    </header>
+
+    <section class="card">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <h3>Agua</h3>
+                <img class="imgTienda" src="img/articulo_tienda_agua.png" alt="">
+                <p id="tipoAgua">Bebida</p>
+                <p class="ids" id="aguaId">agua</p>
+                <p id="precioAgua">4</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadAgua" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnAgua" name="" value="Comprar" onclick="comprarObjeto($('#aguaId').val(), $('#cantidadAgua').val(), $('#tipoAgua').val())">
+            </div>
         </div>
-    </div>
-</header>
-<section class="card">
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_agua.png">
-            <nombreObjeto>Agua</nombreObjeto>
-            <precio>4</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_aquarius.png">
+                <p id="aquarius">Aquarius</p>
+                <p id="precioAquarius">6</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadAquarius" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnAgua" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_candy.png">
+                <p id="candy">Candy</p>
+                <p id="precioCandy">6</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadCandy" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_aquarius.png">
-            <nombreObjeto>Aquarius</nombreObjeto>
-            <precio>6</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_roncola.png">
+                <p id="roncola">Ron Cola</p>
+                <p id="precioRoncola">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadRoncola" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_manzana.png">
+                <p id="manzana">Manzana</p>
+                <p id="precioManzana">5</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadManzana" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_candy.png">
-            <nombreObjeto>Candy</nombreObjeto>
-            <precio>6</precio>
-            <input class="cantidad" type="number" id="cantidad" value="" placeholder="Cantidad">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img  class="imgTienda" src="img/articulo_tienda_pizza.png">
+                <p id="pizza">Pizza</p>
+                <p id="precioPizza">7</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadPizza" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_hambre.png">
+                <p id="pocionHambre">Poción Hambre</p>
+                <p id="precioPocionHambre">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadPocionHambre" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_roncola.png">
-            <nombreObjeto>Ron Cola</nombreObjeto>
-            <precio>10</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_diversion.png">
+                <p id="pocionDiversion">Poción Diversión</p>
+                <p id="precioPocionDiversion">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadPocionDiversion" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_salud.png">
+                <p id="pocionSalud">Poción Salud</p>
+                <p id="precioPocionSalud">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadPocionSalud" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_manzana.png">
-            <nombreObjeto>Manzana</nombreObjeto>
-            <precio>5</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_sueno.png">
+                <p id="pocionSueno">Poción Sueño</p>
+                <p id="precioPocionSueno">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadPocionSueno" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_cerveza.png">
+                <p id="cerveza">Cerveza</p>
+                <p id="precioCerveza">5</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadCerveza" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_pizza.png">
-            <nombreObjeto>Pizza</nombreObjeto>
-            <precio>7</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_boina.png">
+                <p id="boina">Boina</p>
+                <p id="precioBoina">10</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadBoina" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_fcb.png">
+                <p id="camisetaFCB">Camiseta FCB</p>
+                <p id="preciocamisetaFCB">50</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadFCB" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_hambre.png">
-            <nombreObjeto>Poción Hambre</nombreObjeto>
-            <precio>10</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_fiesta.png">
+                <p id="gafasFiesta">Gafas de Fiesta</p>
+                <p id="precioGafasFiesta">30</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadGafasFiesta" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="comprarObjeto()">
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_ciclismo.png">
+                <p id="gafasCiclismo">Gafas de Ciclismo</p>
+                <p id="precioGafasCiclismo">14</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadGafasCiclismo" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_diversion.png">
-            <nombreObjeto>Poción Diversión</nombreObjeto>
-            <precio>10</precio>
+        <div class="card__objeto">
+            <div class="card__cabecera">
+                <img class="imgTienda" src="img/articulo_tienda_messi.png">
+                <p id="zapatosMessi">Zapatos Messi</p>
+                <p id="precioZapatosMessi">40</p>
+                <input class="cantidad" type="number" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadZapatosMessi" value="" placeholder="Cantidad">
+            </div>
+            <hr>
+            <div>
+                <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="comprarObjeto()">
+            </div>
         </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="comprarObjeto()">
+    </section>
+
+    <footer>
+        <div class="container__footer">
+            <div class="box__footer">
+                <div class="logoUPC">
+                    <img src="img/LogoUPC.png" alt="">
+                </div>
+                <div class="terms">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas impedit cum cumque velit libero officiis quam doloremque reprehenderit quae corporis! Delectus architecto officia praesentium atque laudantium, nam deleniti sapiente deserunt.</p>
+                </div>
+            </div>
+            <div class="box__footer">
+                <h2>Soluciones</h2>
+                <a href="https://www.google.com">App Desarrollo</a>
+                <a href="#">App Marketing</a>
+                <a href="#">IOS Desarrollo</a>
+                <a href="#">Android Desarrollo</a>
+            </div>
+
+            <div class="box__footer">
+                <h2>Compañia</h2>
+                <a href="#">Acerca de</a>
+                <a href="#">Trabajos</a>
+                <a href="#">Procesos</a>
+                <a href="#">Servicios</a>
+            </div>
+
+            <div class="box__footer">
+                <h2>Redes Sociales</h2>
+                <a href="#"> <i class="fab fa-facebook-square"></i> Facebook</a>
+                <a href="#"><i class="fab fa-twitter-square"></i> Twitter</a>
+                <a href="#"><i class="fab fa-linkedin"></i> Linkedin</a>
+                <a href="#"><i class="fab fa-instagram-square"></i> Instagram</a>
+            </div>
         </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_salud.png">
-            <nombreObjeto>Poción Salud</nombreObjeto>
-            <precio>10</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_sueno.png">
-            <nombreObjeto>Poción Sueño</nombreObjeto>
-            <precio>10</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_cerveza.png">
-            <nombreObjeto>Cerveza</nombreObjeto>
-            <precio>5</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_boina.png">
-            <nombreObjeto>Boina</nombreObjeto>
-            <precio>10</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_fcb.png">
-            <nombreObjeto>Camiseta FCB</nombreObjeto>
-            <precio>50</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_fiesta.png">
-            <nombreObjeto>Gafas de Fiesta</nombreObjeto>
-            <precio>30</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_ciclismo.png">
-            <nombreObjeto>Gafas de Ciclismo</nombreObjeto>
-            <precio>14</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-    <div class="card__objeto">
-        <div class="card__cabecera">
-            <img src="img/articulo_tienda_messi.png">
-            <nombreObjeto>Zapatos Messi</nombreObjeto>
-            <precio>40</precio>
-        </div>
-        <hr>
-        <div>
-            <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="comprarObjeto()">
-        </div>
-    </div>
-</section>
+    </footer>
 </body>
