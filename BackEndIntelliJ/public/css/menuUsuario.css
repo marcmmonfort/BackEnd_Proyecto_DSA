@@ -167,7 +167,6 @@ nav ul li ul li a:hover{
 /*ARTICULO*/
 
 main{
-    background: #f0f0f0;
     padding: 40px 20px;
     margin-top: 194px;
 }
@@ -176,7 +175,7 @@ article{
     max-width: 1200px;
     margin: 20px auto;
     padding: 40px;
-    background: #fff;
+    background: #f0f0f0;
 }
 
 article p{
