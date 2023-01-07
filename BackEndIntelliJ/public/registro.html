@@ -5,6 +5,7 @@
         <title>POU/registro</title>
         <link rel="stylesheet" href="css/estiloPieWeb.css">
         <link rel="stylesheet" href="css/menuGeneral.css">
+        <link rel="stylesheet" href="css/estiloRegistro.css">
         <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -37,36 +38,17 @@
             </div>
         </header>
         <main>
-            <div>
-                <h2>Registro</h2>
-                <h5>Porfavor, introduzca un userID, PouName, birthday, email y password, en los siguientes textbox:</h5>
-                <div>
-                    <div>
-                        <input type="text" id="registro_userId" placeholder="UserID">
-                    </div>
-                    <div>
-                        <input type="text" id="registro_pouname" placeholder="PouName">
-                    </div>
-                    <div>
-                        <input type="text" id="registro_birthday" placeholder="Birthday">
-                    </div>
-                    <div>
-                        <input type="text" id="registro_email" placeholder="Email">
-                    </div>
-                    <div>
-                        <input type="text" id="registro_email2" placeholder="Confirm Email">
-                    </div>
-                    <div>
-                        <input type="password" id="registro_password" placeholder="Password">
-                    </div>
-                    <div>
-                        <input type="password" id="registro_password2" placeholder="Confirm password">
-                    </div>
-                    <div>
-                        <button type="button" id ="registroBtn" onclick="registro()">Registro</button>
-                    </div>
-                </div>
-            </div>
+            <section class="form-register">
+                <h4>Formulario Registro</h4>
+                <input class="controls" type="text" name="userId" id="registro_userId" placeholder="UserID">
+                <input class="controls" type="text" name="name" id="registro_pouname" placeholder="PouName">
+                <input class="controls" type="text" name="name" id="registro_birthday" placeholder="Birthday">
+                <input class="controls" type="email" name="correo" id="registro_email" placeholder="Email">
+                <input class="controls" type="email" name="correo" id="registro_email2" placeholder="Email">
+                <input class="controls" type="password" name="password" id="registro_password" placeholder="Password">
+                <input class="controls" type="password" name="password" id="registro_password2" placeholder="Password">
+                <input class="botons" type="submit" id ="registroBtn" value="Registrar"onclick="registro()">
+            </section>
         </main>
         <footer>
             <div class="container__footer">

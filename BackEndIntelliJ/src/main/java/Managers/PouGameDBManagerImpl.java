@@ -45,8 +45,9 @@ public class PouGameDBManagerImpl implements PouGameManager {
     @Override
     public void crearPou(String pouId, String nombrePou, String nacimientoPou, String correo, String password) throws CorreoYaExisteException, PouIDYaExisteException {
         Pou miPou = new Pou(pouId,nombrePou,nacimientoPou,correo, password);
+        List<Pou> listaPous= this.session.findAll(Pou.class);
 
-        for(Pou p:this.pousGame.values()){
+        for(Pou p:listaPous){
             if(Objects.equals(p.getCorreoPou(),correo)){
                 throw new CorreoYaExisteException();
             }
