@@ -81,7 +81,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Aquarius</h3>
+                    <h3 id="nombreAquarius">Aquarius</h3>
                     <img class="imgTienda" src="img/articulo_tienda_aquarius.png">
                     <p id="tipoAquarius">Bebida</p>
                     <p class="ids" id="aquariusId">aquarius</p>
@@ -93,7 +93,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('aquariusId').innerText, $('#cantidadAquarius').val(), document.getElementById('tipoAquarius').innerText)">
+                    <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('aquariusId').innerText, $('#cantidadAquarius').val(), document.getElementById('tipoAquarius').innerText, document.getElementById('Aquarius').innerText, document.getElementById('precioAquarius').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
