@@ -45,10 +45,10 @@
                             <li><a href="objetoTienda.html" id="selected">Tienda de productos para tu POU</a></li>
                             <li><a href="armario.html">Armario</a>
                                 <ul>
-                                    <li><a href="">Comida</a></li>
-                                    <li><a href="">Bebidas</a></li>
-                                    <li><a href="">Pociones</a></li>
-                                    <li><a href="">Ropa</a></li>
+                                    <li><a href="comida.html">Comida</a></li>
+                                    <li><a href="bebida.html">Bebidas</a></li>
+                                    <li><a href="pocion.html">Pociones</a></li>
+                                    <li><a href="ropa.html">Ropa</a></li>
                                 </ul>
                             </li>
                             <li><a href="index.html" onclick="borrarDatos()">LOG OUT</a></li>
@@ -93,7 +93,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('aquariusId').innerText, $('#cantidadAquarius').val(), document.getElementById('tipoAquarius').innerText)">
+                    <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('aquariusId').innerText, $('#cantidadAquarius').val(), document.getElementById('tipoAquarius').innerText, document.getElementById('nombreAquarius').innerText, document.getElementById('precioAquarius').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -111,7 +111,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('candyId').innerText, $('#cantidadCandy').val(), document.getElementById('tipoCandy').innerText)">
+                    <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('candyId').innerText, $('#cantidadCandy').val(), document.getElementById('tipoCandy').innerText, document.getElementById('nombreCandy').innerText, document.getElementById('precioCandy').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -129,7 +129,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('roncolaId').innerText, $('#cantidadRoncola').val(), document.getElementById('tipoRoncola').innerText)">
+                    <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('roncolaId').innerText, $('#cantidadRoncola').val(), document.getElementById('tipoRoncola').innerText, document.getElementById('nombreRoncola').innerText, document.getElementById('precioRoncola').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -146,7 +146,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('manzanaId').innerText, $('#cantidadManzana').val(), document.getElementById('tipoManzana').innerText)">
+                    <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('manzanaId').innerText, $('#cantidadManzana').val(), document.getElementById('tipoManzana').innerText,  document.getElementById('nombreManzana').innerText, document.getElementById('precioManzana').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -164,7 +164,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pizzaId').innerText, $('#cantidadPizza').val(), document.getElementById('tipoPizza').innerText)">
+                    <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('pizzaId').innerText, $('#cantidadPizza').val(), document.getElementById('tipoPizza').innerText, document.getElementById('nombrePizza').innerText, document.getElementById('precioPizza').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -181,7 +181,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionHambreId').innerText, $('#cantidadPocionHambre').val(), document.getElementById('tipoPocionHambre').innerText)">
+                    <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('pocionHambreId').innerText, $('#cantidadPocionHambre').val(), document.getElementById('tipoPocionHambre').innerText, document.getElementById('nombrePocionHambre').innerText, document.getElementById('precioPocionHambre').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -198,7 +198,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionDiversionId').innerText, $('#cantidadPocionDiversion').val(), document.getElementById('tipoPocionDiversion').innerText)">
+                    <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('pocionDiversionId').innerText, $('#cantidadPocionDiversion').val(), document.getElementById('tipoPocionDiversion').innerText, document.getElementById('nombrePocionDiversion').innerText, document.getElementById('precioPocionDiversion').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -215,7 +215,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionSaludId').innerText, $('#cantidadPocionSalud').val(), document.getElementById('tipoPocionSalud').innerText)">
+                    <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('pocionSaludId').innerText, $('#cantidadPocionSalud').val(), document.getElementById('tipoPocionSalud').innerText, document.getElementById('nombrePocionSalud').innerText, document.getElementById('precioPocionSalud').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -232,7 +232,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionSuenoId').innerText, $('#cantidadPocionSueno').val(), document.getElementById('tipoPocionSueno').innerText)">
+                    <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('pocionSuenoId').innerText, $('#cantidadPocionSueno').val(), document.getElementById('tipoPocionSueno').innerText,  document.getElementById('nombrePocionSueno').innerText, document.getElementById('precioPocionSueno').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -249,7 +249,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('cervezaId').innerText, $('#cantidadCerveza').val(), document.getElementById('tipoCerveza').innerText)">
+                    <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('cervezaId').innerText, $('#cantidadCerveza').val(), document.getElementById('tipoCerveza').innerText,  document.getElementById('nombreCerveza').innerText, document.getElementById('precioCerveza').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -266,7 +266,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('boinaId').innerText, $('#cantidadBoina').val(), document.getElementById('tipoBoina').innerText)">
+                    <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('boinaId').innerText, $('#cantidadBoina').val(), document.getElementById('tipoBoina').innerText, document.getElementById('nombreBoina').innerText, document.getElementById('precioBoina').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -283,7 +283,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('fcbId').innerText, $('#cantidadFCB').val(), document.getElementById('tipoFCB').innerText)">
+                    <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('fcbId').innerText, $('#cantidadFCB').val(), document.getElementById('tipoFCB').innerText,  document.getElementById('nombreFCB').innerText, document.getElementById('precioFCB').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -300,7 +300,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('gafasFiestaId').innerText, $('#cantidadGafasFiesta').val(), document.getElementById('tipoFiesta').innerText)">
+                    <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('gafasFiestaId').innerText, $('#cantidadGafasFiesta').val(), document.getElementById('tipoFiesta').innerText,  document.getElementById('nombreFiesta').innerText, document.getElementById('precioFiesta').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -317,7 +317,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('gafasCiclismoId').innerText, $('#cantidadGafasCiclismo').val(), document.getElementById('tipoCiclismo').innerText)">
+                    <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('gafasCiclismoId').innerText, $('#cantidadGafasCiclismo').val(), document.getElementById('tipoCiclismo').innerText, document.getElementById('nombreCiclismo').innerText, document.getElementById('precioGafasCiclismo').innerText)">
                 </div>
             </div>
             <div class="card__objeto">
@@ -334,7 +334,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('zapatosMessiId').innerText, $('#cantidadZapatosMessi').val(), document.getElementById('tipoMessi').innerText)">
+                    <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="tiendaAcciones(document.getElementById('zapatosMessiId').innerText, $('#cantidadZapatosMessi').val(), document.getElementById('tipoMessi').innerText, document.getElementById('nombreMessi').innerText, document.getElementById('precioZapatosMessi').innerText)">
                 </div>
             </div>
         </section>
