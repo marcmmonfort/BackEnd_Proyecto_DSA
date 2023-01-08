@@ -277,7 +277,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
     @Override
     public Pou obtenerPouByCredentials(Credenciales credenciales) {
         logger.info("Se quiere obtener el pou que tenga el correo" + credenciales.getCorreoPou() + " y la contraseña " + credenciales.getPasswordPou() + ".");
-        List<Pou> listaPous = new ArrayList<>(this.pousGame.values());
+        List<Pou> listaPous = this.session.findAll(Pou.class);
         String pouId = "";
         Pou miPou = new Pou();
         for (Pou pous : listaPous) {

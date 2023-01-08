@@ -1,12 +1,12 @@
 
 function registro() {
-    var userid = $('#registro_userId').val();
-    var pouname = $('#registro_pouname').val();
-    var birthday = $('#registro_birthday').val();
-    var email = $('#registro_email').val();
-    var email2 = $('#registro_email2').val();
-    var password = $('#registro_password').val();
-    var password2 = $('#registro_password2').val();
+    const userid = $('#registro_userId').val();
+    const pouname = $('#registro_pouname').val();
+    const birthday = $('#registro_birthday').val();
+    const email = $('#registro_email').val();
+    const email2 = $('#registro_email2').val();
+    const password = $('#registro_password').val();
+    const password2 = $('#registro_password2').val();
 
     if (userid === "" || pouname === "" || birthday === "" || email === "" || email2 === "" || password === "" || password2 === ""){
         alert("Asegurate de que no hayas dejado ningun textbox en blanco");
@@ -39,8 +39,8 @@ function registro() {
 }
 
 function login() {
-    var email = $('#login_email').val();
-    var password = $('#login_password').val();
+    const email = $('#login_email').val();
+    const password = $('#login_password').val();
     console.log(email);
     console.log(password);
     localStorage.setItem('correo', email);
@@ -81,7 +81,7 @@ function GetListaObjectosTienda(){
     xhttp.onload = function() {
         // Here you can use the Data
         console.log("Información recibida");
-        var datos=  JSON.parse(this.responseText);
+        const datos = JSON.parse(this.responseText);
         console.log(datos);
         $('#resultados').empty();
         for (var i=0;i<datos.length;++i)
@@ -101,7 +101,7 @@ function GetListaObjectosTienda(){
 
     // Send a request
     console.log("Se envía la petición");
-    var url='http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
+    const url = 'http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
     //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
     xhttp.open("GET",url, true);
     xhttp.send();
@@ -122,34 +122,58 @@ function obtenerPouByCredentials(){
     })
         .done(function(data, status){
 
+            /*
             $('#comidasArmarioTabla').empty();
             $('#bebidasArmarioTabla').empty();
             $('#pocionesArmarioTabla').empty();
             $('#ropaArmarioTabla').empty();
+             */
 
 
             const pouId = data.pouId;
             localStorage.setItem('pouId', pouId);
+            console.log(pouId);
+
             const nombrePou = data.nombrePou;
             console.log(nombrePou);
-            const nacimientoPou = data.nacimientoPou;
+
             const dineroPou = data.dineroPou;
+            console.log(dineroPou);
+
+            const nacimientoPou = data.nacimientoPou;
+            console.log(nacimientoPou);
+
+            const correoPou = data.correoPou;
+            console.log(correoPou);
+
             const nivelHambrePou = data.nivelHambrePou;
+            console.log(nivelHambrePou);
+
             const nivelSaludPou = data.nivelSaludPou;
+            console.log(nivelSaludPou);
+
             const nivelDiversionPou = data.nivelDiversionPou;
+            console.log(nivelDiversionPou);
+
             const nivelSuenoPou = data.nivelSuenoPou;
+            console.log(nivelSuenoPou);
+
             const camisetaId = data.camisetaId;
             const zapatosId = data.zapatosId;
-            const gorrasId = data.gorrasId;
+            const gorraId = data.gorraId;
             const gafasId = data.gafasId;
 
-            document.getElementById("pouId").value = pouId;
-            document.getElementById("dineroPou").value = dineroPou;
+            document.getElementById("idPou").innerText = pouId;
+            document.getElementById("nombrePou").innerText = nombrePou;
+            //document.getElementById("dineroPou").value = dineroPou; // PONER UN P CON ESTO
+            document.getElementById("birthday").innerText = nacimientoPou;
+            document.getElementById("mailPou").innerText = correoPou;
             document.getElementById("estadoHambre").value = nivelHambrePou;
             document.getElementById("estadoSalud").value = nivelSaludPou;
             document.getElementById("estadoDiversion").value = nivelDiversionPou;
-            document.getElementById("estadoSueño").value = nivelSuenoPou;
+            document.getElementById("estadoSueno").value = nivelSuenoPou;
 
+            /*
             for (var i1=0; i1<comidasArmario.length;++i1)
             {
                 console.log("articuloID: ",comidasArmario[0].value.nombreArticulo);
@@ -204,6 +228,7 @@ function obtenerPouByCredentials(){
                     "<td>"+ropaArmario[i4].tipoArticulo+"</td>"+
                     "</tr>");
             }
+             */
             alert("¡Cargados los datos del Pou!");
         })
         .fail(function(xhr, err){
@@ -214,36 +239,6 @@ function obtenerPouByCredentials(){
         });
 
 }
-
-/*
-function comprarObjeto(ID, Precio, tipo){
-
-    var idPou = $('#id_pou').val();
-    console.log(idPou);
-    var idCompra = $('#id_compra').val();
-    console.log(idCompra);
-    var cantidadCompra = $('#cantidad_compra').val();
-    console.log(cantidadCompra);
-    var tipo = $('#tipo_compra').val();
-    console.log(tipo);
-    $.ajax({
-        type: 'PUT',
-        url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
-        dataType: 'text',
-        success: function(){
-            alert("¡Objecto comprado con exito!");
-        },
-        error: function(){
-            alert("Error al comprar un objeto");
-            console.log(xhr.status);
-            if(xhr.status === 406){
-                alert("Id del objeto incorrecto");
-            }
-        }
-    });
-}
-
- */
 
 function comprarObjeto(idCompra, cantidadCompra, tipo){
 
