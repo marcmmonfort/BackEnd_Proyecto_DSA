@@ -48,9 +48,6 @@ public interface PouGameManager {
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
     // DEVUELVE: Pou
     // EXCEPCIONES: (NO EXISTE ESTE POU)
-
-    List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
-
     public Pou obtenerPou(String pouId) throws
             PouIDNoExisteException;
 
@@ -232,5 +229,7 @@ public interface PouGameManager {
     // OPERACIÓN 35: Actualizar un objeto (ObjetoArmario, ObjetoTienda, Pou)
 
     public void updateObjeto(Object objeto);
+
+    List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
 
 }

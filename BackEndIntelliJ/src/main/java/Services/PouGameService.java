@@ -1,6 +1,7 @@
 package Services;
 
 import Entities.Exceptions.*;
+import Entities.ObjetoArmario;
 import Entities.ObjetoTienda;
 import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
@@ -152,9 +153,6 @@ public class PouGameService {
         return Response.status(201).build();
     }
 
-
-
-
     // OPERACION 31: OBTENER UN POU A PARTIR DE UNOS CREDENCIALES
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public Pou obtenerPouByCredentials(Credenciales credenciales);
@@ -171,6 +169,25 @@ public class PouGameService {
         return Response.status(200).entity(miPou).build();
     }
 
+    // OPERACION X: OBTENER UNA LISTA DE UN TIPO DE ARMARIO A PARTIR DE UNOS ID DE USUARIO Y UN TIPO DE ARMARIO
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public List<ObjetoArmario> obtenerObjetosArmarioPouTipo (String pouId, String tipoArticulo);
+    // EXCEPCIONES: -
+
+    @GET
+    @ApiOperation(value = "Obtener una lista de objetos del armario de un tipo en concreto y del usuario correspondiente", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!", response = ObjetoArmario.class, responseContainer="List"),
+    })
+    @Path("/armario/tipo/{idPou}/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerObjetosArmarioPouTipo(@PathParam("idPou") String idPou, @PathParam("tipo") String tipo) {
+
+        List<ObjetoArmario> listaObjetos = this.jvm.obtenerObjetosArmarioPouTipo(idPou, tipo);
+
+        GenericEntity<List<ObjetoArmario>> enviarListaObjetos = new GenericEntity<List<ObjetoArmario>>(listaObjetos) {};
+        return Response.status(201).entity(enviarListaObjetos).build();
+    }
 /*
 
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).

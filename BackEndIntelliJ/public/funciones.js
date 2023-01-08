@@ -9,11 +9,11 @@ function registro() {
     const password2 = $('#registro_password2').val();
 
     if (userid === "" || pouname === "" || birthday === "" || email === "" || email2 === "" || password === "" || password2 === ""){
-        alert("Asegurate de que no hayas dejado ningun textbox en blanco");
+        swal({title:"¡WARNING!", text:"¡Asegurate de que no hayas dejado ningun textbox en blanco!", icon:"info"});
     }else if (email !== email2){
-        alert("Los emails que has introducido no son iguales");
+        swal({title:"¡WARNING!", text:"¡Los emails que has introducido no son iguales!", icon:"info"});
     }else if ( password !== password2) {
-        alert("Las contraseñas que has introducido no son iguales");
+        swal({title:"¡WARNING!", text:"¡Las contraseñas que has introducido no son iguales!", icon:"info"});
     }else{
         $.post({
             url: '/dsaApp/pougame/pou/registro',
@@ -22,16 +22,16 @@ function registro() {
         })
             .done(function(data, status){
                 console.log(status);
-                alert("Registro con exito!");
+                swal({title:"¡Registro con exito!", text:"¡Ahora podrás hacer el login correctamente!", icon:"success"});
                 window.location.href = "login.html";
             })
             .fail(function(xhr, err){
                 console.log(xhr.status);
                 if(xhr.status === 405){
-                    alert("¡Ya hay un usuario con ese ID!");
+                    swal({title:"¡Ya hay un usuario con ese ID!", text:"¡Escoge otro ID para tu Pou!", icon:"error"});
                 }
                 else{
-                    alert("¡Ya hay una cuenta asociada a este correo!");
+                    swal({title:"¡Ya hay una cuenta asociada a este correo!", text:"¡Tienes cuenta, ves a hacer el registro directamente!", icon:"error"});
                     window.location.href = "login.html";
                 }
             });
@@ -46,7 +46,7 @@ function login() {
     localStorage.setItem('correo', email);
     localStorage.setItem('password',password);
     if (email === "" || password === "")
-        alert("Asegurate de que no hayas dejado ningun textbox en blanco");
+        swal({title:"¡WARNING!", text:"¡Asegurate de que no hayas dejado ningun textbox en blanco!", icon:"info"});
     else{
         $.post({
             url: '/dsaApp/pougame/pou/login',
@@ -56,16 +56,16 @@ function login() {
             .done(function(data, status){
                 console.log(status);
                 console.log(data);
-                alert("Login con exito!");
+                swal({title:"¡Login con exito!", text:"¡Preparate para entrar al mundo de tu Pou!", icon:"success"});
                 window.location.href = "miPou.html";
             })
             .fail(function(xhr, err){
                 console.log(xhr.status);
                 if(xhr.status === 405){
-                    alert("¡La contraseña introducida es incorrecta!");
+                    swal({title:"¡La contraseña introducida es incorrecta!", text:"¡Piensa bien cual es tu contraseña!", icon:"error"});
                 }
                 else{
-                    alert("¡El correo introducido no existe, registrate!");
+                    swal({title:"¡El correo introducido no existe, registrate!", text:"¡Antes de empezar tu aventura debes registrarte!", icon:"error"});
                     window.location.href = "registro.html";
                 }
             });
@@ -172,69 +172,12 @@ function obtenerPouByCredentials(){
             document.getElementById("estadoSalud").value = nivelSaludPou;
             document.getElementById("estadoDiversion").value = nivelDiversionPou;
             document.getElementById("estadoSueno").value = nivelSuenoPou;
-
-            /*
-            for (var i1=0; i1<comidasArmario.length;++i1)
-            {
-                console.log("articuloID: ",comidasArmario[0].value.nombreArticulo);
-                console.log("articuloID: ",comidasArmario[0].value.articuloId);
-                console.log("articuloID: ",comidasArmario[0].value.precioArticulo);
-                console.log("articuloID: ",comidasArmario[0].value.tipoArticulo);
-                console.log("articuloID: ",comidasArmario[0].value.recargaHambre);
-                console.log("articuloID: ",comidasArmario[0].value.recargaSalud);
-
-                $("#comidasArmarioTabla").append("<tr>"+
-                    "<td>"+comidasArmario[i1].value.nombreArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].value.articuloId+"</td>"+
-                    "<td>"+comidasArmario[i1].value.precioArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].value.tipoArticulo+"</td>"+
-                    "<td>"+comidasArmario[i1].value.recargaHambre+"</td>"+
-                    "<td>"+comidasArmario[i1].value.recargaSalud+"</td>"+
-                    "</tr>");
-            }
-
-            for (var i2=0;i2<bebidasArmario.length;++i2)
-            {
-                $("#bebidasArmarioTabla").append("<tr>"+
-                    "<td>"+bebidasArmario[i2].nombreArticulo+"</td>"+
-                    "<td>"+bebidasArmario[i2].articuloId+"</td>"+
-                    "<td>"+bebidasArmario[i2].precioArticulo+"</td>"+
-                    "<td>"+bebidasArmario[i2].tipoArticulo+"</td>"+
-                    "<td>"+bebidasArmario[i2].recargaSalud+"</td>"+
-                    "<td>"+bebidasArmario[i2].recargaSueno+"</td>"+
-                    "</tr>");
-            }
-
-            for (var i3=0;i3<pocionesArmario.length;++i3)
-            {
-                $("#pocionesArmarioTabla").append("<tr>"+
-                    "<td>"+pocionesArmario[i3].nombreArticulo+"</td>"+
-                    "<td>"+pocionesArmario[i3].articuloId+"</td>"+
-                    "<td>"+pocionesArmario[i3].precioArticulo+"</td>"+
-                    "<td>"+pocionesArmario[i3].tipoArticulo+"</td>"+
-                    "<td>"+pocionesArmario[i3].recargaHambre+"</td>"+
-                    "<td>"+pocionesArmario[i3].recargaSalud+"</td>"+
-                    "<td>"+pocionesArmario[i3].recargaDiversion+"</td>"+
-                    "<td>"+pocionesArmario[i3].recargaSueno+"</td>"+
-                    "</tr>");
-            }
-
-            for (var i4=0;i4<ropaArmario.length;++i4)
-            {
-                $("#ropaArmarioTabla").append("<tr>"+
-                    "<td>"+ropaArmario[i4].nombreArticulo+"</td>"+
-                    "<td>"+ropaArmario[i4].articuloId+"</td>"+
-                    "<td>"+ropaArmario[i4].precioArticulo+"</td>"+
-                    "<td>"+ropaArmario[i4].tipoArticulo+"</td>"+
-                    "</tr>");
-            }
-             */
-            alert("¡Cargados los datos del Pou!");
+            swal({title:"¡Cargados los datos del Pou!", text:"¡Ahora puedes navegar por tu web!", icon:"success"});
         })
         .fail(function(xhr, err){
             console.log(xhr.status);
             if(xhr.status === 405){
-                alert("¡¡No funciona!!");
+                swal({title:"¡¡No funciona!!", text:"¡Vuelve a intentarlo!", icon:"error"});
             }
         });
 
@@ -253,20 +196,24 @@ function comprarObjeto(idCompra, cantidadCompra, tipo){
         url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
         dataType: 'text',
         success: function(){
-            alert("¡Objecto comprado con exito!");
         },
         error: function(){
-            alert("Error al comprar un objeto");
+            swal({title:"¡Error al comprar un objeto!", text:"¡Revise los datos de la compra!", icon:"error"});
             console.log(xhr.status);
             if(xhr.status === 406){
-                alert("Id del objeto incorrecto");
+                swal({title:"¡Error al comprar un objeto!", text:"¡Revise el ID de la compra!", icon:"error"});
             }
         }
     });
 }
 
-function armarioComida(){
+function armarioTipo(){
+
     const idPou = localStorage.getItem('pouId');
+    console.log(idPou);
+    const tipo = document.getElementById("auxTipo").innerText;
+    console.log(tipo);
+
 // Create an XMLHttpRequest object
     const xhttp = new XMLHttpRequest();
 
@@ -276,38 +223,78 @@ function armarioComida(){
         console.log("Información recibida");
         const datos = JSON.parse(this.responseText);
         console.log(datos);
+        let htmlLine = '<p></p>';
         for (var i=0;i<datos.length;++i)
         {
-            htmlLine='<div class="card__objeto">\n' +
-                '            <div class="card__cabecera">\n' +
-                '                <h3 id="Agua">Agua</h3>\n' +
-                '                <img class="imgTienda" src="img/articulo_tienda_' + datos[i].idArticulo + '.png" alt="">\n' +
-                '                <p id="tipoAgua">' + datos[i].tipoArticulo + '</p>\n' +
-                '                <p class="ids" id="aguaId">' + datos[i].idArticulo + '</p>\n' +
-                '                <p class="cantidad" id="cantidadAgua">' + datos[i].cantidad + '</p>\n' +
-                '            </div>\n' +
-                '        </div>'
+            console.log(datos[i].idArticulo);
+            console.log(datos[i].tipoArticulo);
+            console.log(datos[i].cantidad);
+            htmlLine+='<div class="card__objeto">' +
+                '<div class="card__cabecera">' +
+                '<h3 style="text-transform: uppercase">' + datos[i].idArticulo + '</h3>' +
+                '<img class="imgTienda" src="img/articulo_tienda_' + datos[i].idArticulo + '.png" alt="">' +
+                '<p class="cantidad" id="cantidadAgua">Cantidad: ' + datos[i].cantidad + '</p>' +
+                '</div>' +
+                '</div>';
         }
-        $('#card').append(htmlLine);
+        $('#aux').append(htmlLine);
     }
 
     // Send a request
     console.log("Se envía la petición");
-    const url = 'http://localhost:8080/dsaApp/pougame/armario/comida/' + idPou;
-    //var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou;
+    const url = 'http://localhost:8080/dsaApp/pougame/armario/tipo/' + idPou + '/' + tipo;
+    //var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou + '/' + tipo;
     xhttp.open("GET",url, true);
     xhttp.send();
 
 }
 
-function armarioBebida(){
-    const idPou = localStorage.getItem('pouId');
+function borrarDatos(){
+    localStorage.clear();
 }
 
-function armarioPocion(){
-    const idPou = localStorage.getItem('pouId');
+function activarConfetti(nombreArticulo, idArticulo, tipoArticulo, cantidadArticulo, precioArticulo){
+
+    let htmlLine = '<div class="card__cabecera">' +
+        '<h3>' + nombreArticulo + '</h3>' +
+        '<img class="imgTienda" src="img/articulo_tienda_' + idArticulo + '.png" alt="">' +
+        '<p id="tipoAgua">' + tipoArticulo + '</p>' +
+        '<p>Cantidad comprada: ' + cantidadArticulo + '</p>' +
+        '<div class="contenedor_precio">' +
+        '<p>Precio total: ' + cantidadArticulo*precioArticulo + '</p>' +
+        '<img class="monedaImg" src="img/Coin.png">' +
+        '</div>' +
+        '</div>' +
+        '<div>' +
+        '<a class="close" onClick="desactivarConfetti()">x</a>' +
+        '</div>';
+    $('.popup').append(htmlLine);
+
+    let btn = document.querySelector('.btn');
+    let close = document.querySelector('.close');
+    let popup = document.querySelector('.popup');
+    let confe = document.querySelector('#my-canvas');
+    popup.classList.add('active')
+    confe.classList.add('active')
+    const confettiSettings = {target: 'my-canvas'};
+    const confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
 }
 
-function armarioRopa(){
-    const idPou = localStorage.getItem('pouId');
+function desactivarConfetti(){
+    let btn = document.querySelector('.btn');
+    let close = document.querySelector('.close');
+    let popup = document.querySelector('.popup');
+    let confe = document.querySelector('#my-canvas');
+    popup.classList.remove('active')
+    confe.classList.remove('active')
+    var confettiSettings = { target: 'my-canvas' };
+    var confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
 }
+
+function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
+    comprarObjeto(idCompra, cantidadCompra, tipo);
+    activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
+}
+

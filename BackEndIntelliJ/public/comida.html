@@ -7,12 +7,16 @@
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="funciones.js"></script>
     <link rel="stylesheet" href="css/menuUsuario.css">
     <link rel="stylesheet" href="css/estiloPieWeb.css">
     <link rel="stylesheet" href="css/estiloObjetoTienda.css">
     <meta charset="UTF-8">
-    <title>Comida</title>
+    <title id="auxTipo">Comida</title>
+    <script>
+        $(document).ready(armarioTipo());
+    </script>
 </head>
 <body>
     <header>
@@ -36,29 +40,19 @@
                         <li><a href="objetoTienda.html">Tienda de productos para tu POU</a></li>
                         <li><a href="armario.html" id="selected">Armario</a>
                             <ul>
-                                <li><a href="">Comida</a></li>
-                                <li><a href="">Bebidas</a></li>
-                                <li><a href="">Pociones</a></li>
-                                <li><a href="">Ropa</a></li>
+                                <li><a href="comida.html">Comida</a></li>
+                                <li><a href="bebida.html">Bebidas</a></li>
+                                <li><a href="pocion.html">Pociones</a></li>
+                                <li><a href="ropa.html">Ropa</a></li>
                             </ul>
                         </li>
-                        <li><a href="index.html">LOG OUT</a></li>
+                        <li><a href="index.html" onclick="borrarDatos()">LOG OUT</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
-    <section class="card">
-        <div class="card__objeto">
-            <div class="card__cabecera">
-                <h3 id="Agua">Agua</h3>
-                <img class="imgTienda" src="img/articulo_tienda_agua.png" alt="">
-                <p id="tipoAgua">Bebida</p>
-                <p class="ids" id="aguaId">agua</p>
-                <p class="cantidad" id="cantidadAgua">cantidad</p>
-            </div>
-        </div>
-    </section>
+    <section class="card" id="aux"></section>
     <footer>
         <div class="container__footer">
             <div class="box__footer">
