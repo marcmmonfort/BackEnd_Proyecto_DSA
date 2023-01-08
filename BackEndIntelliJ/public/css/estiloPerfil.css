@@ -33,7 +33,7 @@ h1{
 .card__objeto:hover img{
     transform: rotate(0);
 }
-img{
+.imgPou{
     width: 140px;
     border-radius: 50%;
     box-shadow: 2px 2px 5px rgb(216, 216, 216);
