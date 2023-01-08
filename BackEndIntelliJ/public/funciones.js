@@ -264,3 +264,50 @@ function comprarObjeto(idCompra, cantidadCompra, tipo){
         }
     });
 }
+
+function armarioComida(){
+    const idPou = localStorage.getItem('pouId');
+// Create an XMLHttpRequest object
+    const xhttp = new XMLHttpRequest();
+
+    // Define a callback function
+    xhttp.onload = function() {
+        // Here you can use the Data
+        console.log("Información recibida");
+        const datos = JSON.parse(this.responseText);
+        console.log(datos);
+        for (var i=0;i<datos.length;++i)
+        {
+            htmlLine='<div class="card__objeto">\n' +
+                '            <div class="card__cabecera">\n' +
+                '                <h3 id="Agua">Agua</h3>\n' +
+                '                <img class="imgTienda" src="img/articulo_tienda_' + datos[i].idArticulo + '.png" alt="">\n' +
+                '                <p id="tipoAgua">' + datos[i].tipoArticulo + '</p>\n' +
+                '                <p class="ids" id="aguaId">' + datos[i].idArticulo + '</p>\n' +
+                '                <p class="cantidad" id="cantidadAgua">' + datos[i].cantidad + '</p>\n' +
+                '            </div>\n' +
+                '        </div>'
+        }
+        $('#card').append(htmlLine);
+    }
+
+    // Send a request
+    console.log("Se envía la petición");
+    const url = 'http://localhost:8080/dsaApp/pougame/armario/comida/' + idPou;
+    //var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou;
+    xhttp.open("GET",url, true);
+    xhttp.send();
+
+}
+
+function armarioBebida(){
+    const idPou = localStorage.getItem('pouId');
+}
+
+function armarioPocion(){
+    const idPou = localStorage.getItem('pouId');
+}
+
+function armarioRopa(){
+    const idPou = localStorage.getItem('pouId');
+}
