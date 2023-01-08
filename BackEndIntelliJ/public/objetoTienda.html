@@ -72,7 +72,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnAgua" name="" value="Comprar" onclick="comprarObjeto($('#aguaId').val(), $('#cantidadAgua').val(), $('#tipoAgua').val())">
+                <input class="btn "type="submit" id ="btnAgua" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('aguaId').innerText, $('#cantidadAgua').val(), document.getElementById('tipoAgua').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -89,7 +89,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnAquarius" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('aquariusId').innerText, $('#cantidadAquarius').val(), document.getElementById('tipoAquarius').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -107,7 +107,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnCandy" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('candyId').innerText, $('#cantidadCandy').val(), document.getElementById('tipoCandy').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -125,7 +125,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnRoncola" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('roncolaId').innerText, $('#cantidadRoncola').val(), document.getElementById('tipoRoncola').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -142,7 +142,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnManzana" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('manzanaId').innerText, $('#cantidadManzana').val(), document.getElementById('tipoManzana').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -160,7 +160,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnPizza" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pizzaId').innerText, $('#cantidadPizza').val(), document.getElementById('tipoPizza').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -177,7 +177,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnHambre" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionHambreId').innerText, $('#cantidadPocionHambre').val(), document.getElementById('tipoPocionHambre').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -194,7 +194,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnDiversion" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionDiversionId').innerText, $('#cantidadPocionDiversion').val(), document.getElementById('tipoPocionDiversion').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -211,7 +211,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnSalud" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionSaludId').innerText, $('#cantidadPocionSalud').val(), document.getElementById('tipoPocionSalud').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -228,7 +228,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnSueno" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('pocionSuenoId').innerText, $('#cantidadPocionSueno').val(), document.getElementById('tipoPocionSueno').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -245,7 +245,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnCerveza" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('cervezaId').innerText, $('#cantidadCerveza').val(), document.getElementById('tipoCerveza').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -262,7 +262,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnBoina" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('boinaId').innerText, $('#cantidadBoina').val(), document.getElementById('tipoBoina').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -279,7 +279,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnFCB" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('fcbId').innerText, $('#cantidadFCB').val(), document.getElementById('tipoFCB').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -296,7 +296,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnFiesta" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('gafasFiestaId').innerText, $('#cantidadGafasFiesta').val(), document.getElementById('tipoFiesta').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -313,7 +313,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnCiclismo" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('gafasCiclismoId').innerText, $('#cantidadGafasCiclismo').val(), document.getElementById('tipoCiclismo').innerText)">
             </div>
         </div>
         <div class="card__objeto">
@@ -330,7 +330,7 @@
             </div>
             <hr>
             <div>
-                <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="comprarObjeto()">
+                <input class="btn "type="submit" id ="btnMessi" name="" value="Comprar" onclick="comprarObjeto(document.getElementById('zapatosMessiId').innerText, $('#cantidadZapatosMessi').val(), document.getElementById('tipoMessi').innerText)">
             </div>
         </div>
     </section>
