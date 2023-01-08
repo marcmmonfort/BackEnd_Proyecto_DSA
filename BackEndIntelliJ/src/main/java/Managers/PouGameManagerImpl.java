@@ -123,6 +123,11 @@ public class PouGameManagerImpl implements PouGameManager {
         return null;
     }
 
+    @Override
+    public List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo) {
+        return null;
+    }
+
     // OPERACIÓN 6: OBTENER POU POR SU ID ("pouId")
 
     @Override

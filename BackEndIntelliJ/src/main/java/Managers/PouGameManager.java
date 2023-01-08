@@ -49,6 +49,8 @@ public interface PouGameManager {
     // DEVUELVE: Pou
     // EXCEPCIONES: (NO EXISTE ESTE POU)
 
+    List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
+
     public Pou obtenerPou(String pouId) throws
             PouIDNoExisteException;
 

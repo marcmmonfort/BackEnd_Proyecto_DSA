@@ -112,6 +112,19 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public List<ObjetoArmario> obtenerObjetosArmarioPouTipo (String pouId, String tipoArticulo){
+        Map<String, ObjetoArmario> armarioPou = this.obtenerObjetosArmarioPou(pouId);
+        List<ObjetoArmario> armarioTipo = new ArrayList<>();
+        List<ObjetoArmario> armarioPouLista = new ArrayList<>(armarioPou.values());
+        for(int i=0;i<armarioPouLista.size();i++){
+            if(Objects.equals(armarioPouLista.get(i).getTipoArticulo(), tipoArticulo)){
+                armarioTipo.add(armarioPouLista.get(i));
+            }
+        }
+        return armarioTipo;
+    }
+
+    @Override
     public Pou obtenerPou(String pouId) throws PouIDNoExisteException {
         Pou p = (Pou) this.session.get(Pou.class, pouId);
         return p;
