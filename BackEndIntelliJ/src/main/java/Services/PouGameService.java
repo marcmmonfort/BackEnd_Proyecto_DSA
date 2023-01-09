@@ -6,6 +6,7 @@ import Entities.ObjetoTienda;
 import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InfoRegistro;
+import Entities.ValueObjects.InformacionPou;
 import Managers.PouGameDBManagerImpl;
 import Managers.PouGameManager;
 import io.swagger.annotations.Api;
@@ -189,7 +190,56 @@ public class PouGameService {
         GenericEntity<List<ObjetoArmario>> enviarListaObjetos = new GenericEntity<List<ObjetoArmario>>(listaObjetos) {};
         return Response.status(201).entity(enviarListaObjetos).build();
     }
+
+    // OPERACION ANDROID 1: OBTENER UNA LISTA CON TODA LA INFORMACIÓN NECESARIA DEL USUARIO
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public List<ObjetoArmario> obtenerObjetosArmarioPouTipo (String pouId, String tipoArticulo);
+    // EXCEPCIONES: -
+    @GET
+    @ApiOperation(value = "Obtener una lista de objetos del armario de un tipo en concreto y del usuario correspondiente", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!", response = InformacionPou.class),
+    })
+    @Path("/pou/cargarDatos/{gmail}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInfoAndroidPou(@PathParam("gmail") String gmail, @PathParam("password") String password) throws PouIDNoExisteException {
+
+        Credenciales credenciales = new Credenciales(gmail, password);
+
+        InformacionPou informacionPou= this.jvm.getInfoAndroidPou(credenciales);
+
+        GenericEntity<InformacionPou> enviarListaObjetosAndroid = new GenericEntity<InformacionPou>(informacionPou) {};
+        return Response.status(201).entity(enviarListaObjetosAndroid).build();
+    }
+
 /*
+    // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA:
+    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
+
+    @PUT
+    @ApiOperation(value = "Comprar objeto", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 405, message = "Dinero insuficiente"),
+            @ApiResponse(code = 406, message = "El objeto introducido no existe")
+    })
+    @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comprarObjeto(@PathParam("idPou") String idPou,@PathParam("idCompra") String idCompra,@PathParam("cantidadCompra") String cantidadCompra,@PathParam("tipo") String tipo) {
+        try {
+            this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
+        }catch (ObjetoTiendaNoExisteException e) {
+            return Response.status(406).build();
+        }catch (PouIDNoExisteException e) {
+            return Response.status(404).build();
+        } catch (PouNoTieneDineroSuficienteException e) {
+            return Response.status(405).build();
+        }
+        return Response.status(201).build();
+    }
+
 
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.

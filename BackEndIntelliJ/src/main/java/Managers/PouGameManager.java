@@ -5,6 +5,7 @@ import Entities.ObjetoArmario;
 import Entities.ObjetoTienda;
 import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
+import Entities.ValueObjects.InformacionPou;
 
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,8 @@ public interface PouGameManager {
     // OPERACIÓN 15: BORRAR ELEMENTO ARMARIO POU (PORQUE SE HA CONSUMIDO) (SE RESTA 1 (UNITARIAMENTE))
     // DEVUELVE: ObjetoTienda
     // EXCEPCIONES: (ARTICULO NO EXISTE EN EL ARMARIO) / (POU NO EXISTE)
+
+    InformacionPou getInfoAndroidPou(Credenciales credentials) throws PouIDNoExisteException;
 
     public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws
             PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible;
