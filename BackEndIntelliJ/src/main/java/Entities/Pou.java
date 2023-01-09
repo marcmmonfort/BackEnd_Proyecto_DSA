@@ -36,10 +36,10 @@ public class Pou {
         this.nivelHambrePou = 100;
         this.nivelSaludPou = 100;
         this.nivelSuenoPou = 100;
-        this.camisetaId = null;
-        this.zapatosId = null;
-        this.gorraId = null;
-        this.gafasId = null;
+        this.camisetaId = "nada";
+        this.zapatosId = "nada";
+        this.gorraId = "nada";
+        this.gafasId = "nada";
         this.record = 0;
     }
 

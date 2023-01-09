@@ -6,6 +6,7 @@ import Entities.ObjetoTienda;
 import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InfoRegistro;
+import Entities.ValueObjects.InformacionPou;
 import Managers.PouGameDBManagerImpl;
 import Managers.PouGameManager;
 import io.swagger.annotations.Api;
@@ -188,6 +189,27 @@ public class PouGameService {
 
         GenericEntity<List<ObjetoArmario>> enviarListaObjetos = new GenericEntity<List<ObjetoArmario>>(listaObjetos) {};
         return Response.status(201).entity(enviarListaObjetos).build();
+    }
+
+    // OPERACION ANDROID 1: OBTENER UNA LISTA CON TODA LA INFORMACIÓN NECESARIA DEL USUARIO
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: public List<ObjetoArmario> obtenerObjetosArmarioPouTipo (String pouId, String tipoArticulo);
+    // EXCEPCIONES: -
+    @GET
+    @ApiOperation(value = "Obtener una lista de objetos del armario de un tipo en concreto y del usuario correspondiente", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!", response = InformacionPou.class),
+    })
+    @Path("/pou/cargarDatos/{gmail}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInfoAndroidPou(@PathParam("gmail") String gmail, @PathParam("password") String password) throws PouIDNoExisteException {
+
+        Credenciales credenciales = new Credenciales(gmail, password);
+
+        InformacionPou informacionPou= this.jvm.getInfoAndroidPou(credenciales);
+
+        GenericEntity<InformacionPou> enviarListaObjetosAndroid = new GenericEntity<InformacionPou>(informacionPou) {};
+        return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
 /*
 
