@@ -130,12 +130,13 @@ public class PouGameService {
     // OPERACIÓN 14: AÑADIR ELEMENTO ARMARIO POU (POU COMPRA UN OBJETO DE UNA SALA) (HAY QUE PONER CUANTOS)
     // MÉTODO HTTP: PUT.
     // ESTRUCTURA: public void pouCompraArticulos(String pouId, String articuloId, Integer cantidad, String tipoArticulo);
-    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException
+    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
 
     @PUT
     @ApiOperation(value = "Comprar objeto", notes = "-")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 405, message = "Dinero insuficiente"),
             @ApiResponse(code = 406, message = "El objeto introducido no existe")
     })
     @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
@@ -145,10 +146,10 @@ public class PouGameService {
             this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
         }catch (ObjetoTiendaNoExisteException e) {
             return Response.status(406).build();
-        } catch (PouIDNoExisteException e) {
+        }catch (PouIDNoExisteException e) {
             return Response.status(404).build();
         } catch (PouNoTieneDineroSuficienteException e) {
-            throw new RuntimeException(e);
+            return Response.status(405).build();
         }
         return Response.status(201).build();
     }

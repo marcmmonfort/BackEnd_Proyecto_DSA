@@ -190,21 +190,30 @@ function comprarObjeto(idCompra, cantidadCompra, tipo){
     console.log(idCompra);
     console.log(cantidadCompra);
     console.log(tipo);
+    //let devuelve;
 
     $.ajax({
         type: 'PUT',
         url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
         dataType: 'text',
         success: function(){
+            //devuelve=xhr.status;
         },
         error: function(){
             swal({title:"¡Error al comprar un objeto!", text:"¡Revise los datos de la compra!", icon:"error"});
             console.log(xhr.status);
             if(xhr.status === 406){
                 swal({title:"¡Error al comprar un objeto!", text:"¡Revise el ID de la compra!", icon:"error"});
+                //devuelve=xhr.status;
+            }
+            if(xhr.status=== 405){
+                swal({title:"¡Error al comprar un objeto!", text:"¡No tiene dinero suficiente!", icon:"error"});
+                //devuelve=xhr.status;
             }
         }
     });
+    //console.log(devuelve);
+    //return devuelve;
 }
 
 function armarioTipo(){
@@ -294,7 +303,13 @@ function desactivarConfetti(){
 }
 
 function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
+    const solucion = comprarObjeto(idCompra, cantidadCompra, tipo);
+    console.log(solucion);
     comprarObjeto(idCompra, cantidadCompra, tipo);
     activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
+
+    if (solucion === 201){
+        activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
+    }
 }
 
