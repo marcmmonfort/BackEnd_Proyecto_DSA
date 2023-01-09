@@ -211,7 +211,35 @@ public class PouGameService {
         GenericEntity<InformacionPou> enviarListaObjetosAndroid = new GenericEntity<InformacionPou>(informacionPou) {};
         return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
+
 /*
+    // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA:
+    // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
+
+    @PUT
+    @ApiOperation(value = "Comprar objeto", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 405, message = "Dinero insuficiente"),
+            @ApiResponse(code = 406, message = "El objeto introducido no existe")
+    })
+    @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comprarObjeto(@PathParam("idPou") String idPou,@PathParam("idCompra") String idCompra,@PathParam("cantidadCompra") String cantidadCompra,@PathParam("tipo") String tipo) {
+        try {
+            this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
+        }catch (ObjetoTiendaNoExisteException e) {
+            return Response.status(406).build();
+        }catch (PouIDNoExisteException e) {
+            return Response.status(404).build();
+        } catch (PouNoTieneDineroSuficienteException e) {
+            return Response.status(405).build();
+        }
+        return Response.status(201).build();
+    }
+
 
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.
