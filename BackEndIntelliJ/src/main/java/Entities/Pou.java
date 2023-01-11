@@ -25,6 +25,7 @@ public class Pou {
     // CONSTRUCTORES
 
     public Pou() {}
+
     public Pou(String pouId, String nombrePou, String nacimientoPou, String correoPou, String passwordPou) {
         this.pouId = pouId;
         this.nombrePou = nombrePou;
