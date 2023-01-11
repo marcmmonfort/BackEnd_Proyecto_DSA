@@ -698,4 +698,9 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public void comprobarCorreo(String gmail) throws CorreoYaExisteException {}
+
+    @Override
+    public ObjetoTienda obtenerInfoObjeto(String articuloId){
+        return null;
+    }
 }

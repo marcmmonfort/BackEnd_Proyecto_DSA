@@ -257,6 +257,25 @@ public class PouGameService {
         return Response.status(201).build();
     }
 
+    // OPERACIÓN ANDROID 4: PEDIR LA INFORMACIÓN DE UN ARTÍCULO DE LA TIENDA POR SU ID.
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA: -
+    // EXCEPCIONES: -
+
+    @GET
+    @ApiOperation(value = "Pedir la información de un artículo de la tienda por su ID.", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Información del artículo obtenida!", response = ObjetoTienda.class),
+    })
+    @Path("/tienda/obtenerarticulo/{articuloid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerInfoObjeto(@PathParam("articuloid") String articuloId) {
+        ObjetoTienda objetoTienda = this.jvm.obtenerInfoObjeto(articuloId);
+
+        GenericEntity<ObjetoTienda> enviarObjetoTienda = new GenericEntity<ObjetoTienda>(objetoTienda) {};
+        return Response.status(201).entity(enviarObjetoTienda).build();
+    }
+
 /*
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.

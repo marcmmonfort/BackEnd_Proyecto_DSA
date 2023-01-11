@@ -93,6 +93,22 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public ObjetoTienda obtenerInfoObjeto(String articuloId){
+        ObjetoTienda objetoEncontrado = null;
+        List<ObjetoTienda> todosLosObjetos = obtenerObjetosTienda();
+        int i=0;
+        boolean encontrado = false;
+        while ((i<todosLosObjetos.size())&&(!encontrado)){
+            if (Objects.equals(todosLosObjetos.get(i).getArticuloId(), articuloId)){
+                objetoEncontrado = todosLosObjetos.get(i);
+                encontrado = true;
+            }
+            i++;
+        }
+        return objetoEncontrado;
+    }
+
+    @Override
     public Map<String, Pou> obtenerPous() {
         List<Object> listaPous= this.session.findAll(Pou.class);
         for(int i=0; i<listaPous.size();i++) {
