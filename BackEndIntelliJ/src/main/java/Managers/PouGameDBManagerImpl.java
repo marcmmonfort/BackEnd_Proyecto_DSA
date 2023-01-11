@@ -10,6 +10,7 @@ import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class PouGameDBManagerImpl implements PouGameManager {
@@ -427,11 +428,23 @@ public class PouGameDBManagerImpl implements PouGameManager {
     public void updateObjeto(Object objeto) {
         this.session.update(objeto);
     }
+
+    @Override
+    public void updateObjetoArmario(String pouId, String idArticulo, int cantidad) {
+
+        try {
+            this.session.updateObjetoArmario(cantidad,pouId,idArticulo);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 /*
     @Override
     public List<ObjetoTienda> obtenerObjetosTienda() {
         return null;
     }
+
+
 
     @Override
     public Map<String, Pou> obtenerPous() {

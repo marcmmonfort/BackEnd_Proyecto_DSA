@@ -235,4 +235,5 @@ public interface PouGameManager {
 
     List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
 
+    void updateObjetoArmario(String pouId, String idArticulo, int cantidad);
 }

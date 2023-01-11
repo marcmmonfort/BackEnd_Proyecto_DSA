@@ -15,8 +15,8 @@ h1{
     display: flex;
     gap: 50px;
     flex-wrap: wrap;
-    margin-top: 30px;
     justify-content: center;
+    margin-top: 30px;
 }
 
 .card__objeto{
@@ -37,6 +37,15 @@ h1{
     width: 140px;
     border-radius: 50%;
     box-shadow: 2px 2px 5px rgb(216, 216, 216);
+    transform: rotate(-30deg);
+    transition: all .3s;
+}
+
+.card__cabecera{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 hr{
@@ -64,12 +73,18 @@ hr{
     border: solid rgb(3, 133, 255) 2px;
 }
 
+.card__wideCard:hover img{
+    transform: rotate(0);
+}
+
 .imgPociones{
     margin-bottom: 5px;
     margin-top: 5px;
     width: 50px;
     border-radius: 50%;
     box-shadow: 2px 2px 5px rgb(216, 216, 216);
+    transform: rotate(-30deg);
+    transition: all .3s;
 }
 .pociones_estados{
     display: flex;
@@ -78,4 +93,15 @@ hr{
 .barras{
     margin-left: 10px;
     width: 100%;
+}
+
+.contenedor_precio{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.monedaImg{
+    width: 15px;
+    border-radius: 50%;
 }

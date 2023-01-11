@@ -212,31 +212,23 @@ public class PouGameService {
         return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
 
-/*
+
     // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
     // MÉTODO HTTP: PUT.
     // ESTRUCTURA:
     // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
 
     @PUT
-    @ApiOperation(value = "Comprar objeto", notes = "-")
+    @ApiOperation(value = "Actualizar los datos", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Hecho!"),
-            @ApiResponse(code = 405, message = "Dinero insuficiente"),
-            @ApiResponse(code = 406, message = "El objeto introducido no existe")
+            @ApiResponse(code = 201, message = "¡Hecho!")
     })
-    @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
+    @Path("/pou/actualizarDatos")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response comprarObjeto(@PathParam("idPou") String idPou,@PathParam("idCompra") String idCompra,@PathParam("cantidadCompra") String cantidadCompra,@PathParam("tipo") String tipo) {
-        try {
-            this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
-        }catch (ObjetoTiendaNoExisteException e) {
-            return Response.status(406).build();
-        }catch (PouIDNoExisteException e) {
-            return Response.status(404).build();
-        } catch (PouNoTieneDineroSuficienteException e) {
-            return Response.status(405).build();
-        }
+    public Response updateObjetoArmario(InformacionPou informacionPou) {
+
+        int AmountAgua = informacionPou.getAmountAgua();
+        for(int i = 0; i < )
         return Response.status(201).build();
     }
 

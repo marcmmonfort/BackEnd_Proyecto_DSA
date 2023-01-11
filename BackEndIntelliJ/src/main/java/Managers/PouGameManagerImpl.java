@@ -582,6 +582,12 @@ public class PouGameManagerImpl implements PouGameManager {
     public void updateObjeto(Object objeto) {
 
     }
+
+    @Override
+    public void updateObjetoArmario(String pouId, String idArticulo, int cantidad){
+
+    }
+
     @Override
     public InformacionPou getInfoAndroidPou(Credenciales credentials) throws PouIDNoExisteException {
         Pou miPou = obtenerPouByCredentials(credentials);

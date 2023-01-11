@@ -7,7 +7,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="funciones.js"></script>
-        <link rel="stylesheet" href="css/estiloTienda.css">
         <link rel="stylesheet" href="css/menuUsuario.css">
         <link rel="stylesheet" href="css/estiloPieWeb.css">
         <link rel="stylesheet" href="css/estiloObjetoTienda.css">
@@ -98,7 +97,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Candy</h3>
+                    <h3 id="nombreCandy">Candy</h3>
                     <img class="imgTienda" src="img/articulo_tienda_candy.png">
                     <p id="tipoCandy">Comida</p>
                     <p class="ids" id="candyId">candy</p>
@@ -116,7 +115,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>RonCola</h3>
+                    <h3 id="nombreRoncola">RonCola</h3>
                     <img class="imgTienda" src="img/articulo_tienda_roncola.png">
                     <p id="tipoRoncola">Bebida</p>
                     <p class="ids" id="roncolaId">roncola</p>
@@ -134,7 +133,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Manzana</h3>
+                    <h3 id="nombreManzana">Manzana</h3>
                     <img class="imgTienda" src="img/articulo_tienda_manzana.png">
                     <p id="tipoManzana">Comida</p>
                     <p class="ids" id="manzanaId">manzana</p>
@@ -151,7 +150,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Pizza</h3>
+                    <h3 id="nombrePizza">Pizza</h3>
                     <img  class="imgTienda" src="img/articulo_tienda_pizza.png">
                     <p id="tipoPizza">Comida</p>
                     <p class="ids" id="pizzaId">pizza</p>
@@ -169,7 +168,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Poción Hambre</h3>
+                    <h3 id="nombrePocionHambre">Poción Hambre</h3>
                     <img class="imgTienda" src="img/articulo_tienda_hambre.png">
                     <p id="tipoPocionHambre">Poción</p>
                     <p class="ids" id="pocionHambreId">hambre</p>
@@ -186,7 +185,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Poción Diversión</h3>
+                    <h3 id="nombrePocionDiversion">Poción Diversión</h3>
                     <img class="imgTienda" src="img/articulo_tienda_diversion.png">
                     <p id="tipoPocionDiversion">Poción</p>
                     <p class="ids" id="pocionDiversionId">diversion</p>
@@ -203,7 +202,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Poción Salud</h3>
+                    <h3 id="nombrePocionSalud">Poción Salud</h3>
                     <img class="imgTienda" src="img/articulo_tienda_salud.png">
                     <p id="tipoPocionSalud">Poción</p>
                     <p class="ids" id="pocionSaludId">salud</p>
@@ -220,7 +219,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Poción Sueño</h3>
+                    <h3 id="nombrePocionSueno">Poción Sueño</h3>
                     <img class="imgTienda" src="img/articulo_tienda_sueno.png">
                     <p id="tipoPocionSueno">Poción</p>
                     <p class="ids" id="pocionSuenoId">sueno</p>
@@ -237,7 +236,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Gorro cerveza</h3>
+                    <h3 id="nombreCerveza">Gorro cerveza</h3>
                     <img class="imgTienda" src="img/articulo_tienda_cerveza.png">
                     <p id="tipoCerveza">Ropa</p>
                     <p class="ids" id="cervezaId">cerveza</p>
@@ -254,7 +253,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Boina</h3>
+                    <h3 id="nombreBoina">Boina</h3>
                     <img class="imgTienda" src="img/articulo_tienda_boina.png">
                     <p id="tipoBoina">Ropa</p>
                     <p class="ids" id="boinaId">boina</p>
@@ -271,12 +270,12 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Camiseta FCB</h3>
+                    <h3 id="nombreFCB">Camiseta FCB</h3>
                     <img class="imgTienda" src="img/articulo_tienda_fcb.png">
                     <p id="tipoFCB">Ropa</p>
                     <p class="ids" id="fcbId">fcb</p>
                     <div class="contenedor_precio">
-                        <p id="precioCamisetaFCB">50</p>
+                        <p id="precioFCB">50</p>
                         <img class="monedaImg" src="img/Coin.png">
                     </div>
                     <input class="cantidad" type="number" pattern="^[0-90]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadFCB" value="" placeholder="Cantidad">
@@ -288,12 +287,12 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Gafas de Fiesta</h3>
+                    <h3 id="nombreFiesta">Gafas de Fiesta</h3>
                     <img class="imgTienda" src="img/articulo_tienda_fiesta.png">
                     <p id="tipoFiesta">Ropa</p>
                     <p class="ids" id="gafasFiestaId">fiesta</p>
                     <div class="contenedor_precio">
-                        <p id="precioGafasFiesta">30</p>
+                        <p id="precioFiesta">30</p>
                         <img class="monedaImg" src="img/Coin.png">
                     </div>
                     <input class="cantidad" type="number" pattern="^[0-90]+" onpaste="return false;" onDrop="return false;" autocomplete=off min="0" id="cantidadGafasFiesta" value="" placeholder="Cantidad">
@@ -305,7 +304,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Gafas de Ciclismo</h3>
+                    <h3 id="nombreCiclismo">Gafas de Ciclismo</h3>
                     <img class="imgTienda" src="img/articulo_tienda_ciclismo.png">
                     <p id="tipoCiclismo">Ropa</p>
                     <p class="ids" id="gafasCiclismoId">ciclismo</p>
@@ -322,7 +321,7 @@
             </div>
             <div class="card__objeto">
                 <div class="card__cabecera">
-                    <h3>Zapatos Messi</h3>
+                    <h3 nombre="nombreMessi">Zapatos Messi</h3>
                     <img class="imgTienda" src="img/articulo_tienda_messi.png">
                     <p id="tipoMessi">Ropa</p>
                     <p class="ids" id="zapatosMessiId">messi</p>

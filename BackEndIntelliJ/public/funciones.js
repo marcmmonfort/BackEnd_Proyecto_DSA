@@ -122,14 +122,6 @@ function obtenerPouByCredentials(){
     })
         .done(function(data, status){
 
-            /*
-            $('#comidasArmarioTabla').empty();
-            $('#bebidasArmarioTabla').empty();
-            $('#pocionesArmarioTabla').empty();
-            $('#ropaArmarioTabla').empty();
-             */
-
-
             const pouId = data.pouId;
             localStorage.setItem('pouId', pouId);
             console.log(pouId);
@@ -145,6 +137,12 @@ function obtenerPouByCredentials(){
 
             const correoPou = data.correoPou;
             console.log(correoPou);
+
+            const passwordPou = data.passwordPou;
+            console.log(passwordPou);
+
+            const record = data.record;
+            console.log(record);
 
             const nivelHambrePou = data.nivelHambrePou;
             console.log(nivelHambrePou);
@@ -165,9 +163,10 @@ function obtenerPouByCredentials(){
 
             document.getElementById("idPou").innerText = pouId;
             document.getElementById("nombrePou").innerText = nombrePou;
-            //document.getElementById("dineroPou").value = dineroPou; // PONER UN P CON ESTO
+            document.getElementById("dineroPou").innerText = dineroPou;
             document.getElementById("birthday").innerText = nacimientoPou;
             document.getElementById("mailPou").innerText = correoPou;
+            document.getElementById("record").innerText = record;
             document.getElementById("estadoHambre").value = nivelHambrePou;
             document.getElementById("estadoSalud").value = nivelSaludPou;
             document.getElementById("estadoDiversion").value = nivelDiversionPou;
@@ -303,13 +302,15 @@ function desactivarConfetti(){
 }
 
 function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
-    const solucion = comprarObjeto(idCompra, cantidadCompra, tipo);
-    console.log(solucion);
+    //const solucion = comprarObjeto(idCompra, cantidadCompra, tipo);
+    //console.log(solucion);
     comprarObjeto(idCompra, cantidadCompra, tipo);
     activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
-
+    /*
     if (solucion === 201){
         activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
     }
+
+     */
 }
 
