@@ -137,7 +137,7 @@ public class PouGameService {
     @ApiOperation(value = "Comprar objeto", notes = "-")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "¡Hecho!"),
-            @ApiResponse(code = 405, message = "Dinero insuficiente"),
+            @ApiResponse(code = 407, message = "Dinero insuficiente"),
             @ApiResponse(code = 406, message = "El objeto introducido no existe")
     })
     @Path("/tienda/comprar/{idPou}/{idCompra}/{cantidadCompra}/{tipo}")
@@ -147,9 +147,9 @@ public class PouGameService {
             this.jvm.pouCompraArticulos(idPou, idCompra, Integer.parseInt(cantidadCompra), tipo);
         }catch (ObjetoTiendaNoExisteException e) {
             return Response.status(406).build();
-        }catch (PouIDNoExisteException e) {
-            return Response.status(404).build();
-        } catch (PouNoTieneDineroSuficienteException e) {
+        }catch (PouNoTieneDineroSuficienteException e) {
+            return Response.status(407).build();
+        }catch (PouIDNoExisteException e){
             return Response.status(405).build();
         }
         return Response.status(201).build();
@@ -212,6 +212,7 @@ public class PouGameService {
         return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
 
+    /*
 
     // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
     // MÉTODO HTTP: PUT.
