@@ -7,6 +7,7 @@ public class InformacionPou {
     String data_nombrePou;
     String data_nacimientoPou;
     String data_correoPou;
+    String data_passwordPou;
     int recordPou;
     int lvlHambre;
     int lvlSalud;
@@ -44,11 +45,12 @@ public class InformacionPou {
 
     public InformacionPou() {}
 
-    public InformacionPou(String data_pouId, String data_nombrePou, String data_nacimientoPou, String data_correoPou, int recordPou, int lvlHambre, int lvlSalud, int lvlDiversion, int lvlSueno, int amountDinero, int amountCandy, int amountManzana, int amountPizza, int amountAgua, int amountAquarius, int amountRoncola, int amountHambre, int amountSalud, int amountDiversion, int amountSueno, String pouCamiseta, String pouBambas, String pouGafas, String pouGorro, String posee_pijama, String posee_fcb, String posee_spain, String posee_messi, String posee_rafa, String posee_veja, String posee_fiesta, String posee_rayban, String posee_ciclismo, String posee_cerveza, String posee_boina, String posee_polo) {
+    public InformacionPou(String data_pouId, String data_nombrePou, String data_nacimientoPou, String data_correoPou, String data_passwordPou, int recordPou, int lvlHambre, int lvlSalud, int lvlDiversion, int lvlSueno, int amountDinero, int amountCandy, int amountManzana, int amountPizza, int amountAgua, int amountAquarius, int amountRoncola, int amountHambre, int amountSalud, int amountDiversion, int amountSueno, String pouCamiseta, String pouBambas, String pouGafas, String pouGorro, String posee_pijama, String posee_fcb, String posee_spain, String posee_messi, String posee_rafa, String posee_veja, String posee_fiesta, String posee_rayban, String posee_ciclismo, String posee_cerveza, String posee_boina, String posee_polo) {
         this.data_pouId = data_pouId;
         this.data_nombrePou = data_nombrePou;
         this.data_nacimientoPou = data_nacimientoPou;
         this.data_correoPou = data_correoPou;
+        this.data_passwordPou = data_passwordPou;
         this.recordPou = recordPou;
         this.lvlHambre = lvlHambre;
         this.lvlSalud = lvlSalud;
@@ -116,6 +118,14 @@ public class InformacionPou {
 
     public void setData_correoPou(String data_correoPou) {
         this.data_correoPou = data_correoPou;
+    }
+
+    public String getData_passwordPou() {
+        return data_passwordPou;
+    }
+
+    public void setData_passwordPou(String data_passwordPou) {
+        this.data_passwordPou = data_passwordPou;
     }
 
     public int getRecordPou() {

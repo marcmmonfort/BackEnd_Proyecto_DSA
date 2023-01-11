@@ -44,6 +44,7 @@ public class Pou {
         this.record = 0;
     }
 
+
     // GETTERS Y SETTERS
 
     public String getPouId() {
@@ -165,4 +166,6 @@ public class Pou {
     public void setRecord(int record) {
         this.record = record;
     }
+
+
 }
