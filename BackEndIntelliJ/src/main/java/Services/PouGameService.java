@@ -9,10 +9,12 @@ import Entities.ValueObjects.InfoRegistro;
 import Entities.ValueObjects.InformacionPou;
 import Managers.PouGameDBManagerImpl;
 import Managers.PouGameManager;
+import Managers.PouGameManagerImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -25,6 +27,8 @@ import java.util.List;
 
 public class PouGameService {
     private PouGameManager jvm;
+
+    final static org.apache.log4j.Logger logger = Logger.getLogger(PouGameManagerImpl.class);
 
     public PouGameService() throws PouIDYaExisteException, CorreoYaExisteException, ObjetoTiendaYaExisteException, SalaYaExisteException, PouIDNoExisteException {
         this.jvm = PouGameDBManagerImpl.getInstance();
@@ -212,14 +216,11 @@ public class PouGameService {
         return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
 
-
-
     // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
     // MÉTODO HTTP: PUT.
     // ESTRUCTURA:
     // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
 
-    /*
     @PUT
     @ApiOperation(value = "Actualizar los datos", notes = "-")
     @ApiResponses(value = {
@@ -231,6 +232,28 @@ public class PouGameService {
 
         this.jvm.updateAndroid(informacionPou);
 
+        return Response.status(201).build();
+    }
+
+    // OPERACIÓN ANDROID 3: COMPROBAMOS SI EL CORREO CAMBIADO ESTÁ DISPONIBLE.
+    // MÉTODO HTTP: PUT.
+    // ESTRUCTURA: -
+    // EXCEPCIONES: CorreoYaExisteException
+
+    @PUT
+    @ApiOperation(value = "Comprobar el correo", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!"),
+            @ApiResponse(code = 405, message = "¡El correo ya existe!")
+    })
+    @Path("pou/comprobarCorreo/{gmail}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comprobarCorreo(@PathParam("gmail") String gmail) throws CorreoYaExisteException{
+        try {
+            this.jvm.comprobarCorreo(gmail);
+        }catch (CorreoYaExisteException e) {
+            return Response.status(405).build();
+        }
         return Response.status(201).build();
     }
 
@@ -312,7 +335,6 @@ public class PouGameService {
     // NO IMPLEMENTADO.
     // LO QUE HAY ABAJO ES EL QUE TENIA DE PLANTILLA.
 
-    /*
 
     private ObjetoManager om;
 

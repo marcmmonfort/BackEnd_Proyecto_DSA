@@ -103,6 +103,8 @@ public interface PouGameManager {
 
     InformacionPou getInfoAndroidPou(Credenciales credentials) throws PouIDNoExisteException;
 
+    void comprobarCorreo(String gmail) throws CorreoYaExisteException;
+
     public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws
             PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible;
 

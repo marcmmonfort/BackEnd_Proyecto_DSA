@@ -695,4 +695,7 @@ public class PouGameManagerImpl implements PouGameManager {
 
     @Override
     public void updateAndroid(InformacionPou informacionPou){}
+
+    @Override
+    public void comprobarCorreo(String gmail) throws CorreoYaExisteException {}
 }

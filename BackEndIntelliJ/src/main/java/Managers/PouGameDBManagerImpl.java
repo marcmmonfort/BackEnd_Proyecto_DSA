@@ -306,6 +306,24 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public void comprobarCorreo(String gmail) throws CorreoYaExisteException{
+        Map<String, Pou> hashmapPous = obtenerPous();
+        List<Pou> listaPous = new ArrayList<>(hashmapPous.values());
+
+        logger.info("Gmail recibido: "+gmail);
+
+        int i=0;
+        while (i<listaPous.size()){
+            logger.info("Gmail comprobado: "+listaPous.get(i).getCorreoPou());
+            if (Objects.equals(listaPous.get(i).getCorreoPou(), gmail)){
+                logger.info("SALTA EL AVISO");
+                throw new CorreoYaExisteException();
+            }
+            i++;
+        }
+    }
+
+    @Override
     public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible {
         return null;
     }
