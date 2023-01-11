@@ -218,6 +218,7 @@ public class PouGameService {
     // ESTRUCTURA:
     // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
 
+    /*
     @PUT
     @ApiOperation(value = "Actualizar los datos", notes = "-")
     @ApiResponses(value = {
@@ -256,6 +257,7 @@ public class PouGameService {
         GenericEntity<List<Pou>> historialJugadores = new GenericEntity<List<Pou>>(historial) {};
         return Response.status(201).entity(historialJugadores).build();
     }
+
 
     // OPERACION 9: Obtener las Partidas en las que ha jugado un Usuario.
     // MÉTODO HTTP: GET.

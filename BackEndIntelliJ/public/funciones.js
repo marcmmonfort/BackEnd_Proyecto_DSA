@@ -54,8 +54,6 @@ function login() {
             contentType: 'application/json; charset=utf-8'
         })
             .done(function(data, status){
-                console.log(status);
-                console.log(data);
                 swal({title:"¡Login con exito!", text:"¡Preparate para entrar al mundo de tu Pou!", icon:"success"});
                 window.location.href = "miPou.html";
             })
