@@ -219,7 +219,6 @@ public class PouGameService {
     // ESTRUCTURA:
     // EXCEPCIONES: ObjetoTiendaNoExisteException, PouIDNoExisteException, PouNoTieneDineroSuficienteException
 
-    /*
     @PUT
     @ApiOperation(value = "Actualizar los datos", notes = "-")
     @ApiResponses(value = {
