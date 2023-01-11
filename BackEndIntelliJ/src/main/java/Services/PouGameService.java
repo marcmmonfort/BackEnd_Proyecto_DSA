@@ -212,7 +212,7 @@ public class PouGameService {
         return Response.status(201).entity(enviarListaObjetosAndroid).build();
     }
 
-    /*
+
 
     // OPERACIÓN ANDROID 2: MODIFICAMOS LAS TABLAS CON LOS NUEVOS VALORES DE LA APP
     // MÉTODO HTTP: PUT.
@@ -228,12 +228,12 @@ public class PouGameService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateObjetoArmario(InformacionPou informacionPou) {
 
-        int AmountAgua = informacionPou.getAmountAgua();
-        for(int i = 0; i < )
+        this.jvm.updateAndroid(informacionPou);
+
         return Response.status(201).build();
     }
 
-
+/*
     // OPERACION 8: Obtener los Usuarios que han jugado un cierto Juego ordenados por Puntos (de mayor a menor).
     // MÉTODO HTTP: GET.
     // ESTRUCTURA: public List<Usuario> obtenerHistorialUsuariosDeJuego(String juegoId);

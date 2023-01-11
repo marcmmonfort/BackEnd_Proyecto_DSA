@@ -200,6 +200,9 @@ public class PouGameDBManagerImpl implements PouGameManager {
 
     @Override
     public InformacionPou getInfoAndroidPou(Credenciales credentials) throws PouIDNoExisteException {
+
+        logger.info("Obteniendo la info POU");
+
         Pou miPou = obtenerPouByCredentials(credentials);
 
         List<ObjetoArmario> miArmarioListComida  = obtenerObjetosArmarioPouTipo(miPou.getPouId(), "Comida");
@@ -297,8 +300,8 @@ public class PouGameDBManagerImpl implements PouGameManager {
                 posee_polo = "YES";
             }
         }
-
-        InformacionPou completo = new InformacionPou(miPou.getPouId(), miPou.getNombrePou(), miPou.getNacimientoPou(), miPou.getCorreoPou(), miPou.getRecord(), miPou.getNivelHambrePou(), miPou.getNivelSaludPou(), miPou.getNivelDiversionPou(), miPou.getNivelSuenoPou(), miPou.getDineroPou(), amountCandy, amountManzana, amountPizza, amountAgua, amountAquarius, amountRoncola, amountHambre, amountSalud, amountDiversion, amountSueno, miPou.getCamisetaId(), miPou.getZapatosId(), miPou.getGafasId(), miPou.getGorraId(), posee_pijama, posee_fcb, posee_spain, posee_messi, posee_rafa, posee_veja, posee_fiesta, posee_rayban, posee_ciclismo, posee_cerveza, posee_boina, posee_polo);
+        logger.info("Info obtenida");
+        InformacionPou completo = new InformacionPou(miPou.getPouId(), miPou.getNombrePou(), miPou.getNacimientoPou(), miPou.getCorreoPou(), miPou.getPasswordPou(), miPou.getRecord(), miPou.getNivelHambrePou(), miPou.getNivelSaludPou(), miPou.getNivelDiversionPou(), miPou.getNivelSuenoPou(), miPou.getDineroPou(), amountCandy, amountManzana, amountPizza, amountAgua, amountAquarius, amountRoncola, amountHambre, amountSalud, amountDiversion, amountSueno, miPou.getCamisetaId(), miPou.getZapatosId(), miPou.getGafasId(), miPou.getGorraId(), posee_pijama, posee_fcb, posee_spain, posee_messi, posee_rafa, posee_veja, posee_fiesta, posee_rayban, posee_ciclismo, posee_cerveza, posee_boina, posee_polo);
         return completo;
     }
 
@@ -437,6 +440,50 @@ public class PouGameDBManagerImpl implements PouGameManager {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void updateAndroid(InformacionPou informacionPou){
+
+        Pou nuevosDatosPou = new Pou(informacionPou.getData_pouId(), informacionPou.getData_nombrePou(), informacionPou.getData_nacimientoPou(), informacionPou.getData_correoPou(), informacionPou.getData_passwordPou());
+
+        nuevosDatosPou.setDineroPou(informacionPou.getAmountDinero());
+        nuevosDatosPou.setNivelHambrePou(informacionPou.getLvlHambre());
+        nuevosDatosPou.setNivelSaludPou(informacionPou.getLvlSalud());
+        nuevosDatosPou.setNivelDiversionPou(informacionPou.getLvlDiversion());
+        nuevosDatosPou.setNivelSuenoPou(informacionPou.getLvlSueno());
+        nuevosDatosPou.setCamisetaId(informacionPou.getPouCamiseta());
+        nuevosDatosPou.setZapatosId(informacionPou.getPouBambas());
+        nuevosDatosPou.setGorraId(informacionPou.getPouGorro());
+        nuevosDatosPou.setGafasId(informacionPou.getPouGafas());
+        nuevosDatosPou.setRecord(informacionPou.getRecordPou());
+
+        updateObjeto(nuevosDatosPou);
+
+
+        int amountCandy = informacionPou.getAmountCandy();
+        int amountManzana = informacionPou.getAmountManzana();
+        int amountPizza = informacionPou.getAmountPizza();
+        int amountAgua = informacionPou.getAmountAgua();
+        int amountAquarius = informacionPou.getAmountAquarius();
+        int amountRoncola = informacionPou.getAmountRoncola();
+        int amountHambre = informacionPou.getAmountHambre();
+        int amountSalud = informacionPou.getAmountSalud();
+        int amountDiversion = informacionPou.getAmountDiversion();
+        int amountSueno = informacionPou.getAmountSueno();
+
+
+        updateObjetoArmario(informacionPou.getData_pouId(),"candy",amountCandy);
+        updateObjetoArmario(informacionPou.getData_pouId(),"manzana",amountManzana);
+        updateObjetoArmario(informacionPou.getData_pouId(),"pizza",amountPizza);
+        updateObjetoArmario(informacionPou.getData_pouId(),"agua",amountAgua);
+        updateObjetoArmario(informacionPou.getData_pouId(),"aquarius",amountAquarius);
+        updateObjetoArmario(informacionPou.getData_pouId(),"roncola",amountRoncola);
+        updateObjetoArmario(informacionPou.getData_pouId(),"hambre",amountHambre);
+        updateObjetoArmario(informacionPou.getData_pouId(),"salud",amountSalud);
+        updateObjetoArmario(informacionPou.getData_pouId(),"diversion",amountDiversion);
+        updateObjetoArmario(informacionPou.getData_pouId(),"sueno",amountSueno);
+
     }
 /*
     @Override

@@ -6,6 +6,7 @@ import Entities.ObjetoTienda;
 import Entities.Pou;
 import Entities.ValueObjects.Credenciales;
 import Entities.ValueObjects.InformacionPou;
+import io.swagger.models.auth.In;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -599,9 +600,9 @@ public class PouGameManagerImpl implements PouGameManager {
         for(int i = 0 ; i<miArmarioListComida.size() ; i++){
 
             ObjetoArmario aux = miArmarioListComida.get(i);
-            if("manzana" == aux.getIdArticulo()){
+            if("manzana".equals(aux.getIdArticulo())){
                 amountManzana = aux.getCantidad();
-            } else if ("candy" == aux.getIdArticulo()) {
+            } else if ("candy".equals(aux.getIdArticulo())) {
                 amountCandy = aux.getCantidad();
             }
             else{
@@ -616,9 +617,9 @@ public class PouGameManagerImpl implements PouGameManager {
         for(int i = 0 ; i<miArmarioListBebida.size() ; i++){
 
             ObjetoArmario aux = miArmarioListBebida.get(i);
-            if("agua" == aux.getIdArticulo()){
+            if("agua".equals(aux.getIdArticulo())){
                 amountAgua = aux.getCantidad();
-            } else if ("aquarius" == aux.getIdArticulo()) {
+            } else if ("aquarius".equals(aux.getIdArticulo())) {
                 amountAquarius = aux.getCantidad();
             }
             else{
@@ -634,11 +635,11 @@ public class PouGameManagerImpl implements PouGameManager {
         for(int i = 0 ; i<miArmarioListPocion.size() ; i++){
 
             ObjetoArmario aux = miArmarioListPocion.get(i);
-            if("hambre" == aux.getIdArticulo()){
+            if("hambre".equals(aux.getIdArticulo())){
                 amountHambre= aux.getCantidad();
-            } else if ("salud" == aux.getIdArticulo()) {
+            } else if ("salud".equals(aux.getIdArticulo())) {
                 amountSalud = aux.getCantidad();
-            } else if ("diversion" == aux.getIdArticulo()) {
+            } else if ("diversion".equals(aux.getIdArticulo())) {
                 amountDiversion = aux.getCantidad();
             } else{
                 amountSueno = aux.getCantidad();
@@ -661,34 +662,37 @@ public class PouGameManagerImpl implements PouGameManager {
         for(int i = 0 ; i<miArmarioListRopa.size() ; i++){
 
             ObjetoArmario aux = miArmarioListRopa.get(i);
-            if("pijama" == aux.getIdArticulo()){
+            if("pijama".equals(aux.getIdArticulo())){
                 posee_pijama = "YES";
-            } else if ("fcb" == aux.getIdArticulo()) {
+            } else if ("fcb".equals(aux.getIdArticulo())) {
                 posee_fcb = "YES";
-            } else if ("spain" == aux.getIdArticulo()) {
+            } else if ("spain".equals(aux.getIdArticulo())) {
                 posee_spain = "YES";
-            } else if ("messi" == aux.getIdArticulo()) {
+            } else if ("messi".equals(aux.getIdArticulo())) {
                 posee_messi = "YES";
-            } else if ("rafa" == aux.getIdArticulo()) {
+            } else if ("rafa".equals(aux.getIdArticulo())) {
                 posee_rafa = "YES";
-            } else if ("veja" == aux.getIdArticulo()) {
+            } else if ("veja".equals(aux.getIdArticulo())) {
                 posee_veja = "YES";
-            } else if ("fiesta" == aux.getIdArticulo()) {
+            } else if ("fiesta".equals(aux.getIdArticulo())) {
                 posee_fiesta = "YES";
-            } else if ("rayban" == aux.getIdArticulo()) {
+            } else if ("rayban".equals(aux.getIdArticulo())) {
                 posee_rayban = "YES";
-            } else if ("ciclismo" == aux.getIdArticulo()) {
+            } else if ("ciclismo".equals(aux.getIdArticulo())) {
                 posee_ciclismo = "YES";
-            } else if ("cerveza" == aux.getIdArticulo()) {
+            } else if ("cerveza".equals(aux.getIdArticulo())) {
                 posee_cerveza = "YES";
-            } else if ("boina" == aux.getIdArticulo()) {
+            } else if ("boina".equals(aux.getIdArticulo())) {
                 posee_boina = "YES";
             } else{
                 posee_polo = "YES";
             }
         }
 
-        InformacionPou completo = new InformacionPou(miPou.getPouId(), miPou.getNombrePou(), miPou.getNacimientoPou(), miPou.getCorreoPou(), miPou.getRecord(), miPou.getNivelHambrePou(), miPou.getNivelSaludPou(), miPou.getNivelDiversionPou(), miPou.getNivelSuenoPou(), miPou.getDineroPou(), amountCandy, amountManzana, amountPizza, amountAgua, amountAquarius, amountRoncola, amountHambre, amountSalud, amountDiversion, amountSueno, miPou.getCamisetaId(), miPou.getZapatosId(), miPou.getGafasId(), miPou.getGorraId(), posee_pijama, posee_fcb, posee_spain, posee_messi, posee_rafa, posee_veja, posee_fiesta, posee_rayban, posee_ciclismo, posee_cerveza, posee_boina, posee_polo);
+        InformacionPou completo = new InformacionPou(miPou.getPouId(), miPou.getNombrePou(), miPou.getNacimientoPou(), miPou.getCorreoPou(), miPou.getPasswordPou(), miPou.getRecord(), miPou.getNivelHambrePou(), miPou.getNivelSaludPou(), miPou.getNivelDiversionPou(), miPou.getNivelSuenoPou(), miPou.getDineroPou(), amountCandy, amountManzana, amountPizza, amountAgua, amountAquarius, amountRoncola, amountHambre, amountSalud, amountDiversion, amountSueno, miPou.getCamisetaId(), miPou.getZapatosId(), miPou.getGafasId(), miPou.getGorraId(), posee_pijama, posee_fcb, posee_spain, posee_messi, posee_rafa, posee_veja, posee_fiesta, posee_rayban, posee_ciclismo, posee_cerveza, posee_boina, posee_polo);
         return completo;
     }
+
+    @Override
+    public void updateAndroid(InformacionPou informacionPou){}
 }
