@@ -182,6 +182,7 @@ function obtenerPouByCredentials(){
 
 }
 
+/*
 function comprarObjeto(idCompra, cantidadCompra, tipo){
 
     const idPou = localStorage.getItem('pouId');
@@ -189,30 +190,61 @@ function comprarObjeto(idCompra, cantidadCompra, tipo){
     console.log(idCompra);
     console.log(cantidadCompra);
     console.log(tipo);
-    //let devuelve;
+    let devuelve = 3;
 
     $.ajax({
         type: 'PUT',
         url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
         dataType: 'text',
-        success: function(){
-            //devuelve=xhr.status;
+        success: function(data, status){
+            activarConfetti()
         },
-        error: function(){
-            swal({title:"¡Error al comprar un objeto!", text:"¡Revise los datos de la compra!", icon:"error"});
+        error: function(xhr, err){
+            const devuelve = 1;
             console.log(xhr.status);
+            swal({title:"¡Error al comprar un objeto!", text:"¡Revise los datos de la compra!", icon:"error"});
+
             if(xhr.status === 406){
                 swal({title:"¡Error al comprar un objeto!", text:"¡Revise el ID de la compra!", icon:"error"});
                 //devuelve=xhr.status;
             }
-            if(xhr.status=== 405){
+            else{
                 swal({title:"¡Error al comprar un objeto!", text:"¡No tiene dinero suficiente!", icon:"error"});
                 //devuelve=xhr.status;
             }
         }
     });
-    //console.log(devuelve);
-    //return devuelve;
+    console.log(devuelve);
+    return devuelve;
+}
+
+ */
+
+function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
+
+    const idPou = localStorage.getItem('pouId');
+    console.log(idPou);
+    console.log(idCompra);
+    console.log(cantidadCompra);
+    console.log(tipo);
+
+    $.ajax({
+        type: 'PUT',
+        url: '/dsaApp/pougame/tienda/comprar/' + idPou + '/' + idCompra + '/' + cantidadCompra + '/' + tipo,
+        dataType: 'text',
+        success: function(data, status){
+            activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
+        },
+        error: function(xhr, err){
+
+            if(xhr.status === 406){
+                swal({title:"¡Error al comprar un objeto!", text:"¡Revise el ID de la compra!", icon:"error"});
+            }
+            else{
+                swal({title:"¡Error al comprar un objeto!", text:"¡No tiene dinero suficiente!", icon:"error"});
+            }
+        }
+    });
 }
 
 function armarioTipo(){
@@ -263,6 +295,7 @@ function borrarDatos(){
 
 function activarConfetti(nombreArticulo, idArticulo, tipoArticulo, cantidadArticulo, precioArticulo){
 
+    $('.popup').empty();
     let htmlLine = '<div class="card__cabecera">' +
         '<h3>' + nombreArticulo + '</h3>' +
         '<img class="imgTienda" src="img/articulo_tienda_' + idArticulo + '.png" alt="">' +
@@ -301,16 +334,19 @@ function desactivarConfetti(){
     confetti.render();
 }
 
+/*
 function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
     //const solucion = comprarObjeto(idCompra, cantidadCompra, tipo);
     //console.log(solucion);
-    comprarObjeto(idCompra, cantidadCompra, tipo);
-    activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
-    /*
+    //comprarObjeto(idCompra, cantidadCompra, tipo);
+    //activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
+
+
     if (solucion === 201){
         activarConfetti(nombreArticulo, idCompra, tipo, cantidadCompra, precioArticulo);
     }
 
-     */
-}
 
+
+}
+*/
