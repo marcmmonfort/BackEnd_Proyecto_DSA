@@ -258,14 +258,14 @@ public class PouGameService {
     }
 
     // OPERACIÓN ANDROID 4: PEDIR LA INFORMACIÓN DE UN ARTÍCULO DE LA TIENDA POR SU ID.
-    // MÉTODO HTTP: PUT.
+    // MÉTODO HTTP: GET.
     // ESTRUCTURA: -
     // EXCEPCIONES: -
 
     @GET
     @ApiOperation(value = "Pedir la información de un artículo de la tienda por su ID.", notes = "-")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "¡Información del artículo obtenida!", response = ObjetoTienda.class),
+            @ApiResponse(code = 201, message = "¡Información del artículo obtenida!", response = ObjetoTienda.class)
     })
     @Path("/tienda/obtenerarticulo/{articuloid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -274,6 +274,25 @@ public class PouGameService {
 
         GenericEntity<ObjetoTienda> enviarObjetoTienda = new GenericEntity<ObjetoTienda>(objetoTienda) {};
         return Response.status(201).entity(enviarObjetoTienda).build();
+    }
+
+    // OPERACIÓN ANDROID 5: PEDIR LOS POUS ORDENADOS POR UNA DE LAS COLUMNAS.
+    // MÉTODO HTTP: GET.
+    // ESTRUCTURA: -
+    // EXCEPCIONES: -
+
+    @GET
+    @ApiOperation(value = "Pedir la información de los Pous ordenados por una de sus columnas.", notes = "-")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "¡Hecho!", response = Pou.class, responseContainer="List"),
+    })
+    @Path("/pou/ranking/{rankingId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPousOrdenadosDescendentemente(@PathParam("rankingId") String rankingId) {
+        logger.info("LLEGA AQUÍ");
+        List<Pou> listaPous = this.jvm.obtenerPousOrdenadosDescendentemente(rankingId);
+        GenericEntity<List<Pou>> enviarListaPous = new GenericEntity<List<Pou>>(listaPous) {};
+        return Response.status(201).entity(enviarListaPous).build();
     }
 
 /*

@@ -340,6 +340,13 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public List<Pou> obtenerPousOrdenadosDescendentemente (String columnaId){
+        List<Pou> listaPous = this.session.obtenerObjetosOrdenadosPorAlgo(Pou.class, columnaId);
+        logger.info("ID del Primero en DB: "+listaPous.get(0).getPouId());
+        return listaPous;
+    }
+
+    @Override
     public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible {
         return null;
     }

@@ -107,6 +107,8 @@ public interface PouGameManager {
 
     void comprobarCorreo(String gmail) throws CorreoYaExisteException;
 
+    List<Pou> obtenerPousOrdenadosDescendentemente(String columnaId);
+
     public ObjetoArmario pouConsumeArticulo(String pouId, String articuloId) throws
             PouIDNoExisteException, NivelPorDebajoDelMinimoException, NivelPorEncimaDelMaximoException, ObjetoArmarioNoDisponible;
 

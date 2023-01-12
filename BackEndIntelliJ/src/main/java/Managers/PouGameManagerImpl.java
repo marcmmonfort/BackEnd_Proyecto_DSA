@@ -703,4 +703,9 @@ public class PouGameManagerImpl implements PouGameManager {
     public ObjetoTienda obtenerInfoObjeto(String articuloId){
         return null;
     }
+
+    @Override
+    public List<Pou> obtenerPousOrdenadosDescendentemente (String columnaId){
+        return null;
+    }
 }
