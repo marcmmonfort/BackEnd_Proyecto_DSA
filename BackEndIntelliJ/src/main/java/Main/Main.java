@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.net.URI;
 
 public class Main {
-    public static final String BASE_URI = "http://localhost:8080/dsaApp/";
-    //public static final String BASE_URI = "http://147.83.7.203/dsaApp/";
+    //public static final String BASE_URI = "http://localhost:8080/dsaApp/";
+    public static final String BASE_URI = "http://147.83.7.203/dsaApp/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
@@ -29,8 +29,8 @@ public class Main {
 
         BeanConfig beanConfig = new BeanConfig();
 
-        beanConfig.setHost("localhost:8080");
-        //beanConfig.setHost("147.83.7.203:80");
+        //beanConfig.setHost("localhost:8080");
+        beanConfig.setHost("147.83.7.203:80");
         beanConfig.setBasePath("/dsaApp");
         beanConfig.setContact("support@example.com");
         beanConfig.setDescription("REST API for Product Manager");
