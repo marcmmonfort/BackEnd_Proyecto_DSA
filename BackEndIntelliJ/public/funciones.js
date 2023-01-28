@@ -99,8 +99,8 @@ function GetListaObjectosTienda(){
 
     // Send a request
     console.log("Se envía la petición");
-    const url = 'http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
-    //var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
+    //const url = 'http://localhost:8080/dsaApp/pougame/tienda/listaObjetos';
+    var url='http://147.83.7.203/dsaApp/pougame/tienda/listaObjetos';
     xhttp.open("GET",url, true);
     xhttp.send();
 }
@@ -280,8 +280,8 @@ function armarioTipo(){
 
     // Send a request
     console.log("Se envía la petición");
-    const url = 'http://localhost:8080/dsaApp/pougame/armario/tipo/' + idPou + '/' + tipo;
-    //var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou + '/' + tipo;
+    //const url = 'http://localhost:8080/dsaApp/pougame/armario/tipo/' + idPou + '/' + tipo;
+    var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou + '/' + tipo;
     xhttp.open("GET",url, true);
     xhttp.send();
 
