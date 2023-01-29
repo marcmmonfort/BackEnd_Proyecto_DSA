@@ -281,7 +281,7 @@ function armarioTipo(){
     // Send a request
     console.log("Se envía la petición");
     //const url = 'http://localhost:8080/dsaApp/pougame/armario/tipo/' + idPou + '/' + tipo;
-    var url='http://147.83.7.203/dsaApp/pougame/armario/comida/' + idPou + '/' + tipo;
+    var url='http://147.83.7.203/dsaApp/pougame/armario/tipo/' + idPou + '/' + tipo;
     xhttp.open("GET",url, true);
     xhttp.send();
 
