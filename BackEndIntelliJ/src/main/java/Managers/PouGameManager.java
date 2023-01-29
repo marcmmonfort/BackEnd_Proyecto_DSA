@@ -239,14 +239,14 @@ public interface PouGameManager {
 
     public void updateObjeto(Object objeto);
 
-    List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
+    public List<ObjetoArmario> obtenerObjetosArmarioPouTipo(String pouId, String tipoArticulo);
 
-    void updateObjetoArmario(String pouId, String idArticulo, int cantidad);
+    public void updateObjetoArmario(String pouId, String idArticulo, int cantidad);
 
 
-    List<ObjetoArmario> obtenerArmarioOrdenadoDescendentemente(String columnaId);
+    public List<ObjetoArmario> obtenerArmarioOrdenadoDescendentemente(String columnaId);
 
-    List<ObjetoTienda> obtenerTiendaOrdenadaDescendentemente(String columnaId);
+    public List<ObjetoTienda> obtenerTiendaOrdenadaDescendentemente(String columnaId);
 
     void updateAndroid(InformacionPou informacionPou);
 }

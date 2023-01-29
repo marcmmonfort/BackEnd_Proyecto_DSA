@@ -26,6 +26,7 @@ h1{
     border: solid rgba(3, 133, 255, 0) 2px;
     border-radius: 10px;
     text-align: center;
+    background-color: white;
 }
 .card__objeto:hover{
     border: solid rgb(3, 133, 255) 2px;

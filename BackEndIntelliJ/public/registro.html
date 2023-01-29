@@ -11,6 +11,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="funciones.js"></script>
+
+        <script>
+            $(document).ready(rellenarFecha());
+        </script>
     </head>
     <body>
         <header>
@@ -43,7 +47,19 @@
                 <h5>Registro</h5>
                 <input class="controls" type="text" name="userId" id="registro_userId" placeholder="UserID">
                 <input class="controls" type="text" name="name" id="registro_pouname" placeholder="PouName">
+
                 <input class="controls" type="text" name="name" id="registro_birthday" placeholder="Birthday">
+
+                <select class="fecha" name="dia" id="dia">
+                    <option value="dia">Dia</option>
+                </select>
+                <select class="fecha" name="mes" id="mes">
+                    <option value="mes">Mes</option>
+                </select>
+                <select class="fecha" name="ano" id="ano">
+                    <option value="ano">Año</option>
+                </select>
+
                 <input class="controls" type="email" name="correo" id="registro_email" placeholder="Email">
                 <input class="controls" type="email" name="correo" id="registro_email2" placeholder="Email">
                 <input class="controls" type="password" name="password" id="registro_password" placeholder="Password">

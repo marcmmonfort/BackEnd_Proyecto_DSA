@@ -590,6 +590,16 @@ public class PouGameManagerImpl implements PouGameManager {
     }
 
     @Override
+    public List<ObjetoArmario> obtenerArmarioOrdenadoDescendentemente(String columnaId) {
+        return null;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerTiendaOrdenadaDescendentemente(String columnaId) {
+        return null;
+    }
+
+    @Override
     public InformacionPou getInfoAndroidPou(Credenciales credentials) throws PouIDNoExisteException {
         Pou miPou = obtenerPouByCredentials(credentials);
 
