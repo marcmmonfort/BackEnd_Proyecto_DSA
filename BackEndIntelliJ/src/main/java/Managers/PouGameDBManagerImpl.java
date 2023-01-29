@@ -484,6 +484,20 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     @Override
+    public List<ObjetoArmario> obtenerArmarioOrdenadoDescendentemente(String columnaId){
+        List<ObjetoArmario> listaObjetoArmario = this.session.obtenerObjetosOrdenadosPorAlgo(ObjetoArmario.class, columnaId);
+        logger.info("ID del Primero en DB: "+listaObjetoArmario.get(0).getPouId());
+        return listaObjetoArmario;
+    }
+
+    @Override
+    public List<ObjetoTienda> obtenerTiendaOrdenadaDescendentemente(String columnaId){
+
+        List<ObjetoTienda> listaObjetoArmario = this.session.obtenerObjetosOrdenadosPorAlgo(ObjetoTienda.class, columnaId);
+        return listaObjetoArmario;
+    }
+
+    @Override
     public void updateAndroid(InformacionPou informacionPou){
 
         Pou nuevosDatosPou = new Pou(informacionPou.getData_pouId(), informacionPou.getData_nombrePou(), informacionPou.getData_nacimientoPou(), informacionPou.getData_correoPou(), informacionPou.getData_passwordPou());

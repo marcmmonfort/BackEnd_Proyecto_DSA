@@ -267,13 +267,16 @@ function armarioTipo(){
             console.log(datos[i].idArticulo);
             console.log(datos[i].tipoArticulo);
             console.log(datos[i].cantidad);
-            htmlLine+='<div class="card__objeto">' +
-                '<div class="card__cabecera">' +
-                '<h3 style="text-transform: uppercase">' + datos[i].idArticulo + '</h3>' +
-                '<img class="imgTienda" src="img/articulo_tienda_' + datos[i].idArticulo + '.png" alt="">' +
-                '<p class="cantidad" id="cantidadAgua">Cantidad: ' + datos[i].cantidad + '</p>' +
-                '</div>' +
-                '</div>';
+            if(datos[i].cantidad != 0){
+                htmlLine+='<div class="card__objeto">' +
+                    '<div class="card__cabecera">' +
+                    '<h3 style="text-transform: uppercase">' + datos[i].idArticulo + '</h3>' +
+                    '<img class="imgTienda" src="img/articulo_tienda_' + datos[i].idArticulo + '.png" alt="">' +
+                    '<p class="cantidad" id="cantidadAgua">Cantidad: ' + datos[i].cantidad + '</p>' +
+                    '</div>' +
+                    '</div>';
+            }
+
         }
         $('#aux').append(htmlLine);
     }

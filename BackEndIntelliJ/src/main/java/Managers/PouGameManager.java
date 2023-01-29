@@ -244,5 +244,9 @@ public interface PouGameManager {
     void updateObjetoArmario(String pouId, String idArticulo, int cantidad);
 
 
+    List<ObjetoArmario> obtenerArmarioOrdenadoDescendentemente(String columnaId);
+
+    List<ObjetoTienda> obtenerTiendaOrdenadaDescendentemente(String columnaId);
+
     void updateAndroid(InformacionPou informacionPou);
 }
