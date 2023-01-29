@@ -31,7 +31,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
     }
 
     public PouGameDBManagerImpl(){
-        this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/crud","root", "YES");
+        this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/PouDB","root", "YES");
         this.pousGame = new HashMap<>();
         this.objetosTienda = new ArrayList<>();
         this.objetosArmario = new HashMap<>();
