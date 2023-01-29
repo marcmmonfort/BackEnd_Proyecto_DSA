@@ -336,32 +336,6 @@ function desactivarConfetti(){
 
 }
 
-
-function rellenarFecha(){
-    //htmlLineDia+='<option value="'+dia+'">'+dia+'</option>';
-    var selector=Document.getElementById("dia")
-
-    let htmlLineDia = '<p></p>';
-    for (var dia=0;dia<=31;dia++)
-    {
-        selector.options[dia] = new Option(dia,'valor: '+dia);
-    }
-    $('#dia').append(htmlLineDia);
-
-    let htmlLineMes = '<p></p>';
-    for (var mes=1;mes<=12;mes++)
-    {
-        htmlLineMes+='<option value="'+mes+'">'+mes+'</option>';
-    }
-    $('#mes').append(htmlLineMes);
-
-    let htmlLineAno = '<p></p>';
-    for (var ano=2023;ano<=1930;ano--)
-    {
-        htmlLineAno+='<option value="'+ano+'">'+ano+'</option>';
-    }
-    $('#ano').append(htmlLineAno);
-}
 /*
 function tiendaAcciones(idCompra, cantidadCompra, tipo, nombreArticulo, precioArticulo){
     //const solucion = comprarObjeto(idCompra, cantidadCompra, tipo);

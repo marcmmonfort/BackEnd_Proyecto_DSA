@@ -31,7 +31,11 @@ header{
 
 .logo img{
     width: 250px;
-    padding: 10px
+}
+
+.search input{
+    width: 300px;
+    padding: 10px;
 }
 
 .titulo{
