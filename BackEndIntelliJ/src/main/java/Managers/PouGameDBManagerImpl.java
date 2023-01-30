@@ -255,7 +255,7 @@ public class PouGameDBManagerImpl implements PouGameManager {
             }
         }
 
-        List<ObjetoArmario> miArmarioListPocion  = obtenerObjetosArmarioPouTipo(miPou.getPouId(), "Poción");
+        List<ObjetoArmario> miArmarioListPocion  = obtenerObjetosArmarioPouTipo(miPou.getPouId(), "Pocion");
         int amountHambre = 0;
         int amountSalud = 0;
         int amountDiversion = 0;
